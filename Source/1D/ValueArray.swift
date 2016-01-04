@@ -66,7 +66,7 @@ public class ValueArray<Element: Value>: MutableLinearType, ArrayLiteralConverti
     }
 
     /// Construct a ValueArray from contiguous memory
-    public required init<C : LinearType where C.Element == Element>(_ values: C) {
+    public required init<C: LinearType where C.Element == Element>(_ values: C) {
         mutablePointer = UnsafeMutablePointer<Element>.alloc(values.count)
         capacity = values.count
         count = values.count
@@ -160,11 +160,18 @@ public class ValueArray<Element: Value>: MutableLinearType, ArrayLiteralConverti
         count += 1
     }
 
-    public func appendContentsOf<C : CollectionType where C.Generator.Element == Element>(values: C) {
+    public func appendContentsOf<C: CollectionType where C.Generator.Element == Element>(values: C) {
         precondition(count + Int(values.count.toIntMax()) <= capacity)
         let endPointer = mutablePointer + count
         endPointer.initializeFrom(values)
         count += Int(values.count.toIntMax())
+    }
+    
+    public func appendContentsOf<C: MutableLinearType where C.Element == Element>(values: C) {
+        precondition(count + values.count <= capacity)
+        let endPointer = mutablePointer + count
+        endPointer.initializeFrom(values.mutablePointer, count: values.count)
+        count += values.count
     }
 
     public func replaceRange<C: CollectionType where C.Generator.Element == Element>(subRange: Range<Index>, with newElements: C) {
