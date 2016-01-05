@@ -68,6 +68,14 @@ extension Array: LinearType {
         return 1
     }
     
+    public init<C: LinearType where C.Element == Array.Element>(other: C) {
+        self.init()
+        
+        for i in other.startIndex..<other.endIndex {
+            self.append(other[[i]])
+        }
+    }
+    
     public subscript(indices: [Int]) -> Element {
         get {
             assert(indices.count == 1)
