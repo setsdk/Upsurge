@@ -87,8 +87,7 @@ public struct ValueArraySlice<Element: Value>: MutableLinearType, CustomStringCo
     
     public var description: String {
         var string = "["
-        for var i = startIndex; i < endIndex; i += step {
-            let v = base[i]
+        for v in self {
             string += "\(v.description), "
         }
         if string.startIndex.distanceTo(string.endIndex) > 1 {

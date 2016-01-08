@@ -70,7 +70,7 @@ public class ValueArray<Element: Value>: MutableLinearType, ArrayLiteralConverti
         mutablePointer = UnsafeMutablePointer<Element>.alloc(values.count)
         capacity = values.count
         count = values.count
-        for var i = 0; i < count; i += 1 {
+        for i in 0..<count {
             mutablePointer[i] = values.pointer[values.startIndex + i * step]
         }
     }
@@ -166,13 +166,6 @@ public class ValueArray<Element: Value>: MutableLinearType, ArrayLiteralConverti
         endPointer.initializeFrom(values)
         count += Int(values.count.toIntMax())
     }
-    
-    public func appendContentsOf<C: MutableLinearType where C.Element == Element>(values: C) {
-        precondition(count + values.count <= capacity)
-        let endPointer = mutablePointer + count
-        endPointer.initializeFrom(values.mutablePointer, count: values.count)
-        count += values.count
-    }
 
     public func replaceRange<C: CollectionType where C.Generator.Element == Element>(subRange: Range<Index>, with newElements: C) {
         assert(subRange.startIndex >= startIndex && subRange.endIndex <= endIndex)
@@ -189,8 +182,8 @@ public class ValueArray<Element: Value>: MutableLinearType, ArrayLiteralConverti
     
     public var description: String {
         var string = "["
-        for i in startIndex..<endIndex {
-            string += "\(self[i].description), "
+        for v in self {
+            string += "\(v.description), "
         }
         if string.startIndex.distanceTo(string.endIndex) > 1 {
             let range = string.endIndex.advancedBy(-2)..<string.endIndex

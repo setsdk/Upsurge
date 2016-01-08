@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 /// The `LinearType` protocol should be implemented by any collection that stores its values in a contiguous memory block. This is the building block for one-dimensional operations that are single-instruction, multiple-data (SIMD).
-public protocol LinearType: TensorType {
+public protocol LinearType: CollectionType, TensorType {
     typealias Element
 
     /// The pointer to the beginning of the memory block
@@ -33,6 +33,8 @@ public protocol LinearType: TensorType {
 
     /// The step size between valid elements
     var step: Int { get }
+
+    subscript(position: Int) -> Element { get }
 }
 
 public extension LinearType {
@@ -59,6 +61,8 @@ internal extension LinearType {
 public protocol MutableLinearType: LinearType, MutableTensorType {
     /// The mutable pointer to the beginning of the memory block
     var mutablePointer: UnsafeMutablePointer<Element> { get }
+
+    subscript(position: Int) -> Element { get set }
 }
 
 extension Array: LinearType {
@@ -68,11 +72,11 @@ extension Array: LinearType {
         return 1
     }
     
-    public init<C: LinearType where C.Element == Array.Element>(other: C) {
+    public init<C: LinearType where C.Generator.Element == Array.Element>(other: C) {
         self.init()
         
-        for i in other.startIndex..<other.endIndex {
-            self.append(other[[i]])
+        for v in other {
+            self.append(v)
         }
     }
     

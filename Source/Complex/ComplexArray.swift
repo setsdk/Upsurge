@@ -64,7 +64,7 @@ public class ComplexArray: MutableLinearType, ArrayLiteralConvertible  {
         }
         set {
             precondition(newValue.count == reals.count)
-            for var i = 0; i < newValue.count; i += 1 {
+            for i in 0..<newValue.count {
                 self.reals[i] = newValue[i]
             }
         }
@@ -76,7 +76,7 @@ public class ComplexArray: MutableLinearType, ArrayLiteralConvertible  {
         }
         set {
             precondition(newValue.count == imags.count)
-            for var i = 0; i < newValue.count; i += 1 {
+            for i in 0..<newValue.count {
                 self.imags[i] = newValue[i]
             }
         }

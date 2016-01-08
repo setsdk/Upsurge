@@ -43,7 +43,7 @@ public class ComplexArraySlice: MutableLinearType  {
         }
         set {
             precondition(newValue.count == reals.count)
-            for var i = 0; i < newValue.count; i += 1 {
+            for i in 0..<newValue.count {
                 self.reals[i] = newValue[i]
             }
         }
@@ -55,7 +55,7 @@ public class ComplexArraySlice: MutableLinearType  {
         }
         set {
             precondition(newValue.count == imags.count)
-            for var i = 0; i < newValue.count; i += 1 {
+            for i in 0..<newValue.count {
                 self.imags[i] = newValue[i]
             }
         }
@@ -117,8 +117,8 @@ public func ==(lhs: ComplexArraySlice, rhs: ComplexArraySlice) -> Bool {
         return false
     }
     
-    for i in lhs.startIndex..<lhs.endIndex {
-        if lhs[i] != rhs[i] {
+    for (i, v) in lhs.enumerate() {
+        if v != rhs[i] {
             return false
         }
     }
