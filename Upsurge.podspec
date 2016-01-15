@@ -7,10 +7,11 @@ Pod::Spec.new do |s|
   s.social_media_url = 'http://twitter.com/aleph7'
   s.authors = { 'Alejandro Isaza' => 'al@isaza.ca',
                 'Mattt Thompson' => 'm@mattt.me' }
-  s.source = { :git => 'https://github.com/aleph7/Upsurge.git', :tag => s.version }
+  s.source = { git: 'https://github.com/aleph7/Upsurge.git', tag: s.version }
 
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.9'
+  s.tvos.deployment_target = '9.0'
 
   s.source_files = 'Source/**/*.swift'
 

@@ -58,6 +58,47 @@
 		616832E61BFE6AED00C4DC6D /* Hyperbolic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832BB1BFE6AED00C4DC6D /* Hyperbolic.swift */; };
 		616832E71BFE6AED00C4DC6D /* Trigonometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832BC1BFE6AED00C4DC6D /* Trigonometric.swift */; };
 		616832E81BFE6AED00C4DC6D /* Trigonometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832BC1BFE6AED00C4DC6D /* Trigonometric.swift */; };
+		61D046771C48BA5B00DB7279 /* Upsurge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61D0466D1C48BA5B00DB7279 /* Upsurge.framework */; };
+		61D046841C48BB6600DB7279 /* ArithmeticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9C1BD1CBB200A1C13E /* ArithmeticTests.swift */; };
+		61D046851C48BB6600DB7279 /* AuxiliaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9D1BD1CBB200A1C13E /* AuxiliaryTests.swift */; };
+		61D046861C48BB6600DB7279 /* ComplexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616A35CD1BE2DA97004F974A /* ComplexTests.swift */; };
+		61D046871C48BB6600DB7279 /* DSPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9E1BD1CBB200A1C13E /* DSPTests.swift */; };
+		61D046881C48BB6600DB7279 /* ExponentialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9F1BD1CBB200A1C13E /* ExponentialTests.swift */; };
+		61D046891C48BB6600DB7279 /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA01BD1CBB200A1C13E /* HyperbolicTests.swift */; };
+		61D0468A1C48BB6600DB7279 /* RealArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA31BD1CBB200A1C13E /* RealArrayTests.swift */; };
+		61D0468B1C48BB6600DB7279 /* RealMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA21BD1CBB200A1C13E /* RealMatrixTests.swift */; };
+		61D0468C1C48BB6600DB7279 /* SpanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208121BF8005E00473B46 /* SpanTests.swift */; };
+		61D0468D1C48BB6600DB7279 /* TensorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF2080D1BF6A8AC00473B46 /* TensorTests.swift */; };
+		61D0468E1C48BB6600DB7279 /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA51BD1CBB200A1C13E /* TrigonometricTests.swift */; };
+		61D0468F1C48BB6600DB7279 /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA61BD1CBB200A1C13E /* XCTestCase+Surge.swift */; };
+		61D046901C48BB7800DB7279 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832A51BFE6AED00C4DC6D /* Interval.swift */; };
+		61D046911C48BB7800DB7279 /* Real.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832A61BFE6AED00C4DC6D /* Real.swift */; };
+		61D046921C48BB7800DB7279 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832A71BFE6AED00C4DC6D /* Value.swift */; };
+		61D046931C48BB7D00DB7279 /* Arithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832B81BFE6AED00C4DC6D /* Arithmetic.swift */; };
+		61D046941C48BB7D00DB7279 /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832B91BFE6AED00C4DC6D /* Auxiliary.swift */; };
+		61D046951C48BB7D00DB7279 /* Exponential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832BA1BFE6AED00C4DC6D /* Exponential.swift */; };
+		61D046961C48BB7D00DB7279 /* Hyperbolic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832BB1BFE6AED00C4DC6D /* Hyperbolic.swift */; };
+		61D046971C48BB7D00DB7279 /* Trigonometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832BC1BFE6AED00C4DC6D /* Trigonometric.swift */; };
+		61D046981C48BB8100DB7279 /* LinearType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F5B7D31BFFF13A0017B4F2 /* LinearType.swift */; };
+		61D046991C48BB8100DB7279 /* LinearOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F5B7DC1C0103C70017B4F2 /* LinearOperators.swift */; };
+		61D0469A1C48BB8100DB7279 /* ValueArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832A11BFE6AED00C4DC6D /* ValueArray.swift */; };
+		61D0469B1C48BB8100DB7279 /* ValueArraySlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832A21BFE6AED00C4DC6D /* ValueArraySlice.swift */; };
+		61D0469C1C48BB8600DB7279 /* QuadraticType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F5B7D01BFFF0DD0017B4F2 /* QuadraticType.swift */; };
+		61D0469D1C48BB8600DB7279 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832A91BFE6AED00C4DC6D /* Matrix.swift */; };
+		61D0469E1C48BB8600DB7279 /* MatrixArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832AA1BFE6AED00C4DC6D /* MatrixArithmetic.swift */; };
+		61D0469F1C48BB8600DB7279 /* MatrixSlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3D09611C1A3536009144CA /* MatrixSlice.swift */; };
+		61D046A01C48BB8600DB7279 /* 2DTensorSlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3D09641C1B4025009144CA /* 2DTensorSlice.swift */; };
+		61D046A11C48BB8A00DB7279 /* TensorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3D095B1C18E6DE009144CA /* TensorType.swift */; };
+		61D046A21C48BB8A00DB7279 /* Span.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832AC1BFE6AED00C4DC6D /* Span.swift */; };
+		61D046A31C48BB8A00DB7279 /* Tensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832AD1BFE6AED00C4DC6D /* Tensor.swift */; };
+		61D046A41C48BB8A00DB7279 /* TensorSlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832AE1BFE6AED00C4DC6D /* TensorSlice.swift */; };
+		61D046A51C48BB8E00DB7279 /* DSP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832B01BFE6AED00C4DC6D /* DSP.swift */; };
+		61D046A61C48BB8E00DB7279 /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832B11BFE6AED00C4DC6D /* FFT.swift */; };
+		61D046A71C48BB9300DB7279 /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832B31BFE6AED00C4DC6D /* Complex.swift */; };
+		61D046A81C48BB9300DB7279 /* ComplexArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832B41BFE6AED00C4DC6D /* ComplexArithmetic.swift */; };
+		61D046A91C48BB9300DB7279 /* ComplexArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832B51BFE6AED00C4DC6D /* ComplexArray.swift */; };
+		61D046AA1C48BB9300DB7279 /* ComplexArraySlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8684DC1C1E4388007306DB /* ComplexArraySlice.swift */; };
+		61D046AB1C48BB9300DB7279 /* ComplexArrayRealSlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832B61BFE6AED00C4DC6D /* ComplexArrayRealSlice.swift */; };
 		61F5B7D11BFFF0DD0017B4F2 /* QuadraticType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F5B7D01BFFF0DD0017B4F2 /* QuadraticType.swift */; };
 		61F5B7D21BFFF0DD0017B4F2 /* QuadraticType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F5B7D01BFFF0DD0017B4F2 /* QuadraticType.swift */; };
 		61F5B7D41BFFF13A0017B4F2 /* LinearType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F5B7D31BFFF13A0017B4F2 /* LinearType.swift */; };
@@ -108,6 +149,13 @@
 			remoteGlobalIDString = 614ACAC91BD1CBF300A1C13E;
 			remoteInfo = Upsurgeios;
 		};
+		61D046781C48BA5B00DB7279 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 614ACA671BD1CB7B00A1C13E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 61D0466C1C48BA5B00DB7279;
+			remoteInfo = "Upsurge tvOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -149,6 +197,8 @@
 		616832BB1BFE6AED00C4DC6D /* Hyperbolic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hyperbolic.swift; sourceTree = "<group>"; };
 		616832BC1BFE6AED00C4DC6D /* Trigonometric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trigonometric.swift; sourceTree = "<group>"; };
 		616A35CD1BE2DA97004F974A /* ComplexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexTests.swift; sourceTree = "<group>"; };
+		61D0466D1C48BA5B00DB7279 /* Upsurge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Upsurge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		61D046761C48BA5B00DB7279 /* UpsurgeTests tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UpsurgeTests tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		61F5B7D01BFFF0DD0017B4F2 /* QuadraticType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadraticType.swift; sourceTree = "<group>"; };
 		61F5B7D31BFFF13A0017B4F2 /* LinearType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearType.swift; sourceTree = "<group>"; };
 		61F5B7DC1C0103C70017B4F2 /* LinearOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearOperators.swift; sourceTree = "<group>"; };
@@ -191,6 +241,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		61D046691C48BA5B00DB7279 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61D046731C48BA5B00DB7279 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61D046771C48BA5B00DB7279 /* Upsurge.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -211,6 +276,8 @@
 				614ACA7A1BD1CB7B00A1C13E /* UpsurgeTests OSX.xctest */,
 				614ACACA1BD1CBF300A1C13E /* Upsurge.framework */,
 				614ACAD31BD1CBF300A1C13E /* UpsurgeTests iOS.xctest */,
+				61D0466D1C48BA5B00DB7279 /* Upsurge.framework */,
+				61D046761C48BA5B00DB7279 /* UpsurgeTests tvOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -354,6 +421,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		61D0466A1C48BA5B00DB7279 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -429,12 +503,49 @@
 			productReference = 614ACAD31BD1CBF300A1C13E /* UpsurgeTests iOS.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		61D0466C1C48BA5B00DB7279 /* Upsurge tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 61D046821C48BA5B00DB7279 /* Build configuration list for PBXNativeTarget "Upsurge tvOS" */;
+			buildPhases = (
+				61D046681C48BA5B00DB7279 /* Sources */,
+				61D046691C48BA5B00DB7279 /* Frameworks */,
+				61D0466A1C48BA5B00DB7279 /* Headers */,
+				61D0466B1C48BA5B00DB7279 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Upsurge tvOS";
+			productName = "Upsurge tvOS";
+			productReference = 61D0466D1C48BA5B00DB7279 /* Upsurge.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		61D046751C48BA5B00DB7279 /* UpsurgeTests tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 61D046831C48BA5B00DB7279 /* Build configuration list for PBXNativeTarget "UpsurgeTests tvOS" */;
+			buildPhases = (
+				61D046721C48BA5B00DB7279 /* Sources */,
+				61D046731C48BA5B00DB7279 /* Frameworks */,
+				61D046741C48BA5B00DB7279 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				61D046791C48BA5B00DB7279 /* PBXTargetDependency */,
+			);
+			name = "UpsurgeTests tvOS";
+			productName = "Upsurge tvOSTests";
+			productReference = 61D046761C48BA5B00DB7279 /* UpsurgeTests tvOS.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		614ACA671BD1CB7B00A1C13E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Venture Media Labs";
 				TargetAttributes = {
@@ -449,6 +560,12 @@
 					};
 					614ACAD21BD1CBF300A1C13E = {
 						CreatedOnToolsVersion = 7.0.1;
+					};
+					61D0466C1C48BA5B00DB7279 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					61D046751C48BA5B00DB7279 = {
+						CreatedOnToolsVersion = 7.2;
 					};
 				};
 			};
@@ -468,6 +585,8 @@
 				614ACA791BD1CB7B00A1C13E /* UpsurgeTests OSX */,
 				614ACAC91BD1CBF300A1C13E /* Upsurge iOS */,
 				614ACAD21BD1CBF300A1C13E /* UpsurgeTests iOS */,
+				61D0466C1C48BA5B00DB7279 /* Upsurge tvOS */,
+				61D046751C48BA5B00DB7279 /* UpsurgeTests tvOS */,
 			);
 		};
 /* End PBXProject section */
@@ -495,6 +614,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		614ACAD11BD1CBF300A1C13E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61D0466B1C48BA5B00DB7279 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61D046741C48BA5B00DB7279 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -612,6 +745,60 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		61D046681C48BA5B00DB7279 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61D0469D1C48BB8600DB7279 /* Matrix.swift in Sources */,
+				61D0469F1C48BB8600DB7279 /* MatrixSlice.swift in Sources */,
+				61D0469B1C48BB8100DB7279 /* ValueArraySlice.swift in Sources */,
+				61D0469C1C48BB8600DB7279 /* QuadraticType.swift in Sources */,
+				61D046961C48BB7D00DB7279 /* Hyperbolic.swift in Sources */,
+				61D046A51C48BB8E00DB7279 /* DSP.swift in Sources */,
+				61D046901C48BB7800DB7279 /* Interval.swift in Sources */,
+				61D046951C48BB7D00DB7279 /* Exponential.swift in Sources */,
+				61D046931C48BB7D00DB7279 /* Arithmetic.swift in Sources */,
+				61D046AB1C48BB9300DB7279 /* ComplexArrayRealSlice.swift in Sources */,
+				61D046A21C48BB8A00DB7279 /* Span.swift in Sources */,
+				61D046A11C48BB8A00DB7279 /* TensorType.swift in Sources */,
+				61D046AA1C48BB9300DB7279 /* ComplexArraySlice.swift in Sources */,
+				61D046A31C48BB8A00DB7279 /* Tensor.swift in Sources */,
+				61D0469A1C48BB8100DB7279 /* ValueArray.swift in Sources */,
+				61D046991C48BB8100DB7279 /* LinearOperators.swift in Sources */,
+				61D046971C48BB7D00DB7279 /* Trigonometric.swift in Sources */,
+				61D046A01C48BB8600DB7279 /* 2DTensorSlice.swift in Sources */,
+				61D046A71C48BB9300DB7279 /* Complex.swift in Sources */,
+				61D046A41C48BB8A00DB7279 /* TensorSlice.swift in Sources */,
+				61D0469E1C48BB8600DB7279 /* MatrixArithmetic.swift in Sources */,
+				61D046911C48BB7800DB7279 /* Real.swift in Sources */,
+				61D046A61C48BB8E00DB7279 /* FFT.swift in Sources */,
+				61D046921C48BB7800DB7279 /* Value.swift in Sources */,
+				61D046A91C48BB9300DB7279 /* ComplexArray.swift in Sources */,
+				61D046941C48BB7D00DB7279 /* Auxiliary.swift in Sources */,
+				61D046A81C48BB9300DB7279 /* ComplexArithmetic.swift in Sources */,
+				61D046981C48BB8100DB7279 /* LinearType.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61D046721C48BA5B00DB7279 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61D0468E1C48BB6600DB7279 /* TrigonometricTests.swift in Sources */,
+				61D0468C1C48BB6600DB7279 /* SpanTests.swift in Sources */,
+				61D046851C48BB6600DB7279 /* AuxiliaryTests.swift in Sources */,
+				61D0468D1C48BB6600DB7279 /* TensorTests.swift in Sources */,
+				61D046881C48BB6600DB7279 /* ExponentialTests.swift in Sources */,
+				61D046891C48BB6600DB7279 /* HyperbolicTests.swift in Sources */,
+				61D0468A1C48BB6600DB7279 /* RealArrayTests.swift in Sources */,
+				61D0468B1C48BB6600DB7279 /* RealMatrixTests.swift in Sources */,
+				61D046841C48BB6600DB7279 /* ArithmeticTests.swift in Sources */,
+				61D0468F1C48BB6600DB7279 /* XCTestCase+Surge.swift in Sources */,
+				61D046861C48BB6600DB7279 /* ComplexTests.swift in Sources */,
+				61D046871C48BB6600DB7279 /* DSPTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -624,6 +811,11 @@
 			isa = PBXTargetDependency;
 			target = 614ACAC91BD1CBF300A1C13E /* Upsurge iOS */;
 			targetProxy = 614ACAD51BD1CBF300A1C13E /* PBXContainerItemProxy */;
+		};
+		61D046791C48BA5B00DB7279 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 61D0466C1C48BA5B00DB7279 /* Upsurge tvOS */;
+			targetProxy = 61D046781C48BA5B00DB7279 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -725,7 +917,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = com.venturemedia.Upsurge;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.venturemedia.Upsurge-OSX";
 				PRODUCT_NAME = Upsurge;
 				SKIP_INSTALL = YES;
 			};
@@ -744,7 +936,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = com.venturemedia.Upsurge;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.venturemedia.Upsurge-OSX";
 				PRODUCT_NAME = Upsurge;
 				SKIP_INSTALL = YES;
 			};
@@ -756,7 +948,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.venturemedia.UpsurgeTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.venturemedia.UpsurgeTests-OSX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -767,7 +959,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.venturemedia.UpsurgeTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.venturemedia.UpsurgeTests-OSX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -784,7 +976,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.venturemedia.Upsurgeios;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.venturemedia.Upsurge-iOS";
 				PRODUCT_NAME = Upsurge;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -804,7 +996,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.venturemedia.Upsurgeios;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.venturemedia.Upsurge-iOS";
 				PRODUCT_NAME = Upsurge;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -820,7 +1012,7 @@
 				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.venturemedia.UpsurgeTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.venturemedia.UpsurgeTests-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 			};
@@ -833,9 +1025,73 @@
 				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.venturemedia.UpsurgeTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.venturemedia.UpsurgeTests-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		61D0467E1C48BA5B00DB7279 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Supporting Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.venturemedia.Upsurge-tvOS";
+				PRODUCT_NAME = Upsurge;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		61D0467F1C48BA5B00DB7279 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Supporting Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.venturemedia.Upsurge-tvOS";
+				PRODUCT_NAME = Upsurge;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		61D046801C48BA5B00DB7279 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.venturemedia.UpsurgeTests-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		61D046811C48BA5B00DB7279 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.venturemedia.UpsurgeTests-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -887,6 +1143,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		61D046821C48BA5B00DB7279 /* Build configuration list for PBXNativeTarget "Upsurge tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61D0467E1C48BA5B00DB7279 /* Debug */,
+				61D0467F1C48BA5B00DB7279 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		61D046831C48BA5B00DB7279 /* Build configuration list for PBXNativeTarget "UpsurgeTests tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61D046801C48BA5B00DB7279 /* Debug */,
+				61D046811C48BA5B00DB7279 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
