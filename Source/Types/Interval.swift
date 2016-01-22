@@ -52,10 +52,10 @@ public enum Interval: IntervalType, IntegerLiteralConvertible {
 
 extension Range: IntervalType {
     public var start: Int? {
-        return startIndex as? Int
+        return unsafeBitCast(startIndex, Int.self)
     }
 
     public var end: Int? {
-        return endIndex as? Int
+        return unsafeBitCast(endIndex, Int.self)
     }
 }
