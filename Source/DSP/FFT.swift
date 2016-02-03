@@ -20,7 +20,7 @@
 
 import Accelerate
 
-public class FFT {
+public class FFTDouble {
     private var setup: FFTSetupD
     public private(set) var maxLength: vDSP_Length
 
@@ -79,6 +79,70 @@ public class FFT {
         vDSP_zvmagsD(&splitComplex, 1, magnitudes.mutablePointer, 1, length/2)
 
         let scale = 2.0 / Double(input.count)
+        return magnitudes * scale * scale
+    }
+}
+
+
+public class FFTFloat {
+    private var setup: FFTSetup
+    public private(set) var maxLength: vDSP_Length
+
+    private let real: ValueArray<Float>
+    private let imag: ValueArray<Float>
+
+    public init(inputLength: Int) {
+        let maxLengthLog2 = vDSP_Length(ceil(log2(Float(inputLength))))
+        maxLength = vDSP_Length(exp2(Float(maxLengthLog2)))
+        setup = vDSP_create_fftsetupD(maxLengthLog2, FFTRadix(kFFTRadix2))
+
+        real = ValueArray<Float>(count: Int(maxLength))
+        imag = ValueArray<Float>(count: Int(maxLength))
+    }
+
+    deinit {
+        vDSP_destroy_fftsetup(setup)
+    }
+
+    /// Performs a real to complex forward FFT
+    public func forward<M: LinearType where M.Element == Float>(input: M) -> ComplexArray<Float> {
+        let lengthLog2 = vDSP_Length(log2(Float(input.count)))
+        let length = vDSP_Length(exp2(Float(lengthLog2)))
+        precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
+
+        real.mutablePointer.assignFrom(UnsafeMutablePointer<Float>(input.pointer), count: input.count)
+        for i in 0..<input.count {
+            imag.mutablePointer[i] = 0.0
+        }
+
+        var splitComplex = DSPSplitComplex(realp: real.mutablePointer, imagp: imag.mutablePointer)
+        vDSP_fft_zip(setup, &splitComplex, 1, lengthLog2, FFTDirection(FFT_FORWARD))
+
+        let result = ComplexArray<Float>(count: input.count/2)
+        vDSP_ztoc(&splitComplex, 1, UnsafeMutablePointer<DSPComplex>(result.mutablePointer), 1, length/2)
+
+        let scale = 2.0 / Float(input.count)
+        return result * scale * scale
+    }
+
+    /// Performs a real to real forward FFT by taking the square magnitudes of the complex result
+    public func forwardMags<M: LinearType where M.Element == Float>(input: M) -> ValueArray<Float> {
+        let lengthLog2 = vDSP_Length(log2(Float(input.count)))
+        let length = vDSP_Length(exp2(Float(lengthLog2)))
+        precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
+
+        real.mutablePointer.assignFrom(UnsafeMutablePointer<Float>(input.pointer), count: input.count)
+        for i in 0..<input.count {
+            imag.mutablePointer[i] = 0.0
+        }
+
+        var splitComplex = DSPSplitComplex(realp: real.mutablePointer, imagp: imag.mutablePointer)
+        vDSP_fft_zip(setup, &splitComplex, 1, lengthLog2, FFTDirection(FFT_FORWARD))
+
+        let magnitudes = ValueArray<Float>(count: input.count/2)
+        vDSP_zvmags(&splitComplex, 1, magnitudes.mutablePointer, 1, length/2)
+
+        let scale = 2.0 / Float(input.count)
         return magnitudes * scale * scale
     }
 }
