@@ -20,6 +20,8 @@
 
 import Accelerate
 
+// MARK: - Double
+
 /// Hyperbolic Sine
 public func sinh<C: LinearType where C.Element == Double>(x: C) -> ValueArray<Double> {
     precondition(x.step == 1, "sinh doesn't support step values other than 1")
@@ -77,5 +79,68 @@ public func atanh<C: LinearType where C.Element == Double>(x: C) -> ValueArray<D
     let results = ValueArray<Double>(count: x.count)
     vvatanh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
+    return results
+}
+
+
+// MARK: - Float
+
+/// Hyperbolic Sine
+public func sinh<C: LinearType where C.Element == Float>(x: C) -> ValueArray<Float> {
+    precondition(x.step == 1, "sinh doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    vvsinhf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+
+    return results
+}
+
+/// Hyperbolic Cosine
+public func cosh<C: LinearType where C.Element == Float>(x: C) -> ValueArray<Float> {
+    precondition(x.step == 1, "cosh doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    vvcoshf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+
+    return results
+}
+
+/// Hyperbolic Tangent
+public func tanh<C: LinearType where C.Element == Float>(x: C) -> ValueArray<Float> {
+    precondition(x.step == 1, "tanh doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    vvtanhf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+
+    return results
+}
+
+/// Inverse Hyperbolic Sine
+public func asinh<C: LinearType where C.Element == Float>(x: C) -> ValueArray<Float> {
+    precondition(x.step == 1, "asinh doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    vvasinhf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+
+    return results
+}
+
+/// Inverse Hyperbolic Cosine
+public func acosh<C: LinearType where C.Element == Float>(x: C) -> ValueArray<Float> {
+    precondition(x.step == 1, "acosh doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    vvacoshf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+
+    return results
+}
+
+/// Inverse Hyperbolic Tangent
+public func atanh<C: LinearType where C.Element == Float>(x: C) -> ValueArray<Float> {
+    precondition(x.step == 1, "atanh doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    vvatanhf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    
     return results
 }

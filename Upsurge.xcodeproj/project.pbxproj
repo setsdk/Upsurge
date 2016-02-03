@@ -18,11 +18,11 @@
 		614ACAE91BD1CC3700A1C13E /* ExponentialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9F1BD1CBB200A1C13E /* ExponentialTests.swift */; };
 		614ACAEA1BD1CC3700A1C13E /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA01BD1CBB200A1C13E /* HyperbolicTests.swift */; };
 		614ACAEB1BD1CC3C00A1C13E /* RealMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA21BD1CBB200A1C13E /* RealMatrixTests.swift */; };
-		614ACAEC1BD1CC3C00A1C13E /* RealArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA31BD1CBB200A1C13E /* RealArrayTests.swift */; };
+		614ACAEC1BD1CC3C00A1C13E /* ValueArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA31BD1CBB200A1C13E /* ValueArrayTests.swift */; };
 		614ACAED1BD1CC3C00A1C13E /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA51BD1CBB200A1C13E /* TrigonometricTests.swift */; };
 		614ACAEE1BD1CC3C00A1C13E /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA61BD1CBB200A1C13E /* XCTestCase+Surge.swift */; };
 		614ACAEF1BD1CC3D00A1C13E /* RealMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA21BD1CBB200A1C13E /* RealMatrixTests.swift */; };
-		614ACAF01BD1CC3D00A1C13E /* RealArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA31BD1CBB200A1C13E /* RealArrayTests.swift */; };
+		614ACAF01BD1CC3D00A1C13E /* ValueArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA31BD1CBB200A1C13E /* ValueArrayTests.swift */; };
 		614ACAF11BD1CC3D00A1C13E /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA51BD1CBB200A1C13E /* TrigonometricTests.swift */; };
 		614ACAF21BD1CC3D00A1C13E /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA61BD1CBB200A1C13E /* XCTestCase+Surge.swift */; };
 		614ACAF31BD1CCBA00A1C13E /* Upsurge.h in Headers */ = {isa = PBXBuildFile; fileRef = 614ACA9A1BD1CBB200A1C13E /* Upsurge.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -65,7 +65,7 @@
 		61D046871C48BB6600DB7279 /* DSPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9E1BD1CBB200A1C13E /* DSPTests.swift */; };
 		61D046881C48BB6600DB7279 /* ExponentialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9F1BD1CBB200A1C13E /* ExponentialTests.swift */; };
 		61D046891C48BB6600DB7279 /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA01BD1CBB200A1C13E /* HyperbolicTests.swift */; };
-		61D0468A1C48BB6600DB7279 /* RealArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA31BD1CBB200A1C13E /* RealArrayTests.swift */; };
+		61D0468A1C48BB6600DB7279 /* ValueArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA31BD1CBB200A1C13E /* ValueArrayTests.swift */; };
 		61D0468B1C48BB6600DB7279 /* RealMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA21BD1CBB200A1C13E /* RealMatrixTests.swift */; };
 		61D0468C1C48BB6600DB7279 /* SpanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208121BF8005E00473B46 /* SpanTests.swift */; };
 		61D0468D1C48BB6600DB7279 /* TensorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF2080D1BF6A8AC00473B46 /* TensorTests.swift */; };
@@ -169,7 +169,7 @@
 		614ACAA01BD1CBB200A1C13E /* HyperbolicTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperbolicTests.swift; sourceTree = "<group>"; };
 		614ACAA11BD1CBB200A1C13E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		614ACAA21BD1CBB200A1C13E /* RealMatrixTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealMatrixTests.swift; sourceTree = "<group>"; };
-		614ACAA31BD1CBB200A1C13E /* RealArrayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealArrayTests.swift; sourceTree = "<group>"; };
+		614ACAA31BD1CBB200A1C13E /* ValueArrayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueArrayTests.swift; sourceTree = "<group>"; };
 		614ACAA51BD1CBB200A1C13E /* TrigonometricTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrigonometricTests.swift; sourceTree = "<group>"; };
 		614ACAA61BD1CBB200A1C13E /* XCTestCase+Surge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Surge.swift"; sourceTree = "<group>"; };
 		614ACAA81BD1CBB200A1C13E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -307,7 +307,7 @@
 				614ACA9E1BD1CBB200A1C13E /* DSPTests.swift */,
 				614ACA9F1BD1CBB200A1C13E /* ExponentialTests.swift */,
 				614ACAA01BD1CBB200A1C13E /* HyperbolicTests.swift */,
-				614ACAA31BD1CBB200A1C13E /* RealArrayTests.swift */,
+				614ACAA31BD1CBB200A1C13E /* ValueArrayTests.swift */,
 				614ACAA21BD1CBB200A1C13E /* RealMatrixTests.swift */,
 				8CF208121BF8005E00473B46 /* SpanTests.swift */,
 				8CF2080D1BF6A8AC00473B46 /* TensorTests.swift */,
@@ -679,7 +679,7 @@
 				614ACAEE1BD1CC3C00A1C13E /* XCTestCase+Surge.swift in Sources */,
 				8C8684D11C1E421A007306DB /* DSPTests.swift in Sources */,
 				614ACAEB1BD1CC3C00A1C13E /* RealMatrixTests.swift in Sources */,
-				614ACAEC1BD1CC3C00A1C13E /* RealArrayTests.swift in Sources */,
+				614ACAEC1BD1CC3C00A1C13E /* ValueArrayTests.swift in Sources */,
 				614ACAED1BD1CC3C00A1C13E /* TrigonometricTests.swift in Sources */,
 				614ACAE51BD1CC3600A1C13E /* HyperbolicTests.swift in Sources */,
 				8CF208101BF6AA8300473B46 /* TensorTests.swift in Sources */,
@@ -734,7 +734,7 @@
 				614ACAE91BD1CC3700A1C13E /* ExponentialTests.swift in Sources */,
 				614ACAEA1BD1CC3700A1C13E /* HyperbolicTests.swift in Sources */,
 				614ACAF11BD1CC3D00A1C13E /* TrigonometricTests.swift in Sources */,
-				614ACAF01BD1CC3D00A1C13E /* RealArrayTests.swift in Sources */,
+				614ACAF01BD1CC3D00A1C13E /* ValueArrayTests.swift in Sources */,
 				614ACAF21BD1CC3D00A1C13E /* XCTestCase+Surge.swift in Sources */,
 				8CF208111BF6AA8300473B46 /* TensorTests.swift in Sources */,
 				614ACAE61BD1CC3700A1C13E /* ArithmeticTests.swift in Sources */,
@@ -790,7 +790,7 @@
 				61D0468D1C48BB6600DB7279 /* TensorTests.swift in Sources */,
 				61D046881C48BB6600DB7279 /* ExponentialTests.swift in Sources */,
 				61D046891C48BB6600DB7279 /* HyperbolicTests.swift in Sources */,
-				61D0468A1C48BB6600DB7279 /* RealArrayTests.swift in Sources */,
+				61D0468A1C48BB6600DB7279 /* ValueArrayTests.swift in Sources */,
 				61D0468B1C48BB6600DB7279 /* RealMatrixTests.swift in Sources */,
 				61D046841C48BB6600DB7279 /* ArithmeticTests.swift in Sources */,
 				61D0468F1C48BB6600DB7279 /* XCTestCase+Surge.swift in Sources */,
@@ -1151,6 +1151,7 @@
 				61D0467F1C48BA5B00DB7279 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		61D046831C48BA5B00DB7279 /* Build configuration list for PBXNativeTarget "UpsurgeTests tvOS" */ = {
 			isa = XCConfigurationList;
@@ -1159,6 +1160,7 @@
 				61D046811C48BA5B00DB7279 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

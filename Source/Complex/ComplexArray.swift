@@ -18,12 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-public class ComplexArray: MutableLinearType, ArrayLiteralConvertible  {
+public class ComplexArray<T: Real>: MutableLinearType, ArrayLiteralConvertible  {
     public typealias Index = Int
-    public typealias Element = Complex
-    public typealias Slice = ComplexArraySlice
+    public typealias Element = Complex<T>
+    public typealias Slice = ComplexArraySlice<T>
 
-    var elements: ValueArray<Complex>
+    var elements: ValueArray<Complex<T>>
 
     public var count: Int {
         get {
@@ -58,9 +58,9 @@ public class ComplexArray: MutableLinearType, ArrayLiteralConvertible  {
         return elements.mutablePointer
     }
 
-    public var reals: ComplexArrayRealSlice {
+    public var reals: ComplexArrayRealSlice<T> {
         get {
-            return ComplexArrayRealSlice(base: self, startIndex: startIndex, endIndex: 2*endIndex - 1, step: 2)
+            return ComplexArrayRealSlice<T>(base: self, startIndex: startIndex, endIndex: 2*endIndex - 1, step: 2)
         }
         set {
             precondition(newValue.count == reals.count)
@@ -70,9 +70,9 @@ public class ComplexArray: MutableLinearType, ArrayLiteralConvertible  {
         }
     }
 
-    public var imags: ComplexArrayRealSlice {
+    public var imags: ComplexArrayRealSlice<T> {
         get {
-            return ComplexArrayRealSlice(base: self, startIndex: startIndex + 1, endIndex: 2*endIndex, step: 2)
+            return ComplexArrayRealSlice<T>(base: self, startIndex: startIndex + 1, endIndex: 2*endIndex, step: 2)
         }
         set {
             precondition(newValue.count == imags.count)
@@ -84,28 +84,28 @@ public class ComplexArray: MutableLinearType, ArrayLiteralConvertible  {
 
     /// Construct an uninitialized ComplexArray with the given capacity
     public required init(capacity: Int) {
-        elements = ValueArray<Complex>(capacity: capacity)
+        elements = ValueArray<Complex<T>>(capacity: capacity)
     }
 
     /// Construct an uninitialized ComplexArray with the given size
     public required init(count: Int) {
-        elements = ValueArray<Complex>(count: count)
+        elements = ValueArray<Complex<T>>(count: count)
     }
 
     /// Construct a ComplexArray from an array literal
     public required init(arrayLiteral elements: Element...) {
-        self.elements = ValueArray<Complex>(count: elements.count)
+        self.elements = ValueArray<Complex<T>>(count: elements.count)
         mutablePointer.initializeFrom(elements)
     }
 
     /// Construct a ComplexArray from contiguous memory
     public required init<C : LinearType where C.Element == Element>(_ values: C) {
-        elements = ValueArray<Complex>(values)
+        elements = ValueArray<Complex<T>>(values)
     }
 
     /// Construct a ComplexArray of `count` elements, each initialized to `repeatedValue`.
     public required init(count: Int, repeatedValue: Element) {
-        elements = ValueArray<Complex>(count: count, repeatedValue: repeatedValue)
+        elements = ValueArray<Complex<T>>(count: count, repeatedValue: repeatedValue)
     }
 
     public subscript(index: Index) -> Element {
@@ -183,7 +183,7 @@ public class ComplexArray: MutableLinearType, ArrayLiteralConvertible  {
     }
 }
 
-public func ==(lhs: ComplexArray, rhs: ComplexArray) -> Bool {
+public func ==<T: Real>(lhs: ComplexArray<T>, rhs: ComplexArray<T>) -> Bool {
     if lhs.count != rhs.count {
         return false
     }

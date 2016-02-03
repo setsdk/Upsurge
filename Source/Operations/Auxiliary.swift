@@ -20,6 +20,8 @@
 
 import Accelerate
 
+// MARK: - Double
+
 /// Absolute Value
 public func abs<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Double> {
     let results = ValueArray<Double>(count: x.count)
@@ -102,5 +104,93 @@ public func pow<M: LinearType where M.Element == Double>(x: M, y: M) -> ValueArr
     precondition(x.step == 1, "pow doesn't support step values other than 1")
     let results = ValueArray<Double>(count: x.count)
     vvpow(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, y.pointer + y.startIndex, [Int32(x.count)])
+    return results
+}
+
+
+// MARK: - Float
+
+/// Absolute Value
+public func abs<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    let results = ValueArray<Float>(count: x.count)
+    vDSP_vabs(x.pointer + x.startIndex, x.step, results.mutablePointer + results.startIndex, results.step, vDSP_Length(x.count))
+    return results
+}
+
+/// Ceiling
+public func ceil<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "ceil doesn't support step values other than 1")
+    let results = ValueArray<Float>(count: x.count)
+    vvceilf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    return results
+}
+
+/// Clip
+public func clip<M: LinearType where M.Element == Float>(x: M, low: Float, high: Float) -> ValueArray<Float> {
+    var results = ValueArray<Float>(count: x.count), y = low, z = high
+    vDSP_vclip(x.pointer + x.startIndex, x.step, &y, &z, results.mutablePointer + results.startIndex, results.step, vDSP_Length(x.count))
+    return results
+}
+
+// Copy Sign
+public func copysign<M: LinearType where M.Element == Float>(sign: M, magnitude: M) -> ValueArray<Float> {
+    precondition(sign.step == 1 && magnitude.step == 1, "copysign doesn't support step values other than 1")
+    let results = ValueArray<Float>(count: sign.count)
+    vvcopysignf(results.mutablePointer + results.startIndex, magnitude.pointer + magnitude.startIndex, sign.pointer + sign.startIndex, [Int32(sign.count)])
+    return results
+}
+
+/// Floor
+public func floor<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "floor doesn't support step values other than 1")
+    let results = ValueArray<Float>(count: x.count)
+    vvfloorf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    return results
+}
+
+/// Negate
+public func neg<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    let results = ValueArray<Float>(count: x.count)
+    vDSP_vneg(x.pointer + x.startIndex, x.step, results.mutablePointer + results.startIndex, results.step, vDSP_Length(x.count))
+
+    return results
+}
+
+/// Reciprocal
+public func rec<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "rec doesn't support step values other than 1")
+    let results = ValueArray<Float>(count: x.count)
+    vvrecf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    return results
+}
+
+/// Round
+public func round<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "round doesn't support step values other than 1")
+    let results = ValueArray<Float>(count: x.count)
+    vvnintf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    return results
+}
+
+/// Threshold
+public func threshold<M: LinearType where M.Element == Float>(x: M, low: Float) -> ValueArray<Float> {
+    var results = ValueArray<Float>(count: x.count), y = low
+    vDSP_vthr(x.pointer + x.startIndex, x.step, &y, results.mutablePointer + results.startIndex, results.step, vDSP_Length(x.count))
+    return results
+}
+
+/// Truncate
+public func trunc<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "trunc doesn't support step values other than 1")
+    let results = ValueArray<Float>(count: x.count)
+    vvintf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    return results
+}
+
+/// Power
+public func pow<M: LinearType where M.Element == Float>(x: M, y: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "pow doesn't support step values other than 1")
+    let results = ValueArray<Float>(count: x.count)
+    vvpowf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, y.pointer + y.startIndex, [Int32(x.count)])
     return results
 }

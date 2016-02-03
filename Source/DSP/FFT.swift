@@ -28,8 +28,8 @@ public class FFT {
     private let imag: ValueArray<Double>
 
     public init(inputLength: Int) {
-        let maxLengthLog2 = vDSP_Length(ceil(log2(Real(inputLength))))
-        maxLength = vDSP_Length(exp2(Real(maxLengthLog2)))
+        let maxLengthLog2 = vDSP_Length(ceil(log2(Double(inputLength))))
+        maxLength = vDSP_Length(exp2(Double(maxLengthLog2)))
         setup = vDSP_create_fftsetupD(maxLengthLog2, FFTRadix(kFFTRadix2))
 
         real = ValueArray<Double>(count: Int(maxLength))
@@ -41,9 +41,9 @@ public class FFT {
     }
 
     /// Performs a real to complex forward FFT
-    public func forward<M: LinearType where M.Element == Double>(input: M) -> ComplexArray {
+    public func forward<M: LinearType where M.Element == Double>(input: M) -> ComplexArray<Double> {
         let lengthLog2 = vDSP_Length(log2(Double(input.count)))
-        let length = vDSP_Length(exp2(Real(lengthLog2)))
+        let length = vDSP_Length(exp2(Double(lengthLog2)))
         precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
 
         real.mutablePointer.assignFrom(UnsafeMutablePointer<Double>(input.pointer), count: input.count)
@@ -54,17 +54,17 @@ public class FFT {
         var splitComplex = DSPDoubleSplitComplex(realp: real.mutablePointer, imagp: imag.mutablePointer)
         vDSP_fft_zipD(setup, &splitComplex, 1, lengthLog2, FFTDirection(FFT_FORWARD))
 
-        let result = ComplexArray(count: input.count/2)
+        let result = ComplexArray<Double>(count: input.count/2)
         vDSP_ztocD(&splitComplex, 1, UnsafeMutablePointer<DSPDoubleComplex>(result.mutablePointer), 1, length/2)
 
-        let scale = 2.0 / Real(input.count)
+        let scale = 2.0 / Double(input.count)
         return result * scale * scale
     }
 
     /// Performs a real to real forward FFT by taking the square magnitudes of the complex result
     public func forwardMags<M: LinearType where M.Element == Double>(input: M) -> ValueArray<Double> {
         let lengthLog2 = vDSP_Length(log2(Double(input.count)))
-        let length = vDSP_Length(exp2(Real(lengthLog2)))
+        let length = vDSP_Length(exp2(Double(lengthLog2)))
         precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
 
         real.mutablePointer.assignFrom(UnsafeMutablePointer<Double>(input.pointer), count: input.count)
@@ -78,7 +78,7 @@ public class FFT {
         let magnitudes = ValueArray<Double>(count: input.count/2)
         vDSP_zvmagsD(&splitComplex, 1, magnitudes.mutablePointer, 1, length/2)
 
-        let scale = 2.0 / Real(input.count)
+        let scale = 2.0 / Double(input.count)
         return magnitudes * scale * scale
     }
 }

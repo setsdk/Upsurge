@@ -3,25 +3,25 @@
 import Upsurge
 import XCPlayground
 //: Let's define a function to plot all the values in a `RealArray` to the timeline. If you don't see the timeline press ⌘⌥⏎
-func plot(values: RealArray, title: String) {
+func plot(values: ValueArray<Double>, title: String) {
     for value in values {
-        XCPlaygroundPage.currentPage.captureValue(value, withIdentifier: title)
+        XCPlaygroundPage.currentPage.captureValue(value, withIdentifier: title)//: Start by generating uniformly-spaced x-coordinates
+
     }
 }
-//: Start by generating uniformly-spaced x-coordinates
 let count = 64
 let frequency = 4.0
-let x = RealArray((0..<count).map({ 2.0 * M_PI / Real(count) * Real($0) * frequency }))
+let x = ValueArray<Double>((0..<count).map({ 2.0 * M_PI / Real(count) * Real($0)//: And the sine-wave y-coordinates
+ * frequency }))
 
-//: And the sine-wave y-coordinates
 let amplitude = 1.0
-let y = amplitude * sin(x)
+let y = am//: Now use the function we defined previously to plot the values
+plitude * sin(x)
 
-//: Now use the function we defined previously to plot the values
-plot(y, title: "Sine Wave")
+plot(y, tit//: To compute the Fast Fourier Transform we initialize the `FFT` class with the number of samples
+le: "Sine Wave")
 
-//: To compute the Fast Fourier Transform we initialize the `FFT` class with the number of samples
-let fft = FFT(inputLength: x.count)
-//: Then compute power spectral density, which is the magnitudes of the FFT
+let fft = FFT(inpu//: Then compute power spectral density, which is the magnitudes of the FFT
+tLength: x.count)
 let psd = fft.forwardMags(sin(x))
-plot(psd, title: "FFT")
+plot(p

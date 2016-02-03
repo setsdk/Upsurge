@@ -20,6 +20,8 @@
 
 import Accelerate
 
+// MARK: - Double
+
 public func sum<M: LinearType where M.Element == Double>(x: M) -> Double {
     var result = 0.0
     vDSP_sveD(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
@@ -114,5 +116,105 @@ public func dot<ML: LinearType, MR: LinearType where ML.Element == Double, MR.El
 
     var result: Double = 0.0
     vDSP_dotprD(lhs.pointer + lhs.startIndex, lhs.step, rhs.pointer + rhs.startIndex, rhs.step, &result, vDSP_Length(lhs.count))
+    return result
+}
+
+
+// MARK: - Float
+
+public func sum<M: LinearType where M.Element == Float>(x: M) -> Float {
+    var result = Float()
+    vDSP_sve(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    return result
+}
+
+public func max<M: LinearType where M.Element == Float>(x: M) -> Float {
+    var result = Float()
+    vDSP_maxv(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    return result
+}
+
+public func min<M: LinearType where M.Element == Float>(x: M) -> Float {
+    var result = Float()
+    vDSP_minv(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    return result
+}
+
+public func mean<M: LinearType where M.Element == Float>(x: M) -> Float {
+    var result = Float()
+    vDSP_meanv(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    return result
+}
+
+public func meamg<M: LinearType where M.Element == Float>(x: M) -> Float {
+    var result = Float()
+    vDSP_meamgv(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    return result
+}
+
+public func measq<M: LinearType where M.Element == Float>(x: M) -> Float {
+    var result = Float()
+    vDSP_measqv(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    return result
+}
+
+public func rmsq<M: LinearType where M.Element == Float>(x: M) -> Float {
+    var result = Float()
+    vDSP_rmsqv(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    return result
+}
+
+/// Compute the standard deviation, a measure of the spread of deviation.
+public func std<M: LinearType where M.Element == Float>(x: M) -> Float {
+    let diff = x - mean(x)
+    let variance = measq(diff)
+    return sqrt(variance)
+}
+
+/**
+ Perform a linear regression.
+
+ - parameter x: Array of x-values
+ - parameter y: Array of y-values
+ - returns: The slope and intercept of the regression line
+ */
+public func linregress<MX: LinearType, MY: LinearType where MX.Element == Float, MY.Element == Float>(x: MX, _ y: MY) -> (slope: Float, intercept: Float) {
+    precondition(x.count == y.count, "Vectors must have equal count")
+    let meanx = mean(x)
+    let meany = mean(y)
+    let meanxy = mean(x * y)
+    let meanx_sqr = measq(x)
+
+    let slope = (meanx * meany - meanxy) / (meanx * meanx - meanx_sqr)
+    let intercept = meany - slope * meanx
+    return (slope, intercept)
+}
+
+public func mod<ML: LinearType, MR: LinearType where ML.Element == Float, MR.Element == Float>(lhs: ML, _ rhs: MR) -> ValueArray<Float> {
+    precondition(lhs.step == 1, "mod doesn't support step values other than 1")
+    let results = ValueArray<Float>(count: lhs.count)
+    vvfmodf(results.mutablePointer + results.startIndex, lhs.pointer + lhs.startIndex, rhs.pointer + rhs.startIndex, [Int32(lhs.count)])
+    return results
+}
+
+public func remainder<ML: LinearType, MR: LinearType where ML.Element == Float, MR.Element == Float>(lhs: ML, rhs: MR) -> ValueArray<Float> {
+    precondition(lhs.step == 1, "remainder doesn't support step values other than 1")
+    let results = ValueArray<Float>(count: lhs.count)
+    vvremainderf(results.mutablePointer + results.startIndex, lhs.pointer + lhs.startIndex, rhs.pointer + rhs.startIndex, [Int32(lhs.count)])
+    return results
+}
+
+public func sqrt<M: LinearType where M.Element == Float>(lhs: M) -> ValueArray<Float> {
+    precondition(lhs.step == 1, "sqrt doesn't support step values other than 1")
+    let results = ValueArray<Float>(count: lhs.count)
+    vvsqrtf(results.mutablePointer + results.startIndex, lhs.pointer + lhs.startIndex, [Int32(lhs.count)])
+    return results
+}
+
+public func dot<ML: LinearType, MR: LinearType where ML.Element == Float, MR.Element == Float>(lhs: ML, _ rhs: MR) -> Float {
+    precondition(lhs.count == rhs.count, "Vectors must have equal count")
+
+    var result: Float = 0.0
+    vDSP_dotpr(lhs.pointer + lhs.startIndex, lhs.step, rhs.pointer + rhs.startIndex, rhs.step, &result, vDSP_Length(lhs.count))
     return result
 }

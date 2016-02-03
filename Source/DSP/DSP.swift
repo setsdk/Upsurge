@@ -20,6 +20,8 @@
 
 import Accelerate
 
+// MARK: - Double
+
 /**
     Convolution between a signal and a kernel. The signal should have at least as many elements as the kernel. The
     result will have `N - M + 1` elements where `N` is the size of the signal and `M` is the size of the kernel.
@@ -60,6 +62,55 @@ public func autocorrelation<M: LinearType where M.Element == Double>(x: M, maxLa
 
     let signalSize = x.count + maxLag
     let signal = ValueArray<Double>(count: signalSize, repeatedValue: 0.0)
+    for i in 0..<x.count {
+        signal.mutablePointer[i] = x.pointer[x.startIndex + i*x.step]
+    }
+    return correlation(signal, x)
+}
+
+
+// MARK: - Float
+
+/**
+Convolution between a signal and a kernel. The signal should have at least as many elements as the kernel. The
+result will have `N - M + 1` elements where `N` is the size of the signal and `M` is the size of the kernel.
+*/
+public func convolution<MS: LinearType, MK: LinearType where MS.Element == Float, MK.Element == Float>(signal: MS, _ kernel: MK) -> ValueArray<Float> {
+    precondition(signal.count >= kernel.count, "The signal should have at least as many elements as the kernel")
+
+    let kernelLast = kernel.pointer + kernel.count - 1
+    let resultSize = signal.count - kernel.count + 1
+    let result = ValueArray<Float>(count: resultSize)
+    vDSP_conv(signal.pointer + signal.startIndex, signal.step, kernelLast, -kernel.step, result.mutablePointer, result.step, vDSP_Length(resultSize), vDSP_Length(kernel.count))
+    return result
+}
+
+/**
+ Correlation between two vectors. The first vector should have at least as many elements as the second. The result
+ will have `N - M + 1` elements where `N` is the size of the first vector and `M` is the size of the second.
+ */
+public func correlation<ML: LinearType, MR: LinearType where ML.Element == Float, MR.Element == Float>(lhs: ML, _ rhs: MR) -> ValueArray<Float> {
+    precondition(lhs.count >= rhs.count, "The first vector should have at least as many elements as the second")
+
+    let resultSize = lhs.count - rhs.count + 1
+    let result = ValueArray<Float>(count: resultSize)
+    vDSP_conv(lhs.pointer + lhs.startIndex, lhs.step, rhs.pointer + rhs.startIndex, rhs.step, result.mutablePointer, result.step, vDSP_Length(resultSize), vDSP_Length(rhs.count))
+    return result
+}
+
+/**
+ Autocorrelation function. This function finds the correlation of a signal with itself shifted by increasing lags.
+ Since autocorrelation is symetric, this function returns only positive lags up to the specified maximum lag. The
+ maximum lag has to be smaller than the size of the signal.
+
+ - parameter x: The signal
+ - parameter maxLag: The maximum lag to use.
+ */
+public func autocorrelation<M: LinearType where M.Element == Float>(x: M, maxLag: Int) -> ValueArray<Float> {
+    precondition(maxLag < x.count)
+
+    let signalSize = x.count + maxLag
+    let signal = ValueArray<Float>(count: signalSize, repeatedValue: 0.0)
     for i in 0..<x.count {
         signal.mutablePointer[i] = x.pointer[x.startIndex + i*x.step]
     }

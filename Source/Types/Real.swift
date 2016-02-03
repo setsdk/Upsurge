@@ -19,11 +19,7 @@
 // THE SOFTWARE.
 
 /// A real number
-public typealias Real = Double
+public protocol Real: FloatingPointType, FloatLiteralConvertible, IntegerLiteralConvertible, Comparable, CustomStringConvertible, Equatable, Hashable  {}
 
-public typealias RealArray = ValueArray<Real>
-public typealias RealArraySlice = ValueArraySlice<Real>
-public typealias RealMatrix = Matrix<Real>
-
-public typealias RealTensor = Tensor<Real>
-public typealias RealTensorSlice = TensorSlice<Real>
+extension Double: Real {}
+extension Float: Real {}

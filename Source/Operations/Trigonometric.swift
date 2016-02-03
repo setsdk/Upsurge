@@ -20,6 +20,8 @@
 
 import Accelerate
 
+// MARK: - Double
+
 /// Sine-Cosine
 public func sincos<M: LinearType where M.Element == Double>(x: M) -> (sin: ValueArray<Double>, cos: ValueArray<Double>) {
     precondition(x.step == 1, "sincos doesn't support step values other than 1")
@@ -112,5 +114,103 @@ func deg2rad<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Double
     let divisor = ValueArray(count: x.count, repeatedValue: 180.0 / M_PI)
     vvdiv(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, divisor.pointer, [Int32(x.count)])
 
+    return results
+}
+
+
+// MARK: - Float
+
+/// Sine-Cosine
+public func sincos<M: LinearType where M.Element == Float>(x: M) -> (sin: ValueArray<Float>, cos: ValueArray<Float>) {
+    precondition(x.step == 1, "sincos doesn't support step values other than 1")
+
+    let sin = ValueArray<Float>(count: x.count)
+    let cos = ValueArray<Float>(count: x.count)
+    vvsincosf(sin.mutablePointer + sin.startIndex, cos.mutablePointer + cos.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+
+    return (sin, cos)
+}
+
+/// Sine
+public func sin<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "sin doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    vvsinf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+
+    return results
+}
+
+/// Cosine
+public func cos<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "cos doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    vvcosf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+
+    return results
+}
+
+/// Tangent
+public func tan<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "tan doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    vvtanf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+
+    return results
+}
+
+/// Arcsine
+public func asin<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "asin doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    vvasinf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+
+    return results
+}
+
+/// Arccosine
+public func acos<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "acos doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    vvacosf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+
+    return results
+}
+
+/// Arctangent
+public func atan<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "atan doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    vvatanf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+
+    return results
+}
+
+// MARK: -
+
+/// Radians to Degrees
+func rad2deg<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "rad2deg doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    let divisor = ValueArray(count: x.count, repeatedValue: Float(M_PI / 180.0))
+    vvdivf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, divisor.pointer, [Int32(x.count)])
+
+    return results
+}
+
+/// Degrees to Radians
+func deg2rad<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "deg2rad doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    let divisor = ValueArray(count: x.count, repeatedValue: Float(180.0 / M_PI))
+    vvdivf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, divisor.pointer, [Int32(x.count)])
+    
     return results
 }

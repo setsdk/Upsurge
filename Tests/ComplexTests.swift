@@ -46,17 +46,17 @@ class ComplexTests: XCTestCase {
     func testSumComplex() {
         let values = ComplexArray((0..<n).map{ _ in
             Complex(
-                real: Real(arc4random()) - Real(UInt32.max)/2,
-                imag: Real(arc4random()) - Real(UInt32.max)/2)
+                real: Double(arc4random()) - Double(UInt32.max)/2,
+                imag: Double(arc4random()) - Double(UInt32.max)/2)
         })
 
-        var expected = Complex()
+        var expected = Complex<Double>()
         for i in 0..<values.count {
             expected.real += values[i].real
             expected.imag += values[i].imag
         }
 
-        var actual = Complex()
+        var actual = Complex<Double>()
         self.measureBlock {
             actual = sum(values)
         }

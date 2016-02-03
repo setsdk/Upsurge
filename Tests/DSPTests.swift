@@ -25,19 +25,19 @@ import XCTest
 class DSPTests: XCTestCase {
     func testConvolution() {
         let actual = convolution([0.0, 1.0, 2.0, 0.0], [0.0, -1.0])
-        let expected: RealArray = [0.0, -1.0, -2.0]
+        let expected: ValueArray<Double> = [0.0, -1.0, -2.0]
         XCTAssertEqual(actual, expected)
     }
 
     func testCorrelation() {
         let actual = correlation([0.0, 1.0, 2.0, 0.0], [0.0, -1.0])
-        let expected: RealArray = [-1.0, -2.0, 0.0]
+        let expected: ValueArray<Double> = [-1.0, -2.0, 0.0]
         XCTAssertEqual(actual, expected)
     }
 
     func testAutocorrelation() {
         let actual = autocorrelation([1.0, 1.0], maxLag: 1)
-        let expected: RealArray = [2.0, 1.0]
+        let expected: ValueArray<Double> = [2.0, 1.0]
         XCTAssertEqual(actual, expected)
     }
 }

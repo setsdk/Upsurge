@@ -24,35 +24,35 @@ import XCTest
 
 class RealMatrixTests: XCTestCase {
     func testAdd() {
-        var a = RealMatrix(rows: 2, columns: 2, elements: [1, 2, 3, 4] as ValueArray<Double>)
-        let b = RealMatrix(rows: 2, columns: 2, elements: [2, 3, 4, 1] as ValueArray<Double>)
+        var a = Matrix<Double>(rows: 2, columns: 2, elements: [1, 2, 3, 4] as ValueArray<Double>)
+        let b = Matrix<Double>(rows: 2, columns: 2, elements: [2, 3, 4, 1] as ValueArray<Double>)
         let c = a + b
         a += b
 
-        let d = RealMatrix(rows: 2, columns: 2, elements: [3, 5, 7, 5] as ValueArray<Double>)
+        let d = Matrix<Double>(rows: 2, columns: 2, elements: [3, 5, 7, 5] as ValueArray<Double>)
 
         XCTAssertEqual(a, c)
         XCTAssertEqual(a, d)
     }
 
     func testSub() {
-        var a = RealMatrix(rows: 2, columns: 2, elements: [1, 2, 3, 4] as ValueArray<Double>)
-        let b = RealMatrix(rows: 2, columns: 2, elements: [2, 3, 4, 1] as ValueArray<Double>)
+        var a = Matrix<Double>(rows: 2, columns: 2, elements: [1, 2, 3, 4] as ValueArray<Double>)
+        let b = Matrix<Double>(rows: 2, columns: 2, elements: [2, 3, 4, 1] as ValueArray<Double>)
         let c = a - b
         a -= b
 
-        let d = RealMatrix(rows: 2, columns: 2, elements: [-1, -1, -1, 3] as ValueArray<Double>)
+        let d = Matrix<Double>(rows: 2, columns: 2, elements: [-1, -1, -1, 3] as ValueArray<Double>)
 
         XCTAssertEqual(a, c)
         XCTAssertEqual(a, d)
     }
 
     func testMult() {
-        let a = RealMatrix(rows: 2, columns: 2, elements: [1, 2, 3, 4] as ValueArray<Double>)
-        let b = RealMatrix(rows: 2, columns: 2, elements: [2, 3, 4, 5] as ValueArray<Double>)
+        let a = Matrix<Double>(rows: 2, columns: 2, elements: [1, 2, 3, 4] as ValueArray<Double>)
+        let b = Matrix<Double>(rows: 2, columns: 2, elements: [2, 3, 4, 5] as ValueArray<Double>)
         let c = a * b
 
-        let d = RealMatrix(rows: 2, columns: 2, elements: [10, 13, 22, 29] as ValueArray<Double>)
+        let d = Matrix<Double>(rows: 2, columns: 2, elements: [10, 13, 22, 29] as ValueArray<Double>)
         
         XCTAssertEqual(c, d)
 
@@ -61,47 +61,47 @@ class RealMatrixTests: XCTestCase {
     }
 
     func testMultiplyWithColumn() {
-        let v = RealArray([2, 3, 4, 5, 6] as ValueArray<Double>)
-        let m = RealMatrix([[1, 2, 3, 4, 5]])
+        let v = ValueArray<Double>([2, 3, 4, 5, 6] as ValueArray<Double>)
+        let m = Matrix<Double>([[1, 2, 3, 4, 5]])
         let c = v.toColumnMatrix() * m
 
-        let d = RealMatrix([[2, 4, 6, 8, 10], [3, 6, 9, 12, 15], [4, 8, 12, 16, 20], [5, 10, 15, 20, 25], [6, 12, 18, 24, 30]])
+        let d = Matrix<Double>([[2, 4, 6, 8, 10], [3, 6, 9, 12, 15], [4, 8, 12, 16, 20], [5, 10, 15, 20, 25], [6, 12, 18, 24, 30]])
 
         XCTAssertEqual(c, d)
     }
 
     func testMultiplyWithRow() {
-        let m = RealMatrix([[1], [2], [3], [4], [5]])
-        let v = RealArray([2, 3, 4, 5, 6] as ValueArray<Double>)
+        let m = Matrix<Double>([[1], [2], [3], [4], [5]])
+        let v = ValueArray<Double>([2, 3, 4, 5, 6] as ValueArray<Double>)
         let c = v.toRowMatrix() * m
 
-        let d = RealMatrix([[70]])
+        let d = Matrix<Double>([[70]])
 
         XCTAssertEqual(c, d)
     }
 
     func testPostMultiplyWithColumn() {
-        let m = RealMatrix([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]])
-        let v = RealArray([2, 3, 4, 5, 6] as ValueArray<Double>)
+        let m = Matrix<Double>([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]])
+        let v = ValueArray<Double>([2, 3, 4, 5, 6] as ValueArray<Double>)
         let c = m * v.toColumnMatrix()
 
-        let d = RealMatrix([[70], [170]])
+        let d = Matrix<Double>([[70], [170]])
 
         XCTAssertEqual(c, d)
     }
 
     func testPostMultiplyWithRow() {
-        let m = RealMatrix([[1], [2], [3], [4], [5]])
-        let v = RealArray([2, 3, 4, 5, 6] as ValueArray<Double>)
+        let m = Matrix<Double>([[1], [2], [3], [4], [5]])
+        let v = ValueArray<Double>([2, 3, 4, 5, 6] as ValueArray<Double>)
         let c = m * v.toRowMatrix()
 
-        let d = RealMatrix([[2, 3, 4, 5, 6], [4, 6, 8, 10, 12], [6, 9, 12, 15, 18], [8, 12, 16, 20, 24], [10, 15, 20, 25, 30]])
+        let d = Matrix<Double>([[2, 3, 4, 5, 6], [4, 6, 8, 10, 12], [6, 9, 12, 15, 18], [8, 12, 16, 20, 24], [10, 15, 20, 25, 30]])
 
         XCTAssertEqual(c, d)
     }
 
     func testTranspose() {
-        let a = RealMatrix(rows: 2, columns: 2, elements: [1, 2, 3, 4] as ValueArray<Double>)
+        let a = Matrix<Double>(rows: 2, columns: 2, elements: [1, 2, 3, 4] as ValueArray<Double>)
         let b = transpose(a)
         let c = transpose(b)
 
@@ -109,10 +109,10 @@ class RealMatrixTests: XCTestCase {
     }
 
     func testInvert() {
-        let a = RealMatrix(rows: 2, columns: 2, elements: [2, 6, -2, 4] as ValueArray<Double>)
+        let a = Matrix<Double>(rows: 2, columns: 2, elements: [2, 6, -2, 4] as ValueArray<Double>)
         let b = inv(a)
 
-        let c = RealMatrix(rows: 2, columns: 2, elements: [0.2, -0.3, 0.1, 0.1] as ValueArray<Double>)
+        let c = Matrix<Double>(rows: 2, columns: 2, elements: [0.2, -0.3, 0.1, 0.1] as ValueArray<Double>)
 
         XCTAssertEqualWithAccuracy(c.elements[0], b.elements[0], accuracy: 0.00001)
         XCTAssertEqualWithAccuracy(c.elements[1], b.elements[1], accuracy: 0.00001)
@@ -121,8 +121,8 @@ class RealMatrixTests: XCTestCase {
     }
 
     func testSwap() {
-        var a = RealMatrix([[1, 2, 3], [4, 5, 6]])
-        var b = RealMatrix([[4, 3], [2, 1]])
+        var a = Matrix<Double>([[1, 2, 3], [4, 5, 6]])
+        var b = Matrix<Double>([[4, 3], [2, 1]])
         swap(&a, &b)
 
         XCTAssertEqual(a.columns, 2)
@@ -132,7 +132,7 @@ class RealMatrixTests: XCTestCase {
     }
 
     func testAddColumnRow() {
-        let m = RealMatrix([
+        let m = Matrix<Double>([
             [1, 2, 3],
             [4, 5, 6],
             [7, 8, 9]
@@ -146,7 +146,7 @@ class RealMatrixTests: XCTestCase {
     }
 
     func testAddToColumn() {
-        let m = RealMatrix([
+        let m = Matrix<Double>([
             [1, 2, 3],
             [4, 5, 6],
             [7, 8, 9]

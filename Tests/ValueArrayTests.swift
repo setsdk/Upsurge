@@ -23,15 +23,15 @@ import Upsurge
 
 class RealArrayTests: XCTestCase {
     func testDescription() {
-        let emptyRealArray: RealArray = []
+        let emptyRealArray: ValueArray<Double> = []
         XCTAssertEqual(emptyRealArray.description, "[]")
 
-        let array: RealArray = [1.0, 2.0, 3.0]
+        let array: ValueArray<Double> = [1.0, 2.0, 3.0]
         XCTAssertEqual(array.description, "[1.0, 2.0, 3.0]")
     }
 
     func testCopy() {
-        let a: RealArray = [1, 2, 3]
+        let a: ValueArray = [1.0, 2.0, 3.0]
         let b = a.copy()
         b[0] = 4
         XCTAssertEqual(a[0], 1.0)
@@ -39,8 +39,8 @@ class RealArrayTests: XCTestCase {
     }
 
     func testSwap() {
-        var a: RealArray = [1, 2, 3]
-        var b: RealArray = [4]
+        var a: ValueArray<Double> = [1, 2, 3]
+        var b: ValueArray<Double> = [4]
         swap(&a, &b)
 
         XCTAssertEqual(a.count, 1)
@@ -50,7 +50,7 @@ class RealArrayTests: XCTestCase {
     }
 
     func testAppendContentsOf() {
-        let a = RealArray(capacity: 3)
+        let a = ValueArray<Double>(capacity: 3)
         a.appendContentsOf([2, 3])
         XCTAssertEqual(a.count, 2)
         XCTAssertEqual(a[0], 2.0)
@@ -58,7 +58,7 @@ class RealArrayTests: XCTestCase {
     }
 
     func testAddSlice() {
-        let a: RealArray = [1.0, 2.0, 3.0, 4.0]
+        let a: ValueArray<Double> = [1.0, 2.0, 3.0, 4.0]
         let b = a[0...1] + a[2...3]
 
         XCTAssertEqual(b.count, 2)
@@ -67,7 +67,7 @@ class RealArrayTests: XCTestCase {
     }
 
     func testAppend() {
-        let n = RealArray(capacity: 6)
+        let n = ValueArray<Double>(capacity: 6)
         n.append(1.0)
         n.append(2.0)
 
@@ -78,12 +78,12 @@ class RealArrayTests: XCTestCase {
     }
 
     func testSlice() {
-        let array = RealArray((0..<10).map({ Double($0) }))
+        let array = ValueArray<Double>((0..<10).map({ Double($0) }))
         let slice = array[5...8]
 
         XCTAssertEqual(slice.count, 4)
         XCTAssertEqual(slice.startIndex, 5)
         XCTAssertEqual(slice.endIndex, 9)
-        XCTAssert(slice == RealArray([5.0, 6.0, 7.0, 8.0]))
+        XCTAssert(slice == ValueArray<Double>([5.0, 6.0, 7.0, 8.0]))
     }
 }

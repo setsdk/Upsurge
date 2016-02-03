@@ -18,12 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-public class ComplexArraySlice: MutableLinearType  {
+public class ComplexArraySlice<T: Real>: MutableLinearType  {
     public typealias Index = Int
-    public typealias Element = Complex
+    public typealias Element = Complex<T>
     public typealias Slice = ComplexArraySlice
     
-    var base: ComplexArray
+    var base: ComplexArray<T>
     
     public var startIndex: Index
     public var endIndex: Index
@@ -37,9 +37,9 @@ public class ComplexArraySlice: MutableLinearType  {
         return base.mutablePointer
     }
     
-    public var reals: ComplexArrayRealSlice {
+    public var reals: ComplexArrayRealSlice<T> {
         get {
-            return ComplexArrayRealSlice(base: base, startIndex: startIndex, endIndex: 2*endIndex - 1, step: 2)
+            return ComplexArrayRealSlice<T>(base: base, startIndex: startIndex, endIndex: 2*endIndex - 1, step: 2)
         }
         set {
             precondition(newValue.count == reals.count)
@@ -49,9 +49,9 @@ public class ComplexArraySlice: MutableLinearType  {
         }
     }
     
-    public var imags: ComplexArrayRealSlice {
+    public var imags: ComplexArrayRealSlice<T> {
         get {
-            return ComplexArrayRealSlice(base: base, startIndex: startIndex + 1, endIndex: 2*endIndex, step: 2)
+            return ComplexArrayRealSlice<T>(base: base, startIndex: startIndex + 1, endIndex: 2*endIndex, step: 2)
         }
         set {
             precondition(newValue.count == imags.count)
@@ -61,7 +61,7 @@ public class ComplexArraySlice: MutableLinearType  {
         }
     }
     
-    public required init(base: ComplexArray, startIndex: Index, endIndex: Index, step: Int) {
+    public required init(base: ComplexArray<T>, startIndex: Index, endIndex: Index, step: Int) {
         assert(base.startIndex <= startIndex && endIndex <= base.endIndex)
         self.base = base
         self.startIndex = startIndex
@@ -112,7 +112,7 @@ public class ComplexArraySlice: MutableLinearType  {
 
 // MARK: - Equatable
 
-public func ==(lhs: ComplexArraySlice, rhs: ComplexArraySlice) -> Bool {
+public func ==<T: Real>(lhs: ComplexArraySlice<T>, rhs: ComplexArraySlice<T>) -> Bool {
     if lhs.count != rhs.count {
         return false
     }
@@ -125,7 +125,7 @@ public func ==(lhs: ComplexArraySlice, rhs: ComplexArraySlice) -> Bool {
     return true
 }
 
-public func ==(lhs: ComplexArraySlice, rhs: ComplexArray) -> Bool {
+public func ==<T: Real>(lhs: ComplexArraySlice<T>, rhs: ComplexArray<T>) -> Bool {
     if lhs.count != rhs.count {
         return false
     }

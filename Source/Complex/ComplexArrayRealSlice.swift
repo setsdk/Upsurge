@@ -19,12 +19,12 @@
 // THE SOFTWARE.
 
 /// A slice of reals from a ComplexArray.
-public struct ComplexArrayRealSlice: MutableLinearType {
+public struct ComplexArrayRealSlice<T: Real>: MutableLinearType {
     public typealias Index = Int
-    public typealias Element = Real
+    public typealias Element = T
     public typealias Slice = ComplexArrayRealSlice
 
-    var base: ComplexArray
+    var base: ComplexArray<Element>
     public var startIndex: Int
     public var endIndex: Int
     public var step: Int
@@ -37,7 +37,7 @@ public struct ComplexArrayRealSlice: MutableLinearType {
         return UnsafeMutablePointer<Element>(base.mutablePointer)
     }
 
-    init(base: ComplexArray, startIndex: Int, endIndex: Int, step: Int) {
+    init(base: ComplexArray<Element>, startIndex: Int, endIndex: Int, step: Int) {
         assert(2 * base.startIndex <= startIndex && endIndex <= 2 * base.endIndex)
         self.base = base
         self.startIndex = startIndex
@@ -88,7 +88,7 @@ public struct ComplexArrayRealSlice: MutableLinearType {
     }
 }
 
-public func ==(lhs: ComplexArrayRealSlice, rhs: ComplexArrayRealSlice) -> Bool {
+public func ==<T: Real>(lhs: ComplexArrayRealSlice<T>, rhs: ComplexArrayRealSlice<T>) -> Bool {
     if lhs.count != rhs.count {
         return false
     }

@@ -22,8 +22,8 @@ import XCTest
 @testable import Upsurge
 
 class TensorTests: XCTestCase {
-    var diagonalTensor3D: Tensor<Real>!
-    var diagonalTensor4D: Tensor<Real>!
+    var diagonalTensor3D: Tensor<Double>!
+    var diagonalTensor4D: Tensor<Double>!
     
     override func setUp() {
         super.setUp()
@@ -58,20 +58,20 @@ class TensorTests: XCTestCase {
     }
     
     func testSliceValueAssignment() {
-        let tensor = Tensor(dimensions: [2, 2, 2, 2], elements: [6.4, 2.4, 8.6, 0.2, 6.4, 1.5, 7.3, 1.1, 6.0, 1.4, 7.8, 9.2, 4.2, 6.1, 8.7, 3.6] as RealArray)
+        let tensor = Tensor(dimensions: [2, 2, 2, 2], elements: [6.4, 2.4, 8.6, 0.2, 6.4, 1.5, 7.3, 1.1, 6.0, 1.4, 7.8, 9.2, 4.2, 6.1, 8.7, 3.6] as ValueArray<Double>)
         diagonalTensor4D[Interval(integerLiteral: 1), Interval.All, Interval(range: 0...1), Interval(range: 0...1)] = tensor[Interval(integerLiteral: 0), Interval(range: 0...1), Interval.All, Interval(range: 0...1)]
 
-        let expected = Tensor(dimensions: [2, 2, 2, 2], elements: [1, 0, 0, 0, 0, 0, 0, 0, 6.4, 2.4, 8.6, 0.2, 6.4, 1.5, 7.3, 1.1] as RealArray)
+        let expected = Tensor(dimensions: [2, 2, 2, 2], elements: [1, 0, 0, 0, 0, 0, 0, 0, 6.4, 2.4, 8.6, 0.2, 6.4, 1.5, 7.3, 1.1] as ValueArray<Double>)
         XCTAssertEqual(diagonalTensor4D, expected)
     }
     
     func testMatrixExtraction() {
         var matrix = diagonalTensor4D.asMatrix(Interval(integerLiteral: 1), Interval(integerLiteral: 1), Interval(range: 0...1), Interval(range: 0...1))
-        var expected = RealMatrix([[0, 0], [0, 1]])
+        var expected = Matrix<Double>([[0, 0], [0, 1]])
         XCTAssert(matrix == expected)
         
         matrix = diagonalTensor4D.asMatrix(Interval(integerLiteral: 0), Interval(integerLiteral: 0), Interval(integerLiteral: 0), Interval(integerLiteral: 0))
-        expected = RealMatrix([[1]])
+        expected = Matrix<Double>([[1]])
         XCTAssert(matrix == expected)
     }
     

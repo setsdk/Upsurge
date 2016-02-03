@@ -20,6 +20,8 @@
 
 import Accelerate
 
+// MARK: - Double
+
 /// Exponentiation
 public func exp<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Double> {
     precondition(x.step == 1, "exp doesn't support step values other than 1")
@@ -77,5 +79,68 @@ public func logb<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Do
     let results = ValueArray<Double>(count: x.count)
     vvlogb(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
 
+    return results
+}
+
+
+// MARK: - Float
+
+/// Exponentiation
+public func exp<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "exp doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    vvexpf(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
+
+    return results
+}
+
+/// Square Exponentiation
+public func exp2<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "exp2 doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    vvexp2f(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
+
+    return results
+}
+
+/// Natural Logarithm
+public func log<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "log doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    vvlogf(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
+
+    return results
+}
+
+/// Base-2 Logarithm
+public func log2<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "log2 doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    vvlog2f(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
+
+    return results
+}
+
+/// Base-10 Logarithm
+public func log10<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "log10 doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    vvlog10f(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
+
+    return results
+}
+
+/// Logarithmic Exponentiation
+public func logb<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "logb doesn't support step values other than 1")
+
+    let results = ValueArray<Float>(count: x.count)
+    vvlogbf(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
+    
     return results
 }

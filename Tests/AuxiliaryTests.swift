@@ -26,19 +26,19 @@ class AuxiliaryTests: XCTestCase {
     let n = 10000
 
     func testCopysign() {
-        let signs = RealArray((0..<n).map({ $0 % 2 == 0 ? 1.0 : -1.0 }))
+        let signs = ValueArray<Double>((0..<n).map({ $0 % 2 == 0 ? 1.0 : -1.0 }))
 
-        let magnitudes = RealArray(count: n)
+        let magnitudes = ValueArray<Double>(count: n)
         for i in 0..<n {
-            magnitudes[i] = Real(arc4random_uniform(10))
+            magnitudes[i] = Double(arc4random_uniform(10))
         }
 
-        let expected = RealArray(count: n)
+        let expected = ValueArray<Double>(count: n)
         for i in 0..<signs.count {
             expected[i] = signs[i] * abs(magnitudes[i])
         }
 
-        var actual: RealArray = []
+        var actual: ValueArray<Double> = []
         self.measureBlock {
             actual = copysign(signs, magnitude: magnitudes)
         }
@@ -58,7 +58,7 @@ class AuxiliaryTests: XCTestCase {
         let increment = (0..<n).map { Double($0) * 0.2 }
         let rounded = round(increment)
 
-        let expected = RealArray(increment.map { round($0) })
+        let expected = ValueArray<Double>(increment.map { round($0) })
         XCTAssertEqual(rounded, expected)
     }
 

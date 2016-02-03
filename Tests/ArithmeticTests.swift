@@ -26,16 +26,16 @@ class ArithmeticTests: XCTestCase {
 
     func testSumArray() {
         let values = (0...n).map{ _ in
-            Real(arc4random()) - Real(UInt32.max)/2
+            Double(arc4random()) - Double(UInt32.max)/2
         }
-        let array = [Real](values)
+        let array = [Double](values)
 
-        var expected = Real()
+        var expected = Double()
         for v in array {
             expected += v
         }
 
-        var actual: Real = 0.0
+        var actual: Double = 0.0
         self.measureBlock {
             actual = sum(array)
         }
@@ -45,16 +45,16 @@ class ArithmeticTests: XCTestCase {
 
     func testSumRealArray() {
         let values = (0...n).map{ _ in
-            Real(arc4random()) - Real(UInt32.max)/2
+            Double(arc4random()) - Double(UInt32.max)/2
         }
-        let array = RealArray(values)
+        let array = ValueArray<Double>(values)
 
-        var expected = Real()
+        var expected = Double()
         for i in array.startIndex..<array.endIndex {
             expected += array[i]
         }
 
-        var actual: Real = 0.0
+        var actual: Double = 0.0
         self.measureBlock {
             actual = sum(array)
         }
@@ -63,20 +63,20 @@ class ArithmeticTests: XCTestCase {
     }
 
     func testMeanSlice() {
-        let a1: RealArray = [1.0, 1.0, 2.0, 2.0, 3.0, 3.0]
-        let s1 = RealArraySlice(base: a1, startIndex: 0, endIndex: a1.count, step: 2)
+        let a1: ValueArray<Double> = [1.0, 1.0, 2.0, 2.0, 3.0, 3.0]
+        let s1 = ValueArraySlice(base: a1, startIndex: 0, endIndex: a1.count, step: 2)
         let r = mean(s1)
         XCTAssertEqual(r, 2.0)
     }
 
     func testSqrt() {
-        let values = (0...n).map{_ in Real(arc4random())}
+        let values = (0...n).map{_ in Double(arc4random())}
         measureAndValidateMappedFunctionWithAccuracy(values, member: { return sqrt($0) }, mapped: { $0.map{ sqrt($0) } }, accuracy: 0.0001)
     }
 
     func testAdd() {
-        let a1: RealArray = [1.0, 2.0, 3.0]
-        let a2: RealArray = [3.0, 2.0, 1.0, 0.0, -1.0]
+        let a1: ValueArray<Double> = [1.0, 2.0, 3.0]
+        let a2: ValueArray<Double> = [3.0, 2.0, 1.0, 0.0, -1.0]
         let r = a1 + a2
         XCTAssertEqual(r.count, 3)
         for i in r.startIndex..<r.endIndex {
@@ -85,8 +85,8 @@ class ArithmeticTests: XCTestCase {
     }
 
     func testSub() {
-      let a1: RealArray = [5.0, 4.0, 3.0, 2.0]
-      let a2: RealArray = [4.0, 3.0, 2.0, 1.0]
+      let a1: ValueArray<Double> = [5.0, 4.0, 3.0, 2.0]
+      let a2: ValueArray<Double> = [4.0, 3.0, 2.0, 1.0]
       let r = a1 - a2
       XCTAssertEqual(r.count, 4)
       for i in r.startIndex..<r.endIndex {
@@ -95,8 +95,8 @@ class ArithmeticTests: XCTestCase {
     }
 
     func testSubAssign() {
-      let a1: RealArray = [5.0, 4.0, 3.0, 2.0]
-      let a2: RealArray = [4.0, 3.0, 2.0, 1.0]
+      let a1: ValueArray<Double> = [5.0, 4.0, 3.0, 2.0]
+      let a2: ValueArray<Double> = [4.0, 3.0, 2.0, 1.0]
       a1 -= a2
       XCTAssertEqual(a1.count, 4)
       for i in a1.startIndex..<a1.endIndex {
@@ -105,10 +105,10 @@ class ArithmeticTests: XCTestCase {
     }
 
     func testAddSlice() {
-        let a1: RealArray = [1.0, 1.0, 2.0, 2.0, 3.0, 3.0]
-        let s1 = RealArraySlice(base: a1, startIndex: 0, endIndex: a1.count, step: 2)
+        let a1: ValueArray<Double> = [1.0, 1.0, 2.0, 2.0, 3.0, 3.0]
+        let s1 = ValueArraySlice(base: a1, startIndex: 0, endIndex: a1.count, step: 2)
 
-        let a2: RealArray = [3.0, 2.0, 1.0, 0.0, -1.0]
+        let a2: ValueArray<Double> = [3.0, 2.0, 1.0, 0.0, -1.0]
 
         let r = s1 + a2
         XCTAssertEqual(r.count, 3)
@@ -118,13 +118,13 @@ class ArithmeticTests: XCTestCase {
     }
   
   func testStd() {
-        let a1: RealArray = [2.0, 4.0, 4.0, 4.0, 5.0, 5.0, 7.0, 9.0]
+        let a1: ValueArray<Double> = [2.0, 4.0, 4.0, 4.0, 5.0, 5.0, 7.0, 9.0]
         let r = std(a1)
         XCTAssertEqual(r, 2.0)
   }
 
   func testLinregress() {
-        let a1: RealArray = [1.0, 2.0, 3.0, 4.0, 5.0]
+        let a1: ValueArray<Double> = [1.0, 2.0, 3.0, 4.0, 5.0]
         let (slope, intercept) = linregress(a1, a1)
         XCTAssertEqual(slope, 1.0)
         XCTAssertEqual(intercept, 0.0)  }
