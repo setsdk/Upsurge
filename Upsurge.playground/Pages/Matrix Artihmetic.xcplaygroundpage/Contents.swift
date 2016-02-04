@@ -8,13 +8,13 @@ let A = Matrix<Double>([
 ])
 let C = Matrix<Double>([
     [3],
-   //: Now let' find the matrix `B` such that `A*B=C`
- [1]
+    [1]
 ])
-let B = inv//: And verify the result
-(A) * C
-let r = //: You can also operate on a matrix row or column the same way as you would with a RealArray
-A*B - C
+//: Now let' find the matrix `B` such that `A*B=C`
+let B = inv(A) * C
+//: And verify the result
+let r = A*B - C
+//: You can also operate on a matrix row or column the same way as you would with a RealArray
 var col = A.column(0)
 let diff = col - [10, 1]
-col 
+col += diff
