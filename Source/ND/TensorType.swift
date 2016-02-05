@@ -91,7 +91,7 @@ public extension MutableTensorType {
     mutating func assignFrom<T: TensorType where T.Element == Element>(rhs: T) {
         precondition(rhs.count <= count)
         withPointers(&self, rhs) { lhsp, rhsp in
-            lhsp.assignFrom(UnsafeMutablePointer(lhsp), count: count)
+            lhsp.assignFrom(UnsafeMutablePointer(rhsp), count: count)
         }
     }
 }
