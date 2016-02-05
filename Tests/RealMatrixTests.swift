@@ -48,7 +48,7 @@ class RealMatrixTests: XCTestCase {
     }
 
     func testMult() {
-        let a = Matrix<Double>(rows: 2, columns: 2, elements: [1, 2, 3, 4] as ValueArray<Double>)
+        var a = Matrix<Double>(rows: 2, columns: 2, elements: [1, 2, 3, 4] as ValueArray<Double>)
         let b = Matrix<Double>(rows: 2, columns: 2, elements: [2, 3, 4, 5] as ValueArray<Double>)
         let c = a * b
 
@@ -151,7 +151,7 @@ class RealMatrixTests: XCTestCase {
             [4, 5, 6],
             [7, 8, 9]
             ])
-        let col = m.column(1)
+        var col = m.column(1)
         col += 1
 
         XCTAssertEqual(m[0, 1], 3)

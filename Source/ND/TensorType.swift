@@ -22,14 +22,17 @@ public protocol TensorType {
     typealias Element
     typealias Slice
     
-    /// The pointer to the beginning of the memory block
-    var pointer: UnsafePointer<Element> { get }
-    
     /// The count of each dimension
     var dimensions: [Int] { get }
     
     subscript(intervals: [IntervalType]) -> Slice { get }
     subscript(intervals: [Int]) -> Element { get }
+
+    /// Call `body(pointer)` with the buffer pointer to the beginning of the memory block
+    func withUnsafeBufferPointer<R>(@noescape body: (UnsafeBufferPointer<Element>) throws -> R) rethrows -> R
+
+    /// Call `body(pointer)` with the pointer to the beginning of the memory block
+    func withUnsafePointer<R>(@noescape body: (UnsafePointer<Element>) throws -> R) rethrows -> R
 }
 
 internal extension TensorType {
@@ -70,9 +73,25 @@ public extension TensorType {
 }
 
 public protocol MutableTensorType: TensorType {
-    /// The mutable pointer to the beginning of the memory block
-    var mutablePointer: UnsafeMutablePointer<Element> { get }
-    
     subscript(intervals: [IntervalType]) -> Slice { get set }
     subscript(intervals: [Int]) -> Element { get set }
+
+    /// Call `body(pointer)` with the mutable buffer pointer to the beginning of the memory block
+    mutating func withUnsafeMutableBufferPointer<R>(@noescape body: (UnsafeMutableBufferPointer<Element>) throws -> R) rethrows -> R
+
+    /// Call `body(pointer)` with the mutable pointer to the beginning of the memory block
+    mutating func withUnsafeMutablePointer<R>(@noescape body: (UnsafeMutablePointer<Element>) throws -> R) rethrows -> R
+}
+
+
+public extension MutableTensorType {
+    /// Assign all values of a TensorType to this tensor.
+    ///
+    /// - precondition: The available space on `self` is greater than or equal to the number of elements on `lhs`
+    mutating func assignFrom<T: TensorType where T.Element == Element>(rhs: T) {
+        precondition(rhs.count <= count)
+        withPointers(&self, rhs) { lhsp, rhsp in
+            lhsp.assignFrom(UnsafeMutablePointer(lhsp), count: count)
+        }
+    }
 }

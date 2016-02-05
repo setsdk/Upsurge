@@ -24,43 +24,57 @@ import Accelerate
 
 public func sum<M: LinearType where M.Element == Double>(x: M) -> Double {
     var result = 0.0
-    vDSP_sveD(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    withPointer(x) { xp in
+        vDSP_sveD(xp + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func max<M: LinearType where M.Element == Double>(x: M) -> Double {
     var result: Double = 0.0
-    vDSP_maxvD(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    withPointer(x) { xp in
+        vDSP_maxvD(xp + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func min<M: LinearType where M.Element == Double>(x: M) -> Double {
     var result: Double = 0.0
-    vDSP_minvD(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    withPointer(x) { xp in
+        vDSP_minvD(xp + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func mean<M: LinearType where M.Element == Double>(x: M) -> Double {
     var result: Double = 0.0
-    vDSP_meanvD(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    withPointer(x) { xp in
+        vDSP_meanvD(xp + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func meamg<M: LinearType where M.Element == Double>(x: M) -> Double {
     var result: Double = 0.0
-    vDSP_meamgvD(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    withPointer(x) { xp in
+        vDSP_meamgvD(xp + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func measq<M: LinearType where M.Element == Double>(x: M) -> Double {
     var result: Double = 0.0
-    vDSP_measqvD(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    withPointer(x) { xp in
+        vDSP_measqvD(xp + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func rmsq<M: LinearType where M.Element == Double>(x: M) -> Double {
     var result: Double = 0.0
-    vDSP_rmsqvD(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    withPointer(x) { xp in
+        vDSP_rmsqvD(xp + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    }
     return result
 }
 
@@ -93,21 +107,27 @@ public func linregress<MX: LinearType, MY: LinearType where MX.Element == Double
 public func mod<ML: LinearType, MR: LinearType where ML.Element == Double, MR.Element == Double>(lhs: ML, _ rhs: MR) -> ValueArray<Double> {
     precondition(lhs.step == 1, "mod doesn't support step values other than 1")
     let results = ValueArray<Double>(count: lhs.count)
-    vvfmod(results.mutablePointer + results.startIndex, lhs.pointer + lhs.startIndex, rhs.pointer + rhs.startIndex, [Int32(lhs.count)])
+    withPointers(lhs, rhs) { lhsp, rhsp in
+        vvfmod(results.mutablePointer + results.startIndex, lhsp + lhs.startIndex, rhsp + rhs.startIndex, [Int32(lhs.count)])
+    }
     return results
 }
 
 public func remainder<ML: LinearType, MR: LinearType where ML.Element == Double, MR.Element == Double>(lhs: ML, rhs: MR) -> ValueArray<Double> {
     precondition(lhs.step == 1, "remainder doesn't support step values other than 1")
     let results = ValueArray<Double>(count: lhs.count)
-    vvremainder(results.mutablePointer + results.startIndex, lhs.pointer + lhs.startIndex, rhs.pointer + rhs.startIndex, [Int32(lhs.count)])
+    withPointers(lhs, rhs) { lhsp, rhsp in
+        vvremainder(results.mutablePointer + results.startIndex, lhsp + lhs.startIndex, rhsp + rhs.startIndex, [Int32(lhs.count)])
+    }
     return results
 }
 
-public func sqrt<M: LinearType where M.Element == Double>(lhs: M) -> ValueArray<Double> {
-    precondition(lhs.step == 1, "sqrt doesn't support step values other than 1")
-    let results = ValueArray<Double>(count: lhs.count)
-    vvsqrt(results.mutablePointer + results.startIndex, lhs.pointer + lhs.startIndex, [Int32(lhs.count)])
+public func sqrt<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "sqrt doesn't support step values other than 1")
+    let results = ValueArray<Double>(count: x.count)
+    withPointer(x) { xp in
+        vvsqrt(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
     return results
 }
 
@@ -115,7 +135,9 @@ public func dot<ML: LinearType, MR: LinearType where ML.Element == Double, MR.El
     precondition(lhs.count == rhs.count, "Vectors must have equal count")
 
     var result: Double = 0.0
-    vDSP_dotprD(lhs.pointer + lhs.startIndex, lhs.step, rhs.pointer + rhs.startIndex, rhs.step, &result, vDSP_Length(lhs.count))
+    withPointers(lhs, rhs) { lhsp, rhsp in
+        vDSP_dotprD(lhsp + lhs.startIndex, lhs.step, rhsp + rhs.startIndex, rhs.step, &result, vDSP_Length(lhs.count))
+    }
     return result
 }
 
@@ -124,43 +146,57 @@ public func dot<ML: LinearType, MR: LinearType where ML.Element == Double, MR.El
 
 public func sum<M: LinearType where M.Element == Float>(x: M) -> Float {
     var result = Float()
-    vDSP_sve(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    withPointer(x) { xp in
+        vDSP_sve(xp + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func max<M: LinearType where M.Element == Float>(x: M) -> Float {
     var result = Float()
-    vDSP_maxv(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    withPointer(x) { xp in
+        vDSP_maxv(xp + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func min<M: LinearType where M.Element == Float>(x: M) -> Float {
     var result = Float()
-    vDSP_minv(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    withPointer(x) { xp in
+        vDSP_minv(xp + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func mean<M: LinearType where M.Element == Float>(x: M) -> Float {
     var result = Float()
-    vDSP_meanv(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    withPointer(x) { xp in
+        vDSP_meanv(xp + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func meamg<M: LinearType where M.Element == Float>(x: M) -> Float {
     var result = Float()
-    vDSP_meamgv(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    withPointer(x) { xp in
+        vDSP_meamgv(xp + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func measq<M: LinearType where M.Element == Float>(x: M) -> Float {
     var result = Float()
-    vDSP_measqv(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    withPointer(x) { xp in
+        vDSP_measqv(xp + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func rmsq<M: LinearType where M.Element == Float>(x: M) -> Float {
     var result = Float()
-    vDSP_rmsqv(x.pointer + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    withPointer(x) { xp in
+        vDSP_rmsqv(xp + x.startIndex, x.step, &result, vDSP_Length(x.count))
+    }
     return result
 }
 
@@ -193,21 +229,27 @@ public func linregress<MX: LinearType, MY: LinearType where MX.Element == Float,
 public func mod<ML: LinearType, MR: LinearType where ML.Element == Float, MR.Element == Float>(lhs: ML, _ rhs: MR) -> ValueArray<Float> {
     precondition(lhs.step == 1, "mod doesn't support step values other than 1")
     let results = ValueArray<Float>(count: lhs.count)
-    vvfmodf(results.mutablePointer + results.startIndex, lhs.pointer + lhs.startIndex, rhs.pointer + rhs.startIndex, [Int32(lhs.count)])
+    withPointers(lhs, rhs) { lhsp, rhsp in
+        vvfmodf(results.mutablePointer + results.startIndex, lhsp + lhs.startIndex, rhsp + rhs.startIndex, [Int32(lhs.count)])
+    }
     return results
 }
 
 public func remainder<ML: LinearType, MR: LinearType where ML.Element == Float, MR.Element == Float>(lhs: ML, rhs: MR) -> ValueArray<Float> {
     precondition(lhs.step == 1, "remainder doesn't support step values other than 1")
     let results = ValueArray<Float>(count: lhs.count)
-    vvremainderf(results.mutablePointer + results.startIndex, lhs.pointer + lhs.startIndex, rhs.pointer + rhs.startIndex, [Int32(lhs.count)])
+    withPointers(lhs, rhs) { lhsp, rhsp in
+        vvremainderf(results.mutablePointer + results.startIndex, lhsp + lhs.startIndex, rhsp + rhs.startIndex, [Int32(lhs.count)])
+    }
     return results
 }
 
-public func sqrt<M: LinearType where M.Element == Float>(lhs: M) -> ValueArray<Float> {
-    precondition(lhs.step == 1, "sqrt doesn't support step values other than 1")
-    let results = ValueArray<Float>(count: lhs.count)
-    vvsqrtf(results.mutablePointer + results.startIndex, lhs.pointer + lhs.startIndex, [Int32(lhs.count)])
+public func sqrt<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+    precondition(x.step == 1, "sqrt doesn't support step values other than 1")
+    let results = ValueArray<Float>(count: x.count)
+    withPointer(x) { xp in
+        vvsqrtf(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
     return results
 }
 
@@ -215,6 +257,8 @@ public func dot<ML: LinearType, MR: LinearType where ML.Element == Float, MR.Ele
     precondition(lhs.count == rhs.count, "Vectors must have equal count")
 
     var result: Float = 0.0
-    vDSP_dotpr(lhs.pointer + lhs.startIndex, lhs.step, rhs.pointer + rhs.startIndex, rhs.step, &result, vDSP_Length(lhs.count))
+    withPointers(lhs, rhs) { lhsp, rhsp in
+        vDSP_dotpr(lhsp + lhs.startIndex, lhs.step, rhsp + rhs.startIndex, rhs.step, &result, vDSP_Length(lhs.count))
+    }
     return result
 }

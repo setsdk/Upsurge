@@ -24,20 +24,36 @@ public struct ComplexArrayRealSlice<T: Real>: MutableLinearType {
     public typealias Element = T
     public typealias Slice = ComplexArrayRealSlice
 
-    var base: ComplexArray<Element>
+    var base: ComplexArray<T>
     public var startIndex: Int
     public var endIndex: Int
     public var step: Int
 
-    public var pointer: UnsafePointer<Element> {
-        return UnsafePointer<Element>(base.pointer)
+    public func withUnsafeBufferPointer<R>(@noescape body: (UnsafeBufferPointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafeBufferPointer { pointer in
+            return try body(UnsafeBufferPointer(start: UnsafePointer<Element>(pointer.baseAddress), count: count))
+        }
     }
 
-    public var mutablePointer: UnsafeMutablePointer<Element> {
-        return UnsafeMutablePointer<Element>(base.mutablePointer)
+    public func withUnsafePointer<R>(@noescape body: (UnsafePointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafePointer { pointer in
+            return try body(UnsafePointer<Element>(pointer))
+        }
     }
 
-    init(base: ComplexArray<Element>, startIndex: Int, endIndex: Int, step: Int) {
+    public func withUnsafeMutableBufferPointer<R>(@noescape body: (UnsafeMutableBufferPointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafeMutableBufferPointer { pointer in
+            return try body(UnsafeMutableBufferPointer(start: UnsafeMutablePointer<Element>(pointer.baseAddress), count: count))
+        }
+    }
+
+    public func withUnsafeMutablePointer<R>(@noescape body: (UnsafeMutablePointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafeMutablePointer { pointer in
+            return try body(UnsafeMutablePointer<Element>(pointer))
+        }
+    }
+
+    init(base: ComplexArray<T>, startIndex: Int, endIndex: Int, step: Int) {
         assert(2 * base.startIndex <= startIndex && endIndex <= 2 * base.endIndex)
         self.base = base
         self.startIndex = startIndex
@@ -48,16 +64,20 @@ public struct ComplexArrayRealSlice<T: Real>: MutableLinearType {
     public subscript(index: Int) -> Element {
         get {
             let baseIndex = startIndex + index * step
-            precondition(0 <= baseIndex && baseIndex < base.count)
-            return pointer[baseIndex]
+            precondition(0 <= baseIndex && baseIndex < 2 * base.count)
+            return withUnsafePointer { pointer in
+                return pointer[baseIndex]
+            }
         }
         set {
             let baseIndex = startIndex + index * step
             precondition(0 <= baseIndex && baseIndex < base.count)
-            mutablePointer[baseIndex] = newValue
+            withUnsafeMutablePointer { pointer in
+                pointer[baseIndex] = newValue
+            }
         }
     }
-    
+
     public subscript(indices: [Int]) -> Element {
         get {
             assert(indices.count == 1)

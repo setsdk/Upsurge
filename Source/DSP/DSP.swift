@@ -29,10 +29,12 @@ import Accelerate
 public func convolution<MS: LinearType, MK: LinearType where MS.Element == Double, MK.Element == Double>(signal: MS, _ kernel: MK) -> ValueArray<Double> {
     precondition(signal.count >= kernel.count, "The signal should have at least as many elements as the kernel")
 
-    let kernelLast = kernel.pointer + kernel.count - 1
     let resultSize = signal.count - kernel.count + 1
     let result = ValueArray<Double>(count: resultSize)
-    vDSP_convD(signal.pointer + signal.startIndex, signal.step, kernelLast, -kernel.step, result.mutablePointer, result.step, vDSP_Length(resultSize), vDSP_Length(kernel.count))
+    withPointers(signal, kernel) { signalP, kernelP in
+        let kernelLast = kernelP + kernel.count - 1
+        vDSP_convD(signalP + signal.startIndex, signal.step, kernelLast, -kernel.step, result.mutablePointer, result.step, vDSP_Length(resultSize), vDSP_Length(kernel.count))
+    }
     return result
 }
 
@@ -45,7 +47,9 @@ public func correlation<ML: LinearType, MR: LinearType where ML.Element == Doubl
 
     let resultSize = lhs.count - rhs.count + 1
     let result = ValueArray<Double>(count: resultSize)
-    vDSP_convD(lhs.pointer + lhs.startIndex, lhs.step, rhs.pointer + rhs.startIndex, rhs.step, result.mutablePointer, result.step, vDSP_Length(resultSize), vDSP_Length(rhs.count))
+    withPointers(lhs, rhs) { lhsp, rhsp in
+        vDSP_convD(lhsp + lhs.startIndex, lhs.step, rhsp + rhs.startIndex, rhs.step, result.mutablePointer, result.step, vDSP_Length(resultSize), vDSP_Length(rhs.count))
+    }
     return result
 }
 
@@ -62,8 +66,10 @@ public func autocorrelation<M: LinearType where M.Element == Double>(x: M, maxLa
 
     let signalSize = x.count + maxLag
     let signal = ValueArray<Double>(count: signalSize, repeatedValue: 0.0)
-    for i in 0..<x.count {
-        signal.mutablePointer[i] = x.pointer[x.startIndex + i*x.step]
+    withPointer(x) { xp in
+        for i in 0..<x.count {
+            signal.mutablePointer[i] = xp[x.startIndex + i*x.step]
+        }
     }
     return correlation(signal, x)
 }
@@ -78,10 +84,12 @@ result will have `N - M + 1` elements where `N` is the size of the signal and `M
 public func convolution<MS: LinearType, MK: LinearType where MS.Element == Float, MK.Element == Float>(signal: MS, _ kernel: MK) -> ValueArray<Float> {
     precondition(signal.count >= kernel.count, "The signal should have at least as many elements as the kernel")
 
-    let kernelLast = kernel.pointer + kernel.count - 1
     let resultSize = signal.count - kernel.count + 1
     let result = ValueArray<Float>(count: resultSize)
-    vDSP_conv(signal.pointer + signal.startIndex, signal.step, kernelLast, -kernel.step, result.mutablePointer, result.step, vDSP_Length(resultSize), vDSP_Length(kernel.count))
+    withPointers(signal, kernel) { signalP, kernelP in
+        let kernelLast = kernelP + kernel.count - 1
+        vDSP_conv(signalP + signal.startIndex, signal.step, kernelLast, -kernel.step, result.mutablePointer, result.step, vDSP_Length(resultSize), vDSP_Length(kernel.count))
+    }
     return result
 }
 
@@ -94,7 +102,9 @@ public func correlation<ML: LinearType, MR: LinearType where ML.Element == Float
 
     let resultSize = lhs.count - rhs.count + 1
     let result = ValueArray<Float>(count: resultSize)
-    vDSP_conv(lhs.pointer + lhs.startIndex, lhs.step, rhs.pointer + rhs.startIndex, rhs.step, result.mutablePointer, result.step, vDSP_Length(resultSize), vDSP_Length(rhs.count))
+    withPointers(lhs, rhs) { lhsp, rhsp in
+        vDSP_conv(lhsp + lhs.startIndex, lhs.step, rhsp + rhs.startIndex, rhs.step, result.mutablePointer, result.step, vDSP_Length(resultSize), vDSP_Length(rhs.count))
+    }
     return result
 }
 
@@ -111,8 +121,10 @@ public func autocorrelation<M: LinearType where M.Element == Float>(x: M, maxLag
 
     let signalSize = x.count + maxLag
     let signal = ValueArray<Float>(count: signalSize, repeatedValue: 0.0)
-    for i in 0..<x.count {
-        signal.mutablePointer[i] = x.pointer[x.startIndex + i*x.step]
+    withPointer(x) { xp in
+        for i in 0..<x.count {
+            signal.mutablePointer[i] = xp[x.startIndex + i*x.step]
+        }
     }
     return correlation(signal, x)
 }

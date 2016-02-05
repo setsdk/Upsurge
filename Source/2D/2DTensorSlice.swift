@@ -19,9 +19,10 @@
 // THE SOFTWARE.
 
 
-public class TwoDimensionalTensorSlice<Element: Value>: MutableQuadraticType, Equatable {
+public class TwoDimensionalTensorSlice<T: Value>: MutableQuadraticType, Equatable {
     public typealias Index = [Int]
     public typealias Slice = TwoDimensionalTensorSlice<Element>
+    public typealias Element = T
     
     public var arrangement: QuadraticArrangement {
         return .RowMajor
@@ -38,13 +39,21 @@ public class TwoDimensionalTensorSlice<Element: Value>: MutableQuadraticType, Eq
     
     var base: Tensor<Element>
     var span: Span
-    
-    public var pointer: UnsafePointer<Element> {
-        return base.pointer
+
+    public func withUnsafeBufferPointer<R>(@noescape body: (UnsafeBufferPointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafeBufferPointer(body)
     }
-    
-    public var mutablePointer: UnsafeMutablePointer<Element> {
-        return base.mutablePointer
+
+    public func withUnsafePointer<R>(@noescape body: (UnsafePointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafePointer(body)
+    }
+
+    public func withUnsafeMutableBufferPointer<R>(@noescape body: (UnsafeMutableBufferPointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafeMutableBufferPointer(body)
+    }
+
+    public func withUnsafeMutablePointer<R>(@noescape body: (UnsafeMutablePointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafeMutablePointer(body)
     }
     
     public var step: Int {

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		614A101D1C6519610033D201 /* PointerUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614A101C1C6519610033D201 /* PointerUtilities.swift */; };
+		614A101E1C6519610033D201 /* PointerUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614A101C1C6519610033D201 /* PointerUtilities.swift */; };
+		614A101F1C6519610033D201 /* PointerUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614A101C1C6519610033D201 /* PointerUtilities.swift */; };
 		614ACA7B1BD1CB7B00A1C13E /* Upsurge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 614ACA701BD1CB7B00A1C13E /* Upsurge.framework */; };
 		614ACAB81BD1CBB200A1C13E /* Upsurge.h in Headers */ = {isa = PBXBuildFile; fileRef = 614ACA9A1BD1CBB200A1C13E /* Upsurge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		614ACAD41BD1CBF300A1C13E /* Upsurge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 614ACACA1BD1CBF300A1C13E /* Upsurge.framework */; };
@@ -159,6 +162,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		614A101C1C6519610033D201 /* PointerUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointerUtilities.swift; sourceTree = "<group>"; };
 		614ACA701BD1CB7B00A1C13E /* Upsurge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Upsurge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		614ACA7A1BD1CB7B00A1C13E /* UpsurgeTests OSX.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UpsurgeTests OSX.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		614ACA9A1BD1CBB200A1C13E /* Upsurge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Upsurge.h; sourceTree = "<group>"; };
@@ -398,6 +402,7 @@
 				616832BA1BFE6AED00C4DC6D /* Exponential.swift */,
 				616832BB1BFE6AED00C4DC6D /* Hyperbolic.swift */,
 				616832BC1BFE6AED00C4DC6D /* Trigonometric.swift */,
+				614A101C1C6519610033D201 /* PointerUtilities.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -651,6 +656,7 @@
 				616832D31BFE6AED00C4DC6D /* DSP.swift in Sources */,
 				616832E11BFE6AED00C4DC6D /* Auxiliary.swift in Sources */,
 				8C8684D81C1E4341007306DB /* ComplexArrayRealSlice.swift in Sources */,
+				614A101D1C6519610033D201 /* PointerUtilities.swift in Sources */,
 				8C3D095C1C18E6DE009144CA /* TensorType.swift in Sources */,
 				616832BF1BFE6AED00C4DC6D /* ValueArraySlice.swift in Sources */,
 				8C8684DD1C1E4388007306DB /* ComplexArraySlice.swift in Sources */,
@@ -705,6 +711,7 @@
 				616832D41BFE6AED00C4DC6D /* DSP.swift in Sources */,
 				616832E21BFE6AED00C4DC6D /* Auxiliary.swift in Sources */,
 				8C8684D91C1E4341007306DB /* ComplexArrayRealSlice.swift in Sources */,
+				614A101E1C6519610033D201 /* PointerUtilities.swift in Sources */,
 				8C3D095D1C18E6DE009144CA /* TensorType.swift in Sources */,
 				616832C01BFE6AED00C4DC6D /* ValueArraySlice.swift in Sources */,
 				8C8684DE1C1E4388007306DB /* ComplexArraySlice.swift in Sources */,
@@ -759,6 +766,7 @@
 				61D046951C48BB7D00DB7279 /* Exponential.swift in Sources */,
 				61D046931C48BB7D00DB7279 /* Arithmetic.swift in Sources */,
 				61D046AB1C48BB9300DB7279 /* ComplexArrayRealSlice.swift in Sources */,
+				614A101F1C6519610033D201 /* PointerUtilities.swift in Sources */,
 				61D046A21C48BB8A00DB7279 /* Span.swift in Sources */,
 				61D046A11C48BB8A00DB7279 /* TensorType.swift in Sources */,
 				61D046AA1C48BB9300DB7279 /* ComplexArraySlice.swift in Sources */,

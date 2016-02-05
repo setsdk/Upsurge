@@ -50,12 +50,20 @@ public class ComplexArray<T: Real>: MutableLinearType, ArrayLiteralConvertible  
         return 1
     }
 
-    public var pointer: UnsafePointer<Element> {
-        return elements.pointer
+    public func withUnsafeBufferPointer<R>(@noescape body: (UnsafeBufferPointer<Element>) throws -> R) rethrows -> R {
+        return try elements.withUnsafeBufferPointer(body)
     }
 
-    public var mutablePointer: UnsafeMutablePointer<Element> {
-        return elements.mutablePointer
+    public func withUnsafePointer<R>(@noescape body: (UnsafePointer<Element>) throws -> R) rethrows -> R {
+        return try elements.withUnsafePointer(body)
+    }
+
+    public func withUnsafeMutableBufferPointer<R>(@noescape body: (UnsafeMutableBufferPointer<Element>) throws -> R) rethrows -> R {
+        return try elements.withUnsafeMutableBufferPointer(body)
+    }
+
+    public func withUnsafeMutablePointer<R>(@noescape body: (UnsafeMutablePointer<Element>) throws -> R) rethrows -> R {
+        return try elements.withUnsafeMutablePointer(body)
     }
 
     public var reals: ComplexArrayRealSlice<T> {
@@ -95,7 +103,7 @@ public class ComplexArray<T: Real>: MutableLinearType, ArrayLiteralConvertible  
     /// Construct a ComplexArray from an array literal
     public required init(arrayLiteral elements: Element...) {
         self.elements = ValueArray<Complex<T>>(count: elements.count)
-        mutablePointer.initializeFrom(elements)
+        self.elements.mutablePointer.initializeFrom(elements)
     }
 
     /// Construct a ComplexArray from contiguous memory
@@ -112,12 +120,12 @@ public class ComplexArray<T: Real>: MutableLinearType, ArrayLiteralConvertible  
         get {
             precondition(0 <= index && index < capacity)
             assert(index < count)
-            return pointer[index]
+            return elements[index]
         }
         set {
             precondition(0 <= index && index < capacity)
             assert(index < count)
-            mutablePointer[index] = newValue
+            elements[index] = newValue
         }
     }
     
@@ -151,27 +159,19 @@ public class ComplexArray<T: Real>: MutableLinearType, ArrayLiteralConvertible  
     }
 
     public func copy() -> ComplexArray {
-        let copy = ComplexArray(count: capacity)
-        copy.mutablePointer.initializeFrom(mutablePointer, count: count)
-        return copy
+        return ComplexArray(elements)
     }
 
     public func append(value: Element) {
-        precondition(count + 1 <= capacity)
-        mutablePointer[count] = value
-        count += 1
+        elements.append(value)
     }
 
     public func appendContentsOf<C : CollectionType where C.Generator.Element == Element>(values: C) {
-        precondition(count + Int(values.count.toIntMax()) <= capacity)
-        let endPointer = mutablePointer + count
-        endPointer.initializeFrom(values)
-        count += Int(values.count.toIntMax())
+        elements.appendContentsOf(values)
     }
 
     public func replaceRange<C: CollectionType where C.Generator.Element == Element>(subRange: Range<Index>, with newElements: C) {
-        assert(subRange.startIndex >= startIndex && subRange.endIndex <= endIndex)
-        (mutablePointer + subRange.startIndex).initializeFrom(newElements)
+        elements.replaceRange(subRange, with: newElements)
     }
 
     public func toRowMatrix() -> Matrix<Element> {

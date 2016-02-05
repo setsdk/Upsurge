@@ -28,7 +28,9 @@ public func sincos<M: LinearType where M.Element == Double>(x: M) -> (sin: Value
 
     let sin = ValueArray<Double>(count: x.count)
     let cos = ValueArray<Double>(count: x.count)
-    vvsincos(sin.mutablePointer + sin.startIndex, cos.mutablePointer + cos.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvsincos(sin.mutablePointer + sin.startIndex, cos.mutablePointer + cos.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return (sin, cos)
 }
@@ -38,7 +40,9 @@ public func sin<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Dou
     precondition(x.step == 1, "sin doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvsin(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvsin(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -48,7 +52,9 @@ public func cos<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Dou
     precondition(x.step == 1, "cos doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvcos(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvcos(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -58,7 +64,9 @@ public func tan<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Dou
     precondition(x.step == 1, "tan doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvtan(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvtan(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -68,7 +76,9 @@ public func asin<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Do
     precondition(x.step == 1, "asin doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvasin(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvasin(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -78,7 +88,9 @@ public func acos<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Do
     precondition(x.step == 1, "acos doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvacos(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvacos(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -88,7 +100,9 @@ public func atan<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Do
     precondition(x.step == 1, "atan doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvatan(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvatan(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -101,7 +115,9 @@ func rad2deg<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Double
 
     let results = ValueArray<Double>(count: x.count)
     let divisor = ValueArray(count: x.count, repeatedValue: M_PI / 180.0)
-    vvdiv(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, divisor.pointer, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvdiv(results.mutablePointer + results.startIndex, xp + x.startIndex, divisor.pointer, [Int32(x.count)])
+    }
 
     return results
 }
@@ -112,7 +128,9 @@ func deg2rad<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Double
 
     let results = ValueArray<Double>(count: x.count)
     let divisor = ValueArray(count: x.count, repeatedValue: 180.0 / M_PI)
-    vvdiv(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, divisor.pointer, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvdiv(results.mutablePointer + results.startIndex, xp + x.startIndex, divisor.pointer, [Int32(x.count)])
+    }
 
     return results
 }
@@ -126,7 +144,9 @@ public func sincos<M: LinearType where M.Element == Float>(x: M) -> (sin: ValueA
 
     let sin = ValueArray<Float>(count: x.count)
     let cos = ValueArray<Float>(count: x.count)
-    vvsincosf(sin.mutablePointer + sin.startIndex, cos.mutablePointer + cos.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvsincosf(sin.mutablePointer + sin.startIndex, cos.mutablePointer + cos.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return (sin, cos)
 }
@@ -136,7 +156,9 @@ public func sin<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Floa
     precondition(x.step == 1, "sin doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    vvsinf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvsinf(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -146,7 +168,9 @@ public func cos<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Floa
     precondition(x.step == 1, "cos doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    vvcosf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvcosf(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -156,7 +180,9 @@ public func tan<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Floa
     precondition(x.step == 1, "tan doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    vvtanf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvtanf(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -166,7 +192,9 @@ public func asin<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Flo
     precondition(x.step == 1, "asin doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    vvasinf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvasinf(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -176,7 +204,9 @@ public func acos<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Flo
     precondition(x.step == 1, "acos doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    vvacosf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvacosf(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -186,7 +216,9 @@ public func atan<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Flo
     precondition(x.step == 1, "atan doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    vvatanf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvatanf(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -199,7 +231,9 @@ func rad2deg<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> 
 
     let results = ValueArray<Float>(count: x.count)
     let divisor = ValueArray(count: x.count, repeatedValue: Float(M_PI / 180.0))
-    vvdivf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, divisor.pointer, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvdivf(results.mutablePointer + results.startIndex, xp + x.startIndex, divisor.pointer, [Int32(x.count)])
+    }
 
     return results
 }
@@ -210,7 +244,9 @@ func deg2rad<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> 
 
     let results = ValueArray<Float>(count: x.count)
     let divisor = ValueArray(count: x.count, repeatedValue: Float(180.0 / M_PI))
-    vvdivf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, divisor.pointer, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvdivf(results.mutablePointer + results.startIndex, xp + x.startIndex, divisor.pointer, [Int32(x.count)])
+    }
     
     return results
 }

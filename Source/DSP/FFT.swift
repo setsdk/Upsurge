@@ -24,8 +24,8 @@ public class FFTDouble {
     private var setup: FFTSetupD
     public private(set) var maxLength: vDSP_Length
 
-    private let real: ValueArray<Double>
-    private let imag: ValueArray<Double>
+    private var real: ValueArray<Double>
+    private var imag: ValueArray<Double>
 
     public init(inputLength: Int) {
         let maxLengthLog2 = vDSP_Length(ceil(log2(Double(inputLength))))
@@ -46,7 +46,7 @@ public class FFTDouble {
         let length = vDSP_Length(exp2(Double(lengthLog2)))
         precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
 
-        real.mutablePointer.assignFrom(UnsafeMutablePointer<Double>(input.pointer), count: input.count)
+        real.assignFrom(input)
         for i in 0..<input.count {
             imag.mutablePointer[i] = 0.0
         }
@@ -54,8 +54,10 @@ public class FFTDouble {
         var splitComplex = DSPDoubleSplitComplex(realp: real.mutablePointer, imagp: imag.mutablePointer)
         vDSP_fft_zipD(setup, &splitComplex, 1, lengthLog2, FFTDirection(FFT_FORWARD))
 
-        let result = ComplexArray<Double>(count: input.count/2)
-        vDSP_ztocD(&splitComplex, 1, UnsafeMutablePointer<DSPDoubleComplex>(result.mutablePointer), 1, length/2)
+        var result = ComplexArray<Double>(count: input.count/2)
+        withPointer(&result) { pointer in
+            vDSP_ztocD(&splitComplex, 1, UnsafeMutablePointer<DSPDoubleComplex>(pointer), 1, length/2)
+        }
 
         let scale = 2.0 / Double(input.count)
         return result * scale * scale
@@ -67,7 +69,7 @@ public class FFTDouble {
         let length = vDSP_Length(exp2(Double(lengthLog2)))
         precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
 
-        real.mutablePointer.assignFrom(UnsafeMutablePointer<Double>(input.pointer), count: input.count)
+        real.assignFrom(input)
         for i in 0..<input.count {
             imag.mutablePointer[i] = 0.0
         }
@@ -88,8 +90,8 @@ public class FFTFloat {
     private var setup: FFTSetup
     public private(set) var maxLength: vDSP_Length
 
-    private let real: ValueArray<Float>
-    private let imag: ValueArray<Float>
+    private var real: ValueArray<Float>
+    private var imag: ValueArray<Float>
 
     public init(inputLength: Int) {
         let maxLengthLog2 = vDSP_Length(ceil(log2(Float(inputLength))))
@@ -110,7 +112,7 @@ public class FFTFloat {
         let length = vDSP_Length(exp2(Float(lengthLog2)))
         precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
 
-        real.mutablePointer.assignFrom(UnsafeMutablePointer<Float>(input.pointer), count: input.count)
+        real.assignFrom(input)
         for i in 0..<input.count {
             imag.mutablePointer[i] = 0.0
         }
@@ -118,8 +120,10 @@ public class FFTFloat {
         var splitComplex = DSPSplitComplex(realp: real.mutablePointer, imagp: imag.mutablePointer)
         vDSP_fft_zip(setup, &splitComplex, 1, lengthLog2, FFTDirection(FFT_FORWARD))
 
-        let result = ComplexArray<Float>(count: input.count/2)
-        vDSP_ztoc(&splitComplex, 1, UnsafeMutablePointer<DSPComplex>(result.mutablePointer), 1, length/2)
+        var result = ComplexArray<Float>(count: input.count/2)
+        withPointer(&result) { pointer in
+            vDSP_ztoc(&splitComplex, 1, UnsafeMutablePointer<DSPComplex>(pointer), 1, length/2)
+        }
 
         let scale = 2.0 / Float(input.count)
         return result * scale * scale
@@ -131,7 +135,7 @@ public class FFTFloat {
         let length = vDSP_Length(exp2(Float(lengthLog2)))
         precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
 
-        real.mutablePointer.assignFrom(UnsafeMutablePointer<Float>(input.pointer), count: input.count)
+        real.assignFrom(input)
         for i in 0..<input.count {
             imag.mutablePointer[i] = 0.0
         }

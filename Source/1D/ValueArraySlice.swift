@@ -28,12 +28,20 @@ public struct ValueArraySlice<Element: Value>: MutableLinearType, CustomStringCo
     public var endIndex: Int
     public var step: Int
 
-    public var pointer: UnsafePointer<Element> {
-        return base.pointer
+    public func withUnsafeBufferPointer<R>(@noescape body: (UnsafeBufferPointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafeBufferPointer(body)
     }
 
-    public var mutablePointer: UnsafeMutablePointer<Element> {
-        return base.mutablePointer
+    public func withUnsafePointer<R>(@noescape body: (UnsafePointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafePointer(body)
+    }
+
+    public func withUnsafeMutableBufferPointer<R>(@noescape body: (UnsafeMutableBufferPointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafeMutableBufferPointer(body)
+    }
+
+    public func withUnsafeMutablePointer<R>(@noescape body: (UnsafeMutablePointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafeMutablePointer(body)
     }
 
     public init(base: ValueArray<Element>, startIndex: Int, endIndex: Int, step: Int) {
@@ -47,11 +55,11 @@ public struct ValueArraySlice<Element: Value>: MutableLinearType, CustomStringCo
     public subscript(index: Index) -> Element {
         get {
             assert(indexIsValid(index))
-            return pointer[index * step]
+            return base[index * step]
         }
         set {
             assert(indexIsValid(index))
-            mutablePointer[index * step] = newValue
+            base[index * step] = newValue
         }
     }
         

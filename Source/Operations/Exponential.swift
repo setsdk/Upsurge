@@ -27,7 +27,9 @@ public func exp<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Dou
     precondition(x.step == 1, "exp doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvexp(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvexp(results.mutablePointer, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -37,7 +39,9 @@ public func exp2<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Do
     precondition(x.step == 1, "exp2 doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvexp2(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvexp2(results.mutablePointer, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -47,7 +51,9 @@ public func log<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Dou
     precondition(x.step == 1, "log doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvlog(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvlog(results.mutablePointer, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -57,7 +63,9 @@ public func log2<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Do
     precondition(x.step == 1, "log2 doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvlog2(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvlog2(results.mutablePointer, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -67,7 +75,9 @@ public func log10<M: LinearType where M.Element == Double>(x: M) -> ValueArray<D
     precondition(x.step == 1, "log10 doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvlog10(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvlog10(results.mutablePointer, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -77,7 +87,9 @@ public func logb<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Do
     precondition(x.step == 1, "logb doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvlogb(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvlogb(results.mutablePointer, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -90,7 +102,9 @@ public func exp<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Floa
     precondition(x.step == 1, "exp doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    vvexpf(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvexpf(results.mutablePointer, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -100,7 +114,9 @@ public func exp2<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Flo
     precondition(x.step == 1, "exp2 doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    vvexp2f(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvexp2f(results.mutablePointer, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -110,7 +126,9 @@ public func log<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Floa
     precondition(x.step == 1, "log doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    vvlogf(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvlogf(results.mutablePointer, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -120,7 +138,9 @@ public func log2<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Flo
     precondition(x.step == 1, "log2 doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    vvlog2f(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvlog2f(results.mutablePointer, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -130,7 +150,9 @@ public func log10<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Fl
     precondition(x.step == 1, "log10 doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    vvlog10f(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvlog10f(results.mutablePointer, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -140,7 +162,9 @@ public func logb<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Flo
     precondition(x.step == 1, "logb doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    vvlogbf(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvlogbf(results.mutablePointer, xp + x.startIndex, [Int32(x.count)])
+    }
     
     return results
 }

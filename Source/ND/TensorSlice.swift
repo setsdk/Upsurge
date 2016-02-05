@@ -31,12 +31,20 @@ public class TensorSlice<Element: Value>: MutableTensorType, Equatable {
     
     var span: Span
 
-    public var pointer: UnsafePointer<Element> {
-        return base.pointer
+    public func withUnsafeBufferPointer<R>(@noescape body: (UnsafeBufferPointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafeBufferPointer(body)
     }
-    
-    public var mutablePointer: UnsafeMutablePointer<Element> {
-        return base.mutablePointer
+
+    public func withUnsafePointer<R>(@noescape body: (UnsafePointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafePointer(body)
+    }
+
+    public func withUnsafeMutableBufferPointer<R>(@noescape body: (UnsafeMutableBufferPointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafeMutableBufferPointer(body)
+    }
+
+    public func withUnsafeMutablePointer<R>(@noescape body: (UnsafeMutablePointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafeMutablePointer(body)
     }
     
     init(base: Tensor<Element>, span: Span) {

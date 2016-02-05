@@ -28,13 +28,21 @@ public class ComplexArraySlice<T: Real>: MutableLinearType  {
     public var startIndex: Index
     public var endIndex: Index
     public var step: Index
-    
-    public var pointer: UnsafePointer<Element> {
-        return base.pointer
+
+    public func withUnsafeBufferPointer<R>(@noescape body: (UnsafeBufferPointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafeBufferPointer(body)
     }
-    
-    public var mutablePointer: UnsafeMutablePointer<Element> {
-        return base.mutablePointer
+
+    public func withUnsafePointer<R>(@noescape body: (UnsafePointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafePointer(body)
+    }
+
+    public func withUnsafeMutableBufferPointer<R>(@noescape body: (UnsafeMutableBufferPointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafeMutableBufferPointer(body)
+    }
+
+    public func withUnsafeMutablePointer<R>(@noescape body: (UnsafeMutablePointer<Element>) throws -> R) rethrows -> R {
+        return try base.withUnsafeMutablePointer(body)
     }
     
     public var reals: ComplexArrayRealSlice<T> {
@@ -72,11 +80,11 @@ public class ComplexArraySlice<T: Real>: MutableLinearType  {
     public subscript(index: Index) -> Element {
         get {
             precondition(0 <= index && index < count)
-            return pointer[index]
+            return base[index]
         }
         set {
             precondition(0 <= index && index < count)
-            mutablePointer[index] = newValue
+            base[index] = newValue
         }
     }
     

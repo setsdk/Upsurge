@@ -28,12 +28,20 @@ public class Tensor<Element: Value>: MutableTensorType, Equatable {
     public var dimensions: [Int]
     public var elements: ValueArray<Element>
 
-    public var pointer: UnsafePointer<Element> {
-        return elements.pointer
+    public func withUnsafeBufferPointer<R>(@noescape body: (UnsafeBufferPointer<Element>) throws -> R) rethrows -> R {
+        return try elements.withUnsafeBufferPointer(body)
     }
 
-    public var mutablePointer: UnsafeMutablePointer<Element> {
-        return elements.mutablePointer
+    public func withUnsafePointer<R>(@noescape body: (UnsafePointer<Element>) throws -> R) rethrows -> R {
+        return try elements.withUnsafePointer(body)
+    }
+
+    public func withUnsafeMutableBufferPointer<R>(@noescape body: (UnsafeMutableBufferPointer<Element>) throws -> R) rethrows -> R {
+        return try elements.withUnsafeMutableBufferPointer(body)
+    }
+
+    public func withUnsafeMutablePointer<R>(@noescape body: (UnsafeMutablePointer<Element>) throws -> R) rethrows -> R {
+        return try elements.withUnsafeMutablePointer(body)
     }
     
     var span: Span {

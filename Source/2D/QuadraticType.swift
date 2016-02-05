@@ -31,9 +31,6 @@ public protocol QuadraticType: TensorType {
 
     /// The arrangement of rows and columns
     var arrangement: QuadraticArrangement { get }
-
-    /// The pointer to the beginning of the memory block
-    var pointer: UnsafePointer<Element> { get }
     
     /// The number of rows
     var rows: Int { get }
@@ -64,6 +61,4 @@ public extension QuadraticType {
 }
 
 public protocol MutableQuadraticType: QuadraticType, MutableTensorType {
-    /// The mutable pointer to the beginning of the memory block
-    var mutablePointer: UnsafeMutablePointer<Element> { get }
 }

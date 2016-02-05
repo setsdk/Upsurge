@@ -20,9 +20,10 @@
 
 import Accelerate
 
-public class Matrix<Element: Value>: MutableQuadraticType, Equatable, CustomStringConvertible {
+public class Matrix<T: Value>: MutableQuadraticType, Equatable, CustomStringConvertible {
     public typealias Index = (Int, Int)
     public typealias Slice = MatrixSlice<Element>
+    public typealias Element = T
     
     public var rows: Int
     public var columns: Int
@@ -31,13 +32,21 @@ public class Matrix<Element: Value>: MutableQuadraticType, Equatable, CustomStri
     var span: Span {
         return Span(zeroTo: dimensions)
     }
-    
-    public var pointer: UnsafePointer<Element> {
-        return elements.pointer
+
+    public func withUnsafeBufferPointer<R>(@noescape body: (UnsafeBufferPointer<Element>) throws -> R) rethrows -> R {
+        return try elements.withUnsafeBufferPointer(body)
     }
-    
-    public var mutablePointer: UnsafeMutablePointer<Element> {
-        return elements.mutablePointer
+
+    public func withUnsafePointer<R>(@noescape body: (UnsafePointer<Element>) throws -> R) rethrows -> R {
+        return try elements.withUnsafePointer(body)
+    }
+
+    public func withUnsafeMutableBufferPointer<R>(@noescape body: (UnsafeMutableBufferPointer<Element>) throws -> R) rethrows -> R {
+        return try elements.withUnsafeMutableBufferPointer(body)
+    }
+
+    public func withUnsafeMutablePointer<R>(@noescape body: (UnsafeMutablePointer<Element>) throws -> R) rethrows -> R {
+        return try elements.withUnsafeMutablePointer(body)
     }
 
     public var arrangement: QuadraticArrangement {
@@ -57,10 +66,12 @@ public class Matrix<Element: Value>: MutableQuadraticType, Equatable, CustomStri
         rows = quad.rows
         columns = quad.columns
         elements = ValueArray(count: rows * columns)
-        for row in 0..<rows {
-            let sourcePointer = UnsafeMutablePointer<Element>(quad.pointer + (row * quad.stride))
-            let destPointer = elements.mutablePointer + row * columns
-            destPointer.assignFrom(sourcePointer, count: columns)
+        quad.withUnsafeBufferPointer { pointer in
+            for row in 0..<rows {
+                let sourcePointer = UnsafeMutablePointer<Element>(pointer.baseAddress + (row * quad.stride))
+                let destPointer = elements.mutablePointer + row * columns
+                destPointer.assignFrom(sourcePointer, count: columns)
+            }
         }
     }
 

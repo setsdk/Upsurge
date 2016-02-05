@@ -21,22 +21,45 @@
 import Foundation
 
 
-public class MatrixSlice<Element: Value>: MutableQuadraticType, CustomStringConvertible, Equatable {
+public class MatrixSlice<T: Value>: MutableQuadraticType, CustomStringConvertible, Equatable {
     public typealias Index = (Int, Int)
     public typealias Slice = MatrixSlice<Element>
-    
+    public typealias Element = T
+
     public var rows: Int
     public var columns: Int
     
     public var base: Matrix<Element>
     var span: Span
-    
-    public var pointer: UnsafePointer<Element> {
-        return base.pointer + linearIndex(span.startIndex)
+
+    public func withUnsafeBufferPointer<R>(@noescape body: (UnsafeBufferPointer<Element>) throws -> R) rethrows -> R {
+        let index = linearIndex(span.startIndex)
+        return try base.withUnsafeBufferPointer { pointer in
+            let start = pointer.baseAddress + index
+            return try body(UnsafeBufferPointer(start: start, count: pointer.count - index))
+        }
     }
-    
-    public var mutablePointer: UnsafeMutablePointer<Element> {
-        return base.mutablePointer + linearIndex(span.startIndex)
+
+    public func withUnsafePointer<R>(@noescape body: (UnsafePointer<Element>) throws -> R) rethrows -> R {
+        let index = linearIndex(span.startIndex)
+        return try base.withUnsafePointer { pointer in
+            return try body(pointer + index)
+        }
+    }
+
+    public func withUnsafeMutableBufferPointer<R>(@noescape body: (UnsafeMutableBufferPointer<Element>) throws -> R) rethrows -> R {
+        let index = linearIndex(span.startIndex)
+        return try base.withUnsafeMutableBufferPointer { pointer in
+            let start = pointer.baseAddress + index
+            return try body(UnsafeMutableBufferPointer(start: start, count: pointer.count - index))
+        }
+    }
+
+    public func withUnsafeMutablePointer<R>(@noescape body: (UnsafeMutablePointer<Element>) throws -> R) rethrows -> R {
+        let index = linearIndex(span.startIndex)
+        return try base.withUnsafeMutablePointer { pointer in
+            return try body(pointer + index)
+        }
     }
     
     public var arrangement: QuadraticArrangement {

@@ -22,9 +22,6 @@
 public protocol LinearType: CollectionType, TensorType {
     typealias Element
 
-    /// The pointer to the beginning of the memory block
-    var pointer: UnsafePointer<Element> { get }
-
     /// The index of the first valid element
     var startIndex: Int { get }
 
@@ -59,9 +56,6 @@ internal extension LinearType {
 }
 
 public protocol MutableLinearType: LinearType, MutableTensorType {
-    /// The mutable pointer to the beginning of the memory block
-    var mutablePointer: UnsafeMutablePointer<Element> { get }
-
     subscript(position: Int) -> Element { get set }
 }
 
@@ -71,7 +65,7 @@ extension Array: LinearType {
     public var step: Int {
         return 1
     }
-    
+
     public init<C: LinearType where C.Generator.Element == Array.Element>(other: C) {
         self.init()
         
@@ -105,8 +99,10 @@ extension Array: LinearType {
             self[start..<end] = newValue
         }
     }
-    
-    public var pointer: UnsafePointer<Element> {
-        return withUnsafeBufferPointer{ return $0.baseAddress }
+
+    public func withUnsafePointer<R>(@noescape body: (UnsafePointer<Element>) throws -> R) rethrows -> R {
+        return try withUnsafeBufferPointer { pointer in
+            return try body(pointer.baseAddress)
+        }
     }
 }

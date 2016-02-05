@@ -23,7 +23,7 @@ public class ValueArray<Element: Value>: MutableLinearType, ArrayLiteralConverti
     public typealias Index = Int
     public typealias Slice = ValueArraySlice<Element>
 
-    public internal(set) var mutablePointer: UnsafeMutablePointer<Element>
+    var mutablePointer: UnsafeMutablePointer<Element>
     public internal(set) var capacity: Int
     public var count: Int
 
@@ -37,6 +37,22 @@ public class ValueArray<Element: Value>: MutableLinearType, ArrayLiteralConverti
 
     public var step: Index {
         return 1
+    }
+
+    public func withUnsafeBufferPointer<R>(@noescape body: (UnsafeBufferPointer<Element>) throws -> R) rethrows -> R {
+        return try body(UnsafeBufferPointer(start: mutablePointer, count: count))
+    }
+
+    public func withUnsafePointer<R>(@noescape body: (UnsafePointer<Element>) throws -> R) rethrows -> R {
+        return try body(mutablePointer)
+    }
+
+    public func withUnsafeMutableBufferPointer<R>(@noescape body: (UnsafeMutableBufferPointer<Element>) throws -> R) rethrows -> R {
+        return try body(UnsafeMutableBufferPointer(start: mutablePointer, count: count))
+    }
+
+    public func withUnsafeMutablePointer<R>(@noescape body: (UnsafeMutablePointer<Element>) throws -> R) rethrows -> R {
+        return try body(mutablePointer)
     }
 
     public var pointer: UnsafePointer<Element> {
@@ -70,8 +86,10 @@ public class ValueArray<Element: Value>: MutableLinearType, ArrayLiteralConverti
         mutablePointer = UnsafeMutablePointer<Element>.alloc(values.count)
         capacity = values.count
         count = values.count
-        for i in 0..<count {
-            mutablePointer[i] = values.pointer[values.startIndex + i * step]
+        values.withUnsafeBufferPointer { pointer in
+            for i in 0..<count {
+                mutablePointer[i] = pointer[values.startIndex + i * step]
+            }
         }
     }
 

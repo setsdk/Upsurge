@@ -27,7 +27,9 @@ public func sinh<C: LinearType where C.Element == Double>(x: C) -> ValueArray<Do
     precondition(x.step == 1, "sinh doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvsinh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvsinh(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -37,7 +39,9 @@ public func cosh<C: LinearType where C.Element == Double>(x: C) -> ValueArray<Do
     precondition(x.step == 1, "cosh doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvcosh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvcosh(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -47,7 +51,9 @@ public func tanh<C: LinearType where C.Element == Double>(x: C) -> ValueArray<Do
     precondition(x.step == 1, "tanh doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvtanh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvtanh(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -57,7 +63,9 @@ public func asinh<C: LinearType where C.Element == Double>(x: C) -> ValueArray<D
     precondition(x.step == 1, "asinh doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvasinh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvasinh(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -67,7 +75,9 @@ public func acosh<C: LinearType where C.Element == Double>(x: C) -> ValueArray<D
     precondition(x.step == 1, "acosh doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvacosh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvacosh(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -77,7 +87,9 @@ public func atanh<C: LinearType where C.Element == Double>(x: C) -> ValueArray<D
     precondition(x.step == 1, "atanh doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvatanh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvatanh(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -90,7 +102,9 @@ public func sinh<C: LinearType where C.Element == Float>(x: C) -> ValueArray<Flo
     precondition(x.step == 1, "sinh doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    vvsinhf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvsinhf(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -100,7 +114,9 @@ public func cosh<C: LinearType where C.Element == Float>(x: C) -> ValueArray<Flo
     precondition(x.step == 1, "cosh doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    vvcoshf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvcoshf(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -110,7 +126,9 @@ public func tanh<C: LinearType where C.Element == Float>(x: C) -> ValueArray<Flo
     precondition(x.step == 1, "tanh doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    vvtanhf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvtanhf(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -120,7 +138,9 @@ public func asinh<C: LinearType where C.Element == Float>(x: C) -> ValueArray<Fl
     precondition(x.step == 1, "asinh doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    vvasinhf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvasinhf(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -130,7 +150,9 @@ public func acosh<C: LinearType where C.Element == Float>(x: C) -> ValueArray<Fl
     precondition(x.step == 1, "acosh doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    vvacoshf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvacoshf(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 
     return results
 }
@@ -140,7 +162,9 @@ public func atanh<C: LinearType where C.Element == Float>(x: C) -> ValueArray<Fl
     precondition(x.step == 1, "atanh doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    vvatanhf(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    withPointer(x) { xp in
+        vvatanhf(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
     
     return results
 }
