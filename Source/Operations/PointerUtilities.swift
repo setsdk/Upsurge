@@ -64,7 +64,7 @@ public func withPointers<T1: MutableTensorType, T2: TensorType, R where T1.Eleme
 }
 
 /// Call `body(p1, p2)` with the pointers for the two types
-public func withPointers<T1: MutableTensorType, T2: MutableTensorType, R where T1.Element == T2.Element>(inout t1: T1, inout _ t2: T2, @noescape body: (UnsafeMutablePointer<T1.Element>, UnsafePointer<T2.Element>) throws -> R) rethrows -> R {
+public func withPointers<T1: MutableTensorType, T2: MutableTensorType, R where T1.Element == T2.Element>(inout t1: T1, inout _ t2: T2, @noescape body: (UnsafeMutablePointer<T1.Element>, UnsafeMutablePointer<T2.Element>) throws -> R) rethrows -> R {
     return try t1.withUnsafeMutableBufferPointer { p1 in
         return try t2.withUnsafeMutableBufferPointer { p2 in
             return try body(p1.baseAddress, p2.baseAddress)
