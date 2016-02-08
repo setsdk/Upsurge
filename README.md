@@ -17,7 +17,7 @@ Upsurge is a fork of [Surge](https://github.com/mattt/Surge) which was abandoned
 
 ## Installation
 
-Upsurge supports both Cocoapods (`pod 'Upsurge'`) and Carthage (`github "aleph7/Upsurge"`). 
+Upsurge supports both CocoaPods (`pod 'Upsurge'`) and Carthage (`github "aleph7/Upsurge"`). 
 
 
 ## Usage
