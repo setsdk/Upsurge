@@ -49,7 +49,7 @@ Finally there is a way of initializing both the capacity and the count of a `Val
 func operation(a: ValueArray<Double>) {
     let N = a.count
     let b = ValueArray<Double>(count: N)
-    vvsqrt(b.mutablePointer, a.pointer, [Int32(N)])
+    // ...
 }
 ```
 
