@@ -122,6 +122,7 @@ public func remainder<ML: LinearType, MR: LinearType where ML.Element == Double,
     return results
 }
 
+/// Compute the square root of every element in x, return a new `ValueArray` with the results.
 public func sqrt<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Double> {
     precondition(x.step == 1, "sqrt doesn't support step values other than 1")
     let results = ValueArray<Double>(count: x.count)
@@ -129,6 +130,15 @@ public func sqrt<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Do
         vvsqrt(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
     }
     return results
+}
+
+/// Compute the square root of every element in `x`, store the results in `y`.
+public func sqrt<MI: LinearType, MO: MutableLinearType where MI.Element == Double, MO.Element == Double>(x: MI, inout results: MO) {
+    precondition(x.step == 1, "sqrt doesn't support step values other than 1")
+    precondition(results.count == x.count, "The number of elements in x and y should match")
+    withPointers(x, &results) { xp, rp in
+        vvsqrt(rp + results.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 }
 
 public func dot<ML: LinearType, MR: LinearType where ML.Element == Double, MR.Element == Double>(lhs: ML, _ rhs: MR) -> Double {
@@ -244,6 +254,7 @@ public func remainder<ML: LinearType, MR: LinearType where ML.Element == Float, 
     return results
 }
 
+/// Compute the square root of every element in x, return a new `ValueArray` with the results.
 public func sqrt<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
     precondition(x.step == 1, "sqrt doesn't support step values other than 1")
     let results = ValueArray<Float>(count: x.count)
@@ -251,6 +262,15 @@ public func sqrt<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Flo
         vvsqrtf(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
     }
     return results
+}
+
+/// Compute the square root of every element in `x`, store the results in `y`.
+public func sqrt<MI: LinearType, MO: MutableLinearType where MI.Element == Float, MO.Element == Float>(x: MI, inout y: MO) {
+    precondition(x.step == 1, "sqrt doesn't support step values other than 1")
+    precondition(y.count == x.count, "The number of elements in x and y should match")
+    withPointers(x, &y) { xp, yp in
+        vvsqrtf(yp + y.startIndex, xp + x.startIndex, [Int32(x.count)])
+    }
 }
 
 public func dot<ML: LinearType, MR: LinearType where ML.Element == Float, MR.Element == Float>(lhs: ML, _ rhs: MR) -> Float {

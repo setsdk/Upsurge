@@ -41,7 +41,7 @@ public class FFTDouble {
     }
 
     /// Performs a real to complex forward FFT
-    public func forward<M: LinearType where M.Element == Double>(input: M) -> ComplexArray<Double> {
+    public func forward<M: LinearType where M.Element == Double>(input: M, inout output: ComplexArray<Double>) {
         let lengthLog2 = vDSP_Length(log2(Double(input.count)))
         let length = vDSP_Length(exp2(Double(lengthLog2)))
         precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
@@ -54,17 +54,18 @@ public class FFTDouble {
         var splitComplex = DSPDoubleSplitComplex(realp: real.mutablePointer, imagp: imag.mutablePointer)
         vDSP_fft_zipD(setup, &splitComplex, 1, lengthLog2, FFTDirection(FFT_FORWARD))
 
-        var result = ComplexArray<Double>(count: Int(length)/2)
-        withPointer(&result) { pointer in
+        precondition(output.capacity >= Int(length) / 2)
+        output.count = Int(length) / 2
+        withPointer(&output) { pointer in
             vDSP_ztocD(&splitComplex, 1, UnsafeMutablePointer<DSPDoubleComplex>(pointer), 1, length/2)
         }
 
         let scale = 2.0 / Double(input.count)
-        return result * scale
+        output *= scale
     }
 
     /// Performs a real to real forward FFT by taking the square magnitudes of the complex result
-    public func forwardMags<M: LinearType where M.Element == Double>(input: M) -> ValueArray<Double> {
+    public func forwardMags<M: LinearType where M.Element == Double>(input: M, inout output: ValueArray<Double>) {
         let lengthLog2 = vDSP_Length(log2(Double(input.count)))
         let length = vDSP_Length(exp2(Double(lengthLog2)))
         precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
@@ -77,11 +78,12 @@ public class FFTDouble {
         var splitComplex = DSPDoubleSplitComplex(realp: real.mutablePointer, imagp: imag.mutablePointer)
         vDSP_fft_zipD(setup, &splitComplex, 1, lengthLog2, FFTDirection(FFT_FORWARD))
 
-        let magnitudes = ValueArray<Double>(count: input.count/2)
-        vDSP_zvmagsD(&splitComplex, 1, magnitudes.mutablePointer, 1, length/2)
+        precondition(output.capacity >= input.count / 2)
+        output.count = input.count / 2
+        vDSP_zvmagsD(&splitComplex, 1, output.mutablePointer, 1, length/2)
 
         let scale = 2.0 / Double(input.count)
-        return magnitudes * scale * scale
+        output *= scale * scale
     }
 }
 

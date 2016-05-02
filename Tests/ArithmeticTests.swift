@@ -74,6 +74,18 @@ class ArithmeticTests: XCTestCase {
         measureAndValidateMappedFunctionWithAccuracy(values, member: { return sqrt($0) }, mapped: { $0.map{ sqrt($0) } }, accuracy: 0.0001)
     }
 
+    func testSqrtNoAlloc() {
+        let values = (0..<n).map{_ in Double(arc4random())}
+        var results = ValueArray<Double>(count: n)
+        measureBlock {
+            sqrt(values, results: &results)
+        }
+        for i in 0..<n {
+            XCTAssertEqualWithAccuracy(results[i], sqrt(values[i]), accuracy: 0.0001)
+        }
+    }
+
+
     func testAdd() {
         let a1: ValueArray<Double> = [1.0, 2.0, 3.0]
         let a2: ValueArray<Double> = [3.0, 2.0, 1.0, 0.0, -1.0]
@@ -127,5 +139,6 @@ class ArithmeticTests: XCTestCase {
         let a1: ValueArray<Double> = [1.0, 2.0, 3.0, 4.0, 5.0]
         let (slope, intercept) = linregress(a1, a1)
         XCTAssertEqual(slope, 1.0)
-        XCTAssertEqual(intercept, 0.0)  }
+        XCTAssertEqual(intercept, 0.0)
+    }
 }
