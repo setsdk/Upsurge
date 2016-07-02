@@ -145,7 +145,7 @@ public class ValueArray<Element: Value>: MutableLinearType, ArrayLiteralConverti
             let end = intervals[0].end ?? endIndex
             assert(startIndex <= start && end <= endIndex)
             for i in start..<end {
-                self[i] = newValue[i - start]
+                self[i] = newValue[newValue.startIndex + i - start]
             }
         }
     }

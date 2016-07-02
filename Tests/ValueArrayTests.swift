@@ -86,4 +86,13 @@ class RealArrayTests: XCTestCase {
         XCTAssertEqual(slice.endIndex, 9)
         XCTAssert(slice == ValueArray<Double>([5.0, 6.0, 7.0, 8.0]))
     }
+
+    func testAssignSlice() {
+        let array = ValueArray<Double>((0..<10).map({ Double($0) }))
+        let matrix = Matrix<Double>(rows: 5, columns: 10, elements: (0..<50).map({ Double($0) }))
+        let expected = ValueArray(matrix.row(2))
+
+        array[0..<10] = matrix.row(2)
+        XCTAssertEqual(array, expected)
+    }
 }

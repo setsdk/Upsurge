@@ -157,7 +157,7 @@ public class ComplexArray<T: Real>: MutableLinearType, ArrayLiteralConvertible  
             let end = intervals[0].end ?? endIndex
             assert(startIndex <= start && end <= endIndex)
             for i in start..<end {
-                self[i] = newValue[i - start]
+                self[i] = newValue[newValue.startIndex + i - start]
             }
         }
     }
