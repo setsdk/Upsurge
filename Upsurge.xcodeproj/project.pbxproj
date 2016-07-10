@@ -135,6 +135,7 @@
 		8CF208111BF6AA8300473B46 /* TensorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF2080D1BF6A8AC00473B46 /* TensorTests.swift */; };
 		8CF208131BF8005E00473B46 /* SpanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208121BF8005E00473B46 /* SpanTests.swift */; };
 		8CF208141BF8005E00473B46 /* SpanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208121BF8005E00473B46 /* SpanTests.swift */; };
+		A9523C221D2E2AE90055CAC5 /* Upsurge.h in Headers */ = {isa = PBXBuildFile; fileRef = 614ACA9A1BD1CBB200A1C13E /* Upsurge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -430,6 +431,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9523C221D2E2AE90055CAC5 /* Upsurge.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Upsurge'
-  s.version = '0.7.1'
+  s.version = '0.7.2'
   s.license = 'MIT'
   s.summary = 'Swift + Accelerate'
   s.homepage = 'https://github.com/aleph7/Upsurge'
