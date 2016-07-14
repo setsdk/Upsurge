@@ -22,8 +22,8 @@ import XCTest
 @testable import Upsurge
 
 class RangedIndexTests: XCTestCase {
-    var rangedDimension: Range<Int>?
-    var indexedDimension: Range<Int>?
+    var rangedDimension: CountableClosedRange<Int>?
+    var indexedDimension: CountableClosedRange<Int>?
     var rangedIndex: Span?
     
     override func setUp() {
@@ -58,7 +58,9 @@ class RangedIndexTests: XCTestCase {
             [1, 5, 4, 2, 0],
             [1, 5, 4, 3, 0]
         ]
-        
-        XCTAssertEqual(result, expected)
+
+        for (x, y) in zip(result, expected) {
+            XCTAssertEqual(x, y)
+        }
     }
 }

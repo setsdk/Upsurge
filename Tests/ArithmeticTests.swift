@@ -36,7 +36,7 @@ class ArithmeticTests: XCTestCase {
         }
 
         var actual: Double = 0.0
-        self.measureBlock {
+        self.measure {
             actual = sum(array)
         }
 
@@ -55,7 +55,7 @@ class ArithmeticTests: XCTestCase {
         }
 
         var actual: Double = 0.0
-        self.measureBlock {
+        self.measure {
             actual = sum(array)
         }
 
@@ -77,7 +77,7 @@ class ArithmeticTests: XCTestCase {
     func testSqrtNoAlloc() {
         let values = (0..<n).map{_ in Double(arc4random())}
         var results = ValueArray<Double>(count: n)
-        measureBlock {
+        measure {
             sqrt(values, results: &results)
         }
         for i in 0..<n {

@@ -57,7 +57,7 @@ class ComplexTests: XCTestCase {
         }
 
         var actual = Complex<Double>()
-        self.measureBlock {
+        self.measure {
             actual = sum(values)
         }
 

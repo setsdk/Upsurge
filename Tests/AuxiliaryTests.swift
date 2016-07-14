@@ -39,7 +39,7 @@ class AuxiliaryTests: XCTestCase {
         }
 
         var actual: ValueArray<Double> = []
-        self.measureBlock {
+        self.measure {
             actual = copysign(signs, magnitude: magnitudes)
         }
 

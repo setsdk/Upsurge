@@ -23,7 +23,7 @@ import Accelerate
 // MARK: - Double
 
 /// Compute the absolute value for each element in `x`, return a new `ValueArray` with the results
-public func abs<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Double> {
+public func abs<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { p in
         vDSP_vabsD(p + x.startIndex, x.step, results.mutablePointer + results.startIndex, results.step, vDSP_Length(x.count))
@@ -32,7 +32,7 @@ public func abs<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Dou
 }
 
 /// Compute the absolute value for each element in `x`, store the results in `results`
-public func abs<MI: LinearType, MO: MutableLinearType where MI.Element == Double, MO.Element == Double>(x: MI, inout results: MO) {
+public func abs<MI: LinearType, MO: MutableLinearType>(_ x: MI, results: inout MO) where MI.Element == Double, MO.Element == Double {
     precondition(x.count == results.count)
     withPointers(x, &results) { xp, rp in
         vDSP_vabsD(xp + x.startIndex, x.step, rp + results.startIndex, results.step, vDSP_Length(x.count))
@@ -40,7 +40,7 @@ public func abs<MI: LinearType, MO: MutableLinearType where MI.Element == Double
 }
 
 /// Compute the ceiling for each element in `x`, return a new `ValueArray` with the results
-public func ceil<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Double> {
+public func ceil<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
     precondition(x.step == 1, "ceil doesn't support step values other than 1")
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { p in
@@ -50,7 +50,7 @@ public func ceil<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Do
 }
 
 /// Compute the ceiling for each element in `x`, store the results in `results`
-public func ceil<MI: LinearType, MO: MutableLinearType where MI.Element == Double, MO.Element == Double>(x: MI, inout results: MO) {
+public func ceil<MI: LinearType, MO: MutableLinearType>(_ x: MI, results: inout MO) where MI.Element == Double, MO.Element == Double {
     precondition(x.step == 1, "ceil doesn't support step values other than 1")
     precondition(x.count == results.count)
     withPointers(x, &results) { xp, rp in
@@ -59,7 +59,7 @@ public func ceil<MI: LinearType, MO: MutableLinearType where MI.Element == Doubl
 }
 
 /// Clip every element in `x`, return a new `ValueArray` with the results
-public func clip<M: LinearType where M.Element == Double>(x: M, low: Double, high: Double) -> ValueArray<Double> {
+public func clip<M: LinearType>(_ x: M, low: Double, high: Double) -> ValueArray<Double> where M.Element == Double {
     var results = ValueArray<Double>(count: x.count), y = low, z = high
     withPointer(x) { p in
         vDSP_vclipD(p + x.startIndex, x.step, &y, &z, results.mutablePointer + results.startIndex, results.step, vDSP_Length(x.count))
@@ -68,7 +68,7 @@ public func clip<M: LinearType where M.Element == Double>(x: M, low: Double, hig
 }
 
 /// Clip every element in `x`, store the results in `results`
-public func clip<MI: LinearType, MO: MutableLinearType where MI.Element == Double, MO.Element == Double>(x: MI, low: Double, high: Double, inout results: MO) {
+public func clip<MI: LinearType, MO: MutableLinearType>(_ x: MI, low: Double, high: Double, results: inout MO) where MI.Element == Double, MO.Element == Double {
     precondition(x.count == results.count)
     var l = low, h = high
     withPointers(x, &results) { xp, yp in
@@ -77,7 +77,7 @@ public func clip<MI: LinearType, MO: MutableLinearType where MI.Element == Doubl
 }
 
 // Copy Sign
-public func copysign<M: LinearType where M.Element == Double>(sign: M, magnitude: M) -> ValueArray<Double> {
+public func copysign<M: LinearType>(_ sign: M, magnitude: M) -> ValueArray<Double> where M.Element == Double {
     precondition(sign.step == 1 && magnitude.step == 1, "copysign doesn't support step values other than 1")
     let results = ValueArray<Double>(count: sign.count)
     withPointers(sign, magnitude) { signPointer, magnitudePointer in
@@ -87,7 +87,7 @@ public func copysign<M: LinearType where M.Element == Double>(sign: M, magnitude
 }
 
 /// Compute the floor for each element in `x`, return a new `ValueArray` with the results
-public func floor<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Double> {
+public func floor<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
     precondition(x.step == 1, "floor doesn't support step values other than 1")
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { p in
@@ -97,7 +97,7 @@ public func floor<M: LinearType where M.Element == Double>(x: M) -> ValueArray<D
 }
 
 /// Compute the floor for each element in `x`, store the results in `results`
-public func floor<MI: LinearType, MO: MutableLinearType where MI.Element == Double, MO.Element == Double>(x: MI, inout results: MO) {
+public func floor<MI: LinearType, MO: MutableLinearType>(_ x: MI, results: inout MO) where MI.Element == Double, MO.Element == Double {
     precondition(x.step == 1, "floor doesn't support step values other than 1")
     precondition(x.count == results.count)
     withPointers(x, &results) { xp, rp in
@@ -106,7 +106,7 @@ public func floor<MI: LinearType, MO: MutableLinearType where MI.Element == Doub
 }
 
 /// Compute the negative of each element in `x`, return a new `ValueArray` with the results
-public func neg<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Double> {
+public func neg<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { p in
         vDSP_vnegD(p + x.startIndex, x.step, results.mutablePointer + results.startIndex, results.step, vDSP_Length(x.count))
@@ -115,7 +115,7 @@ public func neg<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Dou
 }
 
 /// Compute the negative of each element in `x`, store the results in `results`
-public func neg<MI: LinearType, MO: MutableLinearType where MI.Element == Double, MO.Element == Double>(x: MI, inout results: MO) {
+public func neg<MI: LinearType, MO: MutableLinearType>(_ x: MI, results: inout MO) where MI.Element == Double, MO.Element == Double {
     precondition(x.count == results.count)
     withPointers(x, &results) { xp, rp in
         vDSP_vnegD(xp + x.startIndex, x.step, rp + results.startIndex, results.step, vDSP_Length(x.count))
@@ -123,7 +123,7 @@ public func neg<MI: LinearType, MO: MutableLinearType where MI.Element == Double
 }
 
 /// Compute the reciprocal of each element in `x`, return a new `ValueArray` with the results
-public func rec<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Double> {
+public func rec<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
     precondition(x.step == 1, "rec doesn't support step values other than 1")
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { p in
@@ -133,7 +133,7 @@ public func rec<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Dou
 }
 
 /// Compute the reciprocal of each element in `x`, store the results in `results`
-public func rec<MI: LinearType, MO: MutableLinearType where MI.Element == Double, MO.Element == Double>(x: MI, inout results: MO) {
+public func rec<MI: LinearType, MO: MutableLinearType>(_ x: MI, results: inout MO) where MI.Element == Double, MO.Element == Double {
     precondition(x.step == 1, "rec doesn't support step values other than 1")
     precondition(x.count == results.count)
     withPointers(x, &results) { xp, rp in
@@ -142,7 +142,7 @@ public func rec<MI: LinearType, MO: MutableLinearType where MI.Element == Double
 }
 
 /// Round each element in `x`, return a new `ValueArray` with the results
-public func round<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Double> {
+public func round<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
     precondition(x.step == 1, "round doesn't support step values other than 1")
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { p in
@@ -152,7 +152,7 @@ public func round<M: LinearType where M.Element == Double>(x: M) -> ValueArray<D
 }
 
 /// Round each element in `x`, store the results in `results`
-public func round<MI: LinearType, MO: MutableLinearType where MI.Element == Double, MO.Element == Double>(x: MI, inout results: MO) {
+public func round<MI: LinearType, MO: MutableLinearType>(_ x: MI, results: inout MO) where MI.Element == Double, MO.Element == Double {
     precondition(x.step == 1, "round doesn't support step values other than 1")
     precondition(x.count == results.count)
     withPointers(x, &results) { xp, rp in
@@ -161,7 +161,7 @@ public func round<MI: LinearType, MO: MutableLinearType where MI.Element == Doub
 }
 
 /// Threshold each element in `x`, return a new `ValueArray` with the results
-public func threshold<M: LinearType where M.Element == Double>(x: M, low: Double) -> ValueArray<Double> {
+public func threshold<M: LinearType>(_ x: M, low: Double) -> ValueArray<Double> where M.Element == Double {
     var results = ValueArray<Double>(count: x.count), y = low
     withPointer(x) { p in
         vDSP_vthrD(p + x.startIndex, x.step, &y, results.mutablePointer + results.startIndex, results.step, vDSP_Length(x.count))
@@ -170,7 +170,7 @@ public func threshold<M: LinearType where M.Element == Double>(x: M, low: Double
 }
 
 /// Threshold each element in `x`, store the results in `results`
-public func threshold<MI: LinearType, MO: MutableLinearType where MI.Element == Double, MO.Element == Double>(x: MI, low: Double, inout results: MO) {
+public func threshold<MI: LinearType, MO: MutableLinearType>(_ x: MI, low: Double, results: inout MO) where MI.Element == Double, MO.Element == Double {
     precondition(x.count == results.count)
     var l = low
     withPointers(x, &results) { xp, rp in
@@ -179,7 +179,7 @@ public func threshold<MI: LinearType, MO: MutableLinearType where MI.Element == 
 }
 
 /// Truncate each element in `x`, return a new `ValueArray` with the results
-public func trunc<M: LinearType where M.Element == Double>(x: M) -> ValueArray<Double> {
+public func trunc<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
     precondition(x.step == 1, "trunc doesn't support step values other than 1")
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { p in
@@ -189,7 +189,7 @@ public func trunc<M: LinearType where M.Element == Double>(x: M) -> ValueArray<D
 }
 
 /// Truncate each element in `x`, store the results in `results`
-public func trunc<MI: LinearType, MO: MutableLinearType where MI.Element == Double, MO.Element == Double>(x: MI, low: Double, inout results: MO) {
+public func trunc<MI: LinearType, MO: MutableLinearType>(_ x: MI, low: Double, results: inout MO) where MI.Element == Double, MO.Element == Double {
     precondition(x.step == 1, "trunc doesn't support step values other than 1")
     precondition(x.count == results.count)
     withPointers(x, &results) { xp, rp in
@@ -198,7 +198,7 @@ public func trunc<MI: LinearType, MO: MutableLinearType where MI.Element == Doub
 }
 
 /// Compute `x^y` for each element of `x` and `y`, return a new `ValueArray` with the results
-public func pow<M: LinearType where M.Element == Double>(x: M, _ y: M) -> ValueArray<Double> {
+public func pow<M: LinearType>(_ x: M, _ y: M) -> ValueArray<Double> where M.Element == Double {
     precondition(x.step == 1, "pow doesn't support step values other than 1")
     let results = ValueArray<Double>(count: x.count)
     withPointers(x, y) { xp, yp in
@@ -208,7 +208,7 @@ public func pow<M: LinearType where M.Element == Double>(x: M, _ y: M) -> ValueA
 }
 
 /// Compute `x^y` for each element of `x` and `y`, store the results in `results`
-public func pow<MI: LinearType, MO: MutableLinearType where MI.Element == Double, MO.Element == Double>(x: MI, _ y: MI, inout results: MO) {
+public func pow<MI: LinearType, MO: MutableLinearType>(_ x: MI, _ y: MI, results: inout MO) where MI.Element == Double, MO.Element == Double {
     precondition(x.step == 1, "pow doesn't support step values other than 1")
     withPointers(x, y, &results) { xp, yp, rp in
         vvpow(rp + results.startIndex, xp + x.startIndex, yp + y.startIndex, [Int32(x.count)])
@@ -219,7 +219,7 @@ public func pow<MI: LinearType, MO: MutableLinearType where MI.Element == Double
 // MARK: - Float
 
 /// Compute the absolute value for each element in `x`, return a new `ValueArray` with the results
-public func abs<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+public func abs<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { p in
         vDSP_vabs(p + x.startIndex, x.step, results.mutablePointer + results.startIndex, results.step, vDSP_Length(x.count))
@@ -228,7 +228,7 @@ public func abs<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Floa
 }
 
 /// Compute the absolute value for each element in `x`, store the results in `results`
-public func abs<MI: LinearType, MO: MutableLinearType where MI.Element == Float, MO.Element == Float>(x: MI, inout results: MO) {
+public func abs<MI: LinearType, MO: MutableLinearType>(_ x: MI, results: inout MO) where MI.Element == Float, MO.Element == Float {
     precondition(x.count == results.count)
     withPointers(x, &results) { xp, rp in
         vDSP_vabs(xp + x.startIndex, x.step, rp + results.startIndex, results.step, vDSP_Length(x.count))
@@ -236,7 +236,7 @@ public func abs<MI: LinearType, MO: MutableLinearType where MI.Element == Float,
 }
 
 /// Compute the ceiling for each element in `x`, return a new `ValueArray` with the results
-public func ceil<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+public func ceil<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
     precondition(x.step == 1, "ceil doesn't support step values other than 1")
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { p in
@@ -246,7 +246,7 @@ public func ceil<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Flo
 }
 
 /// Compute the ceiling for each element in `x`, store the results in `results`
-public func ceil<MI: LinearType, MO: MutableLinearType where MI.Element == Float, MO.Element == Float>(x: MI, inout results: MO) {
+public func ceil<MI: LinearType, MO: MutableLinearType>(_ x: MI, results: inout MO) where MI.Element == Float, MO.Element == Float {
     precondition(x.step == 1, "ceil doesn't support step values other than 1")
     precondition(x.count == results.count)
     withPointers(x, &results) { xp, rp in
@@ -255,7 +255,7 @@ public func ceil<MI: LinearType, MO: MutableLinearType where MI.Element == Float
 }
 
 /// Clip every element in `x`, return a new `ValueArray` with the results
-public func clip<M: LinearType where M.Element == Float>(x: M, low: Float, high: Float) -> ValueArray<Float> {
+public func clip<M: LinearType>(_ x: M, low: Float, high: Float) -> ValueArray<Float> where M.Element == Float {
     var results = ValueArray<Float>(count: x.count), y = low, z = high
     withPointer(x) { p in
         vDSP_vclip(p + x.startIndex, x.step, &y, &z, results.mutablePointer + results.startIndex, results.step, vDSP_Length(x.count))
@@ -264,7 +264,7 @@ public func clip<M: LinearType where M.Element == Float>(x: M, low: Float, high:
 }
 
 /// Clip every element in `x`, store the results in `results`
-public func clip<MI: LinearType, MO: MutableLinearType where MI.Element == Float, MO.Element == Float>(x: MI, low: Float, high: Float, inout results: MO) {
+public func clip<MI: LinearType, MO: MutableLinearType>(_ x: MI, low: Float, high: Float, results: inout MO) where MI.Element == Float, MO.Element == Float {
     precondition(x.count == results.count)
     var l = low, h = high
     withPointers(x, &results) { xp, yp in
@@ -273,7 +273,7 @@ public func clip<MI: LinearType, MO: MutableLinearType where MI.Element == Float
 }
 
 // Copy Sign
-public func copysign<M: LinearType where M.Element == Float>(sign: M, magnitude: M) -> ValueArray<Float> {
+public func copysign<M: LinearType>(_ sign: M, magnitude: M) -> ValueArray<Float> where M.Element == Float {
     precondition(sign.step == 1 && magnitude.step == 1, "copysign doesn't support step values other than 1")
     let results = ValueArray<Float>(count: sign.count)
     withPointers(sign, magnitude) { signPointer, magnitudePointer in
@@ -283,7 +283,7 @@ public func copysign<M: LinearType where M.Element == Float>(sign: M, magnitude:
 }
 
 /// Compute the floor for each element in `x`, return a new `ValueArray` with the results
-public func floor<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+public func floor<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
     precondition(x.step == 1, "floor doesn't support step values other than 1")
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { p in
@@ -293,7 +293,7 @@ public func floor<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Fl
 }
 
 /// Compute the floor for each element in `x`, store the results in `results`
-public func floor<MI: LinearType, MO: MutableLinearType where MI.Element == Float, MO.Element == Float>(x: MI, inout results: MO) {
+public func floor<MI: LinearType, MO: MutableLinearType>(_ x: MI, results: inout MO) where MI.Element == Float, MO.Element == Float {
     precondition(x.step == 1, "floor doesn't support step values other than 1")
     precondition(x.count == results.count)
     withPointers(x, &results) { xp, rp in
@@ -302,7 +302,7 @@ public func floor<MI: LinearType, MO: MutableLinearType where MI.Element == Floa
 }
 
 /// Compute the negative of each element in `x`, return a new `ValueArray` with the results
-public func neg<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+public func neg<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { p in
         vDSP_vneg(p + x.startIndex, x.step, results.mutablePointer + results.startIndex, results.step, vDSP_Length(x.count))
@@ -311,7 +311,7 @@ public func neg<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Floa
 }
 
 /// Compute the negative of each element in `x`, store the results in `results`
-public func neg<MI: LinearType, MO: MutableLinearType where MI.Element == Float, MO.Element == Float>(x: MI, inout results: MO) {
+public func neg<MI: LinearType, MO: MutableLinearType>(_ x: MI, results: inout MO) where MI.Element == Float, MO.Element == Float {
     precondition(x.count == results.count)
     withPointers(x, &results) { xp, rp in
         vDSP_vneg(xp + x.startIndex, x.step, rp + results.startIndex, results.step, vDSP_Length(x.count))
@@ -319,7 +319,7 @@ public func neg<MI: LinearType, MO: MutableLinearType where MI.Element == Float,
 }
 
 /// Compute the reciprocal of each element in `x`, return a new `ValueArray` with the results
-public func rec<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+public func rec<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
     precondition(x.step == 1, "rec doesn't support step values other than 1")
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { p in
@@ -329,7 +329,7 @@ public func rec<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Floa
 }
 
 /// Compute the reciprocal of each element in `x`, store the results in `results`
-public func rec<MI: LinearType, MO: MutableLinearType where MI.Element == Float, MO.Element == Float>(x: MI, inout results: MO) {
+public func rec<MI: LinearType, MO: MutableLinearType>(_ x: MI, results: inout MO) where MI.Element == Float, MO.Element == Float {
     precondition(x.step == 1, "rec doesn't support step values other than 1")
     precondition(x.count == results.count)
     withPointers(x, &results) { xp, rp in
@@ -338,7 +338,7 @@ public func rec<MI: LinearType, MO: MutableLinearType where MI.Element == Float,
 }
 
 /// Round each element in `x`, return a new `ValueArray` with the results
-public func round<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+public func round<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
     precondition(x.step == 1, "round doesn't support step values other than 1")
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { p in
@@ -348,7 +348,7 @@ public func round<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Fl
 }
 
 /// Round each element in `x`, store the results in `results`
-public func round<MI: LinearType, MO: MutableLinearType where MI.Element == Float, MO.Element == Float>(x: MI, inout results: MO) {
+public func round<MI: LinearType, MO: MutableLinearType>(_ x: MI, results: inout MO) where MI.Element == Float, MO.Element == Float {
     precondition(x.step == 1, "round doesn't support step values other than 1")
     precondition(x.count == results.count)
     withPointers(x, &results) { xp, rp in
@@ -357,7 +357,7 @@ public func round<MI: LinearType, MO: MutableLinearType where MI.Element == Floa
 }
 
 /// Threshold each element in `x`, return a new `ValueArray` with the results
-public func threshold<M: LinearType where M.Element == Float>(x: M, low: Float) -> ValueArray<Float> {
+public func threshold<M: LinearType>(_ x: M, low: Float) -> ValueArray<Float> where M.Element == Float {
     var results = ValueArray<Float>(count: x.count), y = low
     withPointer(x) { p in
         vDSP_vthr(p + x.startIndex, x.step, &y, results.mutablePointer + results.startIndex, results.step, vDSP_Length(x.count))
@@ -366,7 +366,7 @@ public func threshold<M: LinearType where M.Element == Float>(x: M, low: Float) 
 }
 
 /// Threshold each element in `x`, store the results in `results`
-public func threshold<MI: LinearType, MO: MutableLinearType where MI.Element == Float, MO.Element == Float>(x: MI, low: Float, inout results: MO) {
+public func threshold<MI: LinearType, MO: MutableLinearType>(_ x: MI, low: Float, results: inout MO) where MI.Element == Float, MO.Element == Float {
     precondition(x.count == results.count)
     var l = low
     withPointers(x, &results) { xp, rp in
@@ -375,7 +375,7 @@ public func threshold<MI: LinearType, MO: MutableLinearType where MI.Element == 
 }
 
 /// Truncate each element in `x`, return a new `ValueArray` with the results
-public func trunc<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Float> {
+public func trunc<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
     precondition(x.step == 1, "trunc doesn't support step values other than 1")
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { p in
@@ -385,7 +385,7 @@ public func trunc<M: LinearType where M.Element == Float>(x: M) -> ValueArray<Fl
 }
 
 /// Truncate each element in `x`, store the results in `results`
-public func trunc<MI: LinearType, MO: MutableLinearType where MI.Element == Float, MO.Element == Float>(x: MI, low: Float, inout results: MO) {
+public func trunc<MI: LinearType, MO: MutableLinearType>(_ x: MI, low: Float, results: inout MO) where MI.Element == Float, MO.Element == Float {
     precondition(x.step == 1, "trunc doesn't support step values other than 1")
     precondition(x.count == results.count)
     withPointers(x, &results) { xp, rp in
@@ -394,7 +394,7 @@ public func trunc<MI: LinearType, MO: MutableLinearType where MI.Element == Floa
 }
 
 /// Compute `x^y` for each element of `x` and `y`, return a new `ValueArray` with the results
-public func pow<M: LinearType where M.Element == Float>(x: M, _ y: M) -> ValueArray<Float> {
+public func pow<M: LinearType>(_ x: M, _ y: M) -> ValueArray<Float> where M.Element == Float {
     precondition(x.step == 1, "pow doesn't support step values other than 1")
     let results = ValueArray<Float>(count: x.count)
     withPointers(x, y) { xp, yp in
@@ -404,7 +404,7 @@ public func pow<M: LinearType where M.Element == Float>(x: M, _ y: M) -> ValueAr
 }
 
 /// Compute `x^y` for each element of `x` and `y`, store the results in `results`
-public func pow<MI: LinearType, MO: MutableLinearType where MI.Element == Float, MO.Element == Float>(x: MI, _ y: MI, inout results: MO) {
+public func pow<MI: LinearType, MO: MutableLinearType>(_ x: MI, _ y: MI, results: inout MO) where MI.Element == Float, MO.Element == Float {
     precondition(x.step == 1, "pow doesn't support step values other than 1")
     withPointers(x, y, &results) { xp, yp, rp in
         vvpowf(rp + results.startIndex, xp + x.startIndex, yp + y.startIndex, [Int32(x.count)])

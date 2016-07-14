@@ -41,7 +41,7 @@ class TensorTests: XCTestCase {
     
     func testSliceAndSubscript() {
         let slice1 = diagonalTensor3D[3...3, 2...3, 2...3]
-        let slice2 = diagonalTensor4D[1...1, 1...1, Interval.All, Interval.All]
+        let slice2 = diagonalTensor4D[1...1, 1...1, Interval.all, Interval.all]
         let slice3 = diagonalTensor4D.asMatrix(1...1, 1...1, 0...1, 0...1)
 
         XCTAssertEqual(slice1, slice2)
@@ -59,14 +59,14 @@ class TensorTests: XCTestCase {
     
     func testSliceValueAssignment() {
         let tensor = Tensor(dimensions: [2, 2, 2, 2], elements: [6.4, 2.4, 8.6, 0.2, 6.4, 1.5, 7.3, 1.1, 6.0, 1.4, 7.8, 9.2, 4.2, 6.1, 8.7, 3.6] as ValueArray<Double>)
-        diagonalTensor4D[Interval(integerLiteral: 1), Interval.All, Interval(range: 0...1), Interval(range: 0...1)] = tensor[Interval(integerLiteral: 0), Interval(range: 0...1), Interval.All, Interval(range: 0...1)]
+        diagonalTensor4D[Interval(integerLiteral: 1), Interval.all, Interval(range: 0...1), Interval(range: 0...1)] = tensor[Interval(integerLiteral: 0), Interval(range: 0...1), Interval.all, Interval(range: 0...1)]
 
         let expected = Tensor(dimensions: [2, 2, 2, 2], elements: [1, 0, 0, 0, 0, 0, 0, 0, 6.4, 2.4, 8.6, 0.2, 6.4, 1.5, 7.3, 1.1] as ValueArray<Double>)
         XCTAssertEqual(diagonalTensor4D, expected)
     }
     
     func testMatrixExtraction() {
-        var matrix = diagonalTensor4D.asMatrix(Interval(integerLiteral: 1), Interval(integerLiteral: 1), Interval(range: 0...1), Interval(range: 0...1))
+        var matrix = diagonalTensor4D.asMatrix(1...1, 1...1, 0...1, 0...1)
         var expected = Matrix<Double>([[0, 0], [0, 1]])
         XCTAssert(matrix == expected)
         
@@ -76,17 +76,17 @@ class TensorTests: XCTestCase {
     }
     
     func testContinuity() {
-        XCTAssert(diagonalTensor3D[1...4, Interval.All, Interval.All].isContiguous)
+        XCTAssert(diagonalTensor3D[1...4, Interval.all, Interval.all].isContiguous)
         XCTAssert(diagonalTensor3D[4...4, 2...2, 1...2].isContiguous)
-        XCTAssert(diagonalTensor3D[1...1, 4...4, Interval.All].isContiguous)
-        XCTAssert(diagonalTensor3D[1...1, Interval.All, Interval.All].isContiguous)
-        XCTAssert(diagonalTensor3D[1...1, 2...3, Interval.All].isContiguous)
+        XCTAssert(diagonalTensor3D[1...1, 4...4, Interval.all].isContiguous)
+        XCTAssert(diagonalTensor3D[1...1, Interval.all, Interval.all].isContiguous)
+        XCTAssert(diagonalTensor3D[1...1, 2...3, Interval.all].isContiguous)
     }
     
     func testNoContinuity() {
         XCTAssertFalse(diagonalTensor3D[1...2, 3...4, 1...1].isContiguous)
-        XCTAssertFalse(diagonalTensor3D[Interval.All, 3...4, Interval.All].isContiguous)
-        XCTAssertFalse(diagonalTensor3D[1...1, Interval.All, 1...1].isContiguous)
-        XCTAssertFalse(diagonalTensor3D[Interval.All, 1...1, 1...1].isContiguous)
+        XCTAssertFalse(diagonalTensor3D[Interval.all, 3...4, Interval.all].isContiguous)
+        XCTAssertFalse(diagonalTensor3D[1...1, Interval.all, 1...1].isContiguous)
+        XCTAssertFalse(diagonalTensor3D[Interval.all, 1...1, 1...1].isContiguous)
     }
 }
