@@ -1,4 +1,18 @@
 language: objective-c
-xcode_workspace: Upsurge.xcworkspace
-xcode_scheme: Upsurge OSX
+os: osx
 osx_image: xcode7.3
+
+before_install:
+    - gem install xcpretty -N --no-ri --no-rdoc
+
+env:
+    global:
+        - COCOAPODS_DISABLE_DETERMINISTIC_UUIDS=1
+
+script:
+    - set -o pipefail
+    - xcodebuild clean test -workspace Upsurge.xcworkspace -scheme "Upsurge OSX" | xcpretty
+    - xcodebuild clean test -workspace Upsurge.xcworkspace -scheme "Upsurge iOS" -sdk iphonesimulator | xcpretty
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
