@@ -8,7 +8,7 @@ let arraySum = sum(array)
 let a: ValueArray<Double> = [1.0, 3.0, 5.0, 7.0]
 let b: ValueArray<Double> = [2.0, 4.0, 6.0, 8.0]
 let c = a + b
-//: You can also perform operation that are unique to `ValueArray`. This is how you would compute the dot product between two arrays
+//: You can also perform operations that are unique to `ValueArray`. This is how you would compute the dot product between two arrays
 let product = a • b
 //: You can also perform operations on parts of an array using the usual slice syntax
 let d = a[0..<2] + b[2..<4]
