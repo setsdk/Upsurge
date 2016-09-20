@@ -1,7 +1,5 @@
 # Upsurge
 
-[![Build Status](https://travis-ci.org/aleph7/Upsurge.svg?branch=master)](https://travis-ci.org/aleph7/Upsurge)
-
 Upsurge is a math utilities library. It provides support for linear operations on vectors and matrices, and slicing of higher-dimensional tensors. It relies on [Accelerate](https://developer.apple.com/library/mac/documentation/Accelerate/Reference/AccelerateFWRef/index.html#//apple_ref/doc/uid/TP40009465), which is a framework that provides high-performance functions for matrix math, digital signal processing, and image manipulation by harnessing [SIMD](http://en.wikipedia.org/wiki/SIMD) instructions available in modern CPUs.
 
 Upsurge is a fork of [Surge](https://github.com/mattt/Surge) which was abandoned for a while. Upsurge supports tensors and has better support for matrices and arrays. It provides a custom `ValueArray` class as an alternative to Swift's built-in `Array`. It being a `class` instead of a `struct` means that you can manage when and if it gets copied, making memory management more explicit. This also allows defining the `+=` operator to mean addition instead of concatenation.
