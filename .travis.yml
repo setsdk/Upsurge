@@ -7,7 +7,6 @@ before_install:
 
 script:
     - set -o pipefail
-    - pod install
     - xcodebuild clean build test -workspace Upsurge.xcworkspace -scheme "Upsurge OSX"
     - xcodebuild clean build test -workspace Upsurge.xcworkspace -scheme "Upsurge iOS" -sdk iphonesimulator
 
