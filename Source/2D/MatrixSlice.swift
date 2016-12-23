@@ -20,7 +20,6 @@
 
 import Foundation
 
-
 open class MatrixSlice<T: Value>: MutableQuadraticType, CustomStringConvertible, Equatable {
     public typealias Index = (Int, Int)
     public typealias Slice = MatrixSlice<Element>
@@ -28,7 +27,7 @@ open class MatrixSlice<T: Value>: MutableQuadraticType, CustomStringConvertible,
 
     open var rows: Int
     open var columns: Int
-    
+
     open var base: Matrix<Element>
     open var span: Span
 
@@ -61,15 +60,15 @@ open class MatrixSlice<T: Value>: MutableQuadraticType, CustomStringConvertible,
             return try body(pointer + index)
         }
     }
-    
+
     open var arrangement: QuadraticArrangement {
         return .rowMajor
     }
-    
+
     open var stride: Int {
         return base.dimensions[1]
     }
-    
+
     open var step: Int {
         return base.elements.step
     }
@@ -78,11 +77,11 @@ open class MatrixSlice<T: Value>: MutableQuadraticType, CustomStringConvertible,
         assert(Span(zeroTo: base.dimensions).contains(span))
         self.base = base
         self.span = span
-        
+
         rows = span.dimensions[0]
         columns = span.dimensions[1]
     }
-    
+
     open subscript(indices: Int...) -> Element {
         get {
             return self[indices]
@@ -91,7 +90,7 @@ open class MatrixSlice<T: Value>: MutableQuadraticType, CustomStringConvertible,
             self[indices] = newValue
         }
     }
-    
+
     open subscript(indices: [Int]) -> Element {
         get {
             assert(indices.count == 2)
@@ -102,7 +101,7 @@ open class MatrixSlice<T: Value>: MutableQuadraticType, CustomStringConvertible,
             base[indices] = newValue
         }
     }
-    
+
     fileprivate subscript(span: Span) -> Slice {
         get {
             assert(self.span.contains(span))
@@ -116,7 +115,7 @@ open class MatrixSlice<T: Value>: MutableQuadraticType, CustomStringConvertible,
             }
         }
     }
-    
+
     open subscript(intervals: IntervalType...) -> Slice {
         get {
             return self[intervals]
@@ -125,7 +124,7 @@ open class MatrixSlice<T: Value>: MutableQuadraticType, CustomStringConvertible,
             self[intervals] = newValue
         }
     }
-    
+
     open subscript(intervals: [IntervalType]) -> Slice {
         get {
             let span = Span(base: self.span, intervals: intervals)
@@ -136,7 +135,7 @@ open class MatrixSlice<T: Value>: MutableQuadraticType, CustomStringConvertible,
             self[span] = newValue
         }
     }
-    
+
     open func indexIsValid(_ indices: [Int]) -> Bool {
         assert(indices.count == dimensions.count)
         for (i, index) in indices.enumerated() {
@@ -146,13 +145,13 @@ open class MatrixSlice<T: Value>: MutableQuadraticType, CustomStringConvertible,
         }
         return true
     }
-    
+
     open var description: String {
         var description = ""
-        
+
         for i in 0..<rows {
-            let contents = (0..<columns).map{"\(self[Interval(integerLiteral: span.startIndex[0] + i), Interval(integerLiteral: span.startIndex[1] + $0)])"}.joined(separator: "\t")
-            
+            let contents = (0..<columns).map {"\(self[Interval(integerLiteral: span.startIndex[0] + i), Interval(integerLiteral: span.startIndex[1] + $0)])"}.joined(separator: "\t")
+
             switch (i, rows) {
             case (0, 1):
                 description += "(\t\(contents)\t)"
@@ -163,10 +162,10 @@ open class MatrixSlice<T: Value>: MutableQuadraticType, CustomStringConvertible,
             default:
                 description += "⎜\t\(contents)\t⎥"
             }
-            
+
             description += "\n"
         }
-        
+
         return description
     }
 }
@@ -222,4 +221,3 @@ public func ==<T>(lhs: MatrixSlice<T>, rhs: TwoDimensionalTensorSlice<T>) -> Boo
     }
     return true
 }
-
