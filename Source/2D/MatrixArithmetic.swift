@@ -69,10 +69,11 @@ public func inv<M: QuadraticType>(_ x: M) -> Matrix<Double> where M.Element == D
 public func normalize<M: QuadraticType>(_ x: M) -> Matrix<Double> where M.Element == Double {
 
     let inputMatrix = Matrix<Double>(x)
-    var individualVectors: [[Double]] = []
 
-    for i in (0..<inputMatrix .columns) {
-        let length = Int32(inputMatrix .column(i).count)
+    var individualVectors: [[Double]] = []
+    
+    for i in 0..<inputMatrix.columns {
+        let length = Int32(inputMatrix.column(i).count)
         let vector = ValueArray(inputMatrix.column(i)).map {Float($0)}
 
         // Calculate l2-norm
@@ -82,9 +83,8 @@ public func normalize<M: QuadraticType>(_ x: M) -> Matrix<Double> where M.Elemen
     }
 
     // Create a new matrix that will hold the normalized individual columns
-    let results = Matrix<Double>(individualVectors)
 
-    return results
+    return Matrix(individualVectors)
 }
 
 public func transpose<M: QuadraticType>(_ x: M) -> Matrix<Double> where M.Element == Double {
@@ -210,10 +210,11 @@ public func inv<M: QuadraticType>(_ x: M) -> Matrix<Float> where M.Element == Fl
 public func normalize<M: QuadraticType>(_ x: M) -> Matrix<Float> where M.Element == Float {
 
     let inputMatrix = Matrix<Float>(x)
-    var individualVectors: [[Float]] = []
 
-    for i in (0..<inputMatrix .columns) {
-        let length = Int32(inputMatrix .column(i).count)
+    var individualVectors: [[Float]] = []
+    
+    for i in 0..<inputMatrix.columns {
+        let length = Int32(inputMatrix.column(i).count)
         let vector = ValueArray(inputMatrix.column(i))
 
         // Calculate l2-norm

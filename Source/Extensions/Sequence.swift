@@ -18,46 +18,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-public enum QuadraticArrangement {
-    /// Consecutive elements in a rows are contiguous in memory
-    case rowMajor
+import Foundation
 
-    /// Consecutive elements in a column are contiguous in memory
-    case columnMajor
-}
-
-public protocol QuadraticType: TensorType {
-
-    /// The arrangement of rows and columns
-    var arrangement: QuadraticArrangement { get }
-
-    /// The number of rows
-    var rows: Int { get }
-
-    /// The number of columns
-    var columns: Int { get }
-
-    /// The step size between major-axis elements
-    var stride: Int { get }
-
-    /// The step of the base elements
-    var step: Int { get }
-}
-
-public extension QuadraticType {
-    /// The number of valid element in the memory block, taking into account the step size.
-    public var count: Int {
-        return rows * columns
-    }
-
-    public var dimensions: [Int] {
-        if arrangement == .rowMajor {
-            return [rows, columns]
-        } else {
-            return [columns, rows]
+extension Sequence {
+    func all(predicate: (Iterator.Element) -> Bool) -> Bool {
+        for e in self where !predicate(e) {
+            return false
         }
+        return true
     }
 }
 
-public protocol MutableQuadraticType: QuadraticType, MutableTensorType {
+internal extension Collection {
+    func indexIsValid(_ index: Index) -> Bool {
+        return (startIndex..<endIndex).contains(index)
+    }
 }

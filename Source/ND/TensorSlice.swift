@@ -22,9 +22,9 @@ open class TensorSlice<Element: Value>: MutableTensorType, Equatable {
     public typealias Index = [Int]
     public typealias Slice = TensorSlice<Element>
 
-    var base: Tensor<Element>
+    open let base: Tensor<Element>
 
-    open var span: Span
+    open let span: Span
 
     open func withUnsafeBufferPointer<R>(_ body: (UnsafeBufferPointer<Element>) throws -> R) rethrows -> R {
         return try base.withUnsafeBufferPointer(body)
@@ -99,11 +99,11 @@ open class TensorSlice<Element: Value>: MutableTensorType, Equatable {
 
     subscript(span: Span) -> Slice {
         get {
-            assert(self.span.contains(span))
+            assert(span.contains(span))
             return TensorSlice(base: base, span: span)
         }
         set {
-            assert(self.span.contains(span))
+            assert(span.contains(span))
             assert(span ≅ newValue.span)
             for (lhsIndex, rhsIndex) in zip(span, newValue.span) {
                 base[lhsIndex] = newValue[rhsIndex]
@@ -112,16 +112,10 @@ open class TensorSlice<Element: Value>: MutableTensorType, Equatable {
     }
 
     open var isContiguous: Bool {
-        let onesCount: Int
-        if let index = dimensions.index(where: { $0 != 1 }) {
-            onesCount = index
-        } else {
-            onesCount = rank
-        }
-
-        let diff = (0..<rank).map({ dimensions[$0] - base.dimensions[$0] }).reversed()
+        let onesCount: Int = (dimensions.index { $0 != 1 }) ?? rank
+        let diff = (0..<rank).map { dimensions[$0] - base.dimensions[$0] }.reversed()
         let fullCount: Int
-        if let index = diff.index(where: { $0 != 0 }), index.base < count {
+        if let index = (diff.index { $0 != 0 }), index.base < count {
             fullCount = rank - index.base
         } else {
             fullCount = rank
@@ -132,26 +126,12 @@ open class TensorSlice<Element: Value>: MutableTensorType, Equatable {
 
     open func indexIsValid(_ indices: [Int]) -> Bool {
         assert(indices.count == dimensions.count)
-        for (i, index) in indices.enumerated() {
-            if index < span[i].lowerBound || span[i].upperBound < index {
-                return false
-            }
-        }
-        return true
+        return indices.enumerated().all { (i,index) in self.span[i].contains(index) }
     }
 }
 
 // MARK: - Equatable
 
 public func ==<L: TensorType, R: TensorType>(lhs: L, rhs: R) -> Bool where L.Element == R.Element, L.Element: Equatable {
-    if !(lhs.span ≅ rhs.span) {
-        return false
-    }
-
-    for (lhsIndex, rhsIndex) in zip(lhs.span, rhs.span) {
-        if lhs[lhsIndex] != rhs[rhsIndex] {
-            return false
-        }
-    }
-    return true
+    return lhs.span ≅ rhs.span && zip(lhs.span, rhs.span).all { lhs[$0] == rhs[$1] }
 }
