@@ -19,10 +19,14 @@
 // THE SOFTWARE.
 
 /// A `ValueArray` is similar to an `Array` but it's a `class` instead of a `struct` and it has a fixed size. As opposed to an `Array`, assigning a `ValueArray` to a new variable will not create a copy, it only creates a new reference. If any reference is modified all other references will reflect the change. To copy a `ValueArray` you have to explicitly call `copy()`.
-open class ValueArray<Element: Value>: MutableLinearType, ExpressibleByArrayLiteral, CustomStringConvertible, Equatable {
+open class ValueArray<Element: Value>: MutableLinearType, ExpressibleByArrayLiteral, CustomStringConvertible, Equatable, RangeReplaceableCollection {
     public typealias Index = Int
     public typealias IndexDistance = Int
     public typealias Slice = ValueArraySlice<Element>
+
+    convenience required public init() {
+      self.init(count: 0)
+    }
 
     internal(set) var mutablePointer: UnsafeMutablePointer<Element>
     open internal(set) var capacity: IndexDistance
@@ -166,36 +170,29 @@ open class ValueArray<Element: Value>: MutableLinearType, ExpressibleByArrayLite
         }
     }
 
-    open func index(after i: Index) -> Index {
-        return i + 1
-    }
-
-    open func formIndex(after i: inout Index) {
-        i += 1
-    }
-
     open func copy() -> ValueArray {
         let copy = ValueArray(count: capacity)
         copy.mutablePointer.initialize(from: mutablePointer, count: count)
         return copy
     }
 
-    open func append(_ value: Element) {
+    open func append(_ newElement: Element) {
         precondition(count + 1 <= capacity)
-        mutablePointer[count] = value
+        mutablePointer[count] = newElement
         count += 1
     }
 
-    open func appendContentsOf<C: Collection>(_ values: C) where C.Iterator.Element == Element {
-        precondition(count + Int(values.count.toIntMax()) <= capacity)
+    open func append<S : Sequence>(contentsOf newElements: S) where S.Iterator.Element == Element {
+        let a = Array(newElements)
+        precondition(count + a.count <= capacity)
         let endPointer = mutablePointer + count
-        endPointer.initialize(from: values)
-        count += Int(values.count.toIntMax())
+        endPointer.initialize(from: a)
+        count += a.count
     }
 
-    open func replaceRange<C: Collection>(_ subRange: Range<Index>, with newElements: C) where C.Iterator.Element == Element {
-        assert(subRange.lowerBound >= startIndex && subRange.upperBound <= endIndex)
-        (mutablePointer + subRange.lowerBound).initialize(from: newElements)
+    open func replaceSubrange<C : Collection>(_ subrange: Range<Index>, with newElements: C) where C.Iterator.Element == Element {
+        assert(subrange.lowerBound >= startIndex && subrange.upperBound <= endIndex)
+        (mutablePointer + subrange.lowerBound).initialize(from: newElements)
     }
 
     open func toRowMatrix() -> Matrix<Element> {

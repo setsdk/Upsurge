@@ -18,12 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-open class ComplexArray<T: Real>: MutableLinearType, ExpressibleByArrayLiteral {
+open class ComplexArray<T: Real>: MutableLinearType, ExpressibleByArrayLiteral, RangeReplaceableCollection {
     public typealias Index = Int
     public typealias Element = Complex<T>
     public typealias Slice = ComplexArraySlice<T>
 
-    let elements: ValueArray<Complex<T>>
+    private var elements: ValueArray<Complex<T>>
 
     open var count: Int {
         get {
@@ -92,6 +92,10 @@ open class ComplexArray<T: Real>: MutableLinearType, ExpressibleByArrayLiteral {
                 self.imags[i] = newValue[i]
             }
         }
+    }
+
+    public required convenience init() {
+        self.init(count: 0)
     }
 
     /// Construct an uninitialized ComplexArray with the given capacity
@@ -166,16 +170,16 @@ open class ComplexArray<T: Real>: MutableLinearType, ExpressibleByArrayLiteral {
         return ComplexArray(elements)
     }
 
-    open func append(_ value: Element) {
-        elements.append(value)
+    open func append(_ newElement: Element) {
+        elements.append(newElement)
     }
 
-    open func appendContentsOf<C: Collection>(_ values: C) where C.Iterator.Element == Element {
-        elements.appendContentsOf(values)
+    open func append<S : Sequence>(contentsOf newElements: S) where S.Iterator.Element == Element {
+        elements.append(contentsOf: newElements)
     }
 
-    open func replaceRange<C: Collection>(_ subRange: Range<Index>, with newElements: C) where C.Iterator.Element == Element {
-        elements.replaceRange(subRange, with: newElements)
+    open func replaceSubrange<C: Collection>(_ subRange: Range<Index>, with newElements: C) where C.Iterator.Element == Element {
+        elements.replaceSubrange(subRange, with: newElements)
     }
 
     open func toRowMatrix() -> Matrix<Element> {
