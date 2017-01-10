@@ -21,8 +21,8 @@
 import Darwin
 
 public struct Complex<Element: Real>: Value {
-    public let real: Element
-    public let imag: Element
+    public var real: Element
+    public var imag: Element
 
     public init() {
         self.init(real: 0, imag: 0)
