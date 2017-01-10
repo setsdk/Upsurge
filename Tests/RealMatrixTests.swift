@@ -144,6 +144,31 @@ class RealMatrixTests: XCTestCase {
         XCTAssertEqual(b[0, 0], 1)
     }
 
+    func testColumn() {
+        let m = Matrix<Double>([
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]
+        ])
+        let col = m.column(1)
+
+        XCTAssertEqual(col.startIndex, 1)
+        XCTAssert(col.endIndex >= 8 && col.endIndex <= 9)
+        XCTAssertEqual(col.count, 3)
+    }
+
+    func testRow() {
+        let m = Matrix<Double>([
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]
+        ])
+        let row = m.row(1)
+
+        XCTAssertEqual(row.count, 3)
+        XCTAssertEqual(row.endIndex - row.startIndex, 3)
+    }
+
     func testAddColumnRow() {
         let m = Matrix<Double>([
             [1, 2, 3],
@@ -170,5 +195,14 @@ class RealMatrixTests: XCTestCase {
         XCTAssertEqual(m[0, 1], 3)
         XCTAssertEqual(m[1, 1], 6)
         XCTAssertEqual(m[2, 1], 9)
+    }
+
+    func testColumnDescription() {
+        let A = Matrix<Double>([
+            [1, 1],
+            [1, -1]
+        ])
+        let col = A.column(0)
+        XCTAssertEqual(col.description, "[1.0, 1.0]")
     }
 }

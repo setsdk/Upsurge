@@ -124,11 +124,11 @@ open class ValueArray<Element: Value>: MutableLinearType, ExpressibleByArrayLite
     open subscript(index: Index) -> Element {
         get {
             assert(indexIsValid(index))
-            return pointer[index * step]
+            return pointer[index]
         }
         set {
             assert(indexIsValid(index))
-            mutablePointer[index * step] = newValue
+            mutablePointer[index] = newValue
         }
     }
 

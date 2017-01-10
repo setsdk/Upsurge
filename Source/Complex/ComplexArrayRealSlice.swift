@@ -75,14 +75,14 @@ public struct ComplexArrayRealSlice<T: Real>: MutableLinearType {
 
     public subscript(index: Int) -> Element {
         get {
-            let baseIndex = startIndex + index * step
+            let baseIndex = startIndex + index
             precondition(0 <= baseIndex && baseIndex < 2 * base.count)
             return withUnsafePointer { pointer in
                 pointer[baseIndex]
             }
         }
         set {
-            let baseIndex = startIndex + index * step
+            let baseIndex = startIndex + index
             precondition(0 <= baseIndex && baseIndex < base.count)
             withUnsafeMutablePointer { pointer in
                 pointer[baseIndex] = newValue
@@ -117,6 +117,10 @@ public struct ComplexArrayRealSlice<T: Real>: MutableLinearType {
                 self[i] = newValue[newValue.startIndex + i - start]
             }
         }
+    }
+
+    public func index(after i: Index) -> Index {
+        return i + step
     }
 
     static public func ==(lhs: ComplexArrayRealSlice, rhs: ComplexArrayRealSlice) -> Bool {

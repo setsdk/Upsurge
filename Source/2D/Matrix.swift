@@ -172,7 +172,7 @@ open class Matrix<Element: Value>: MutableQuadraticType, Equatable, CustomString
     }
 
     open func column(_ index: Int) -> ValueArraySlice<Element> {
-        return ValueArraySlice(base: elements, startIndex: index, endIndex: rows * columns - columns + index + 1, step: columns)
+        return ValueArraySlice(base: elements, startIndex: index, endIndex: rows * columns, step: columns)
     }
 
     open func copy() -> Matrix {

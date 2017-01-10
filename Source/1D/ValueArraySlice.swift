@@ -61,11 +61,11 @@ public struct ValueArraySlice<Element: Value>: MutableLinearType, CustomStringCo
     public subscript(index: Index) -> Element {
         get {
             assert(indexIsValid(index))
-            return base[index * step]
+            return base[index]
         }
         set {
             assert(indexIsValid(index))
-            base[index * step] = newValue
+            base[index] = newValue
         }
     }
 
@@ -99,11 +99,39 @@ public struct ValueArraySlice<Element: Value>: MutableLinearType, CustomStringCo
         }
     }
 
-    // MARK: - Equatable
-
-    public static func ==(lhs: ValueArraySlice, rhs: Base) -> Bool {
-        return lhs.count == rhs.count && lhs.elementsEqual(rhs)
+    public func index(after i: Index) -> Index {
+        return i + step
     }
+
+    public func formIndex(after i: inout Int) {
+        i += step
+    }
+
+    public func index(before i: Int) -> Int {
+        return i - step
+    }
+
+    public func formIndex(before i: inout Int) {
+        i -= step
+    }
+
+    public func index(_ i: Int, offsetBy n: Int) -> Int {
+        return i + step * n
+    }
+
+    public func distance(from start: Int, to end: Int) -> Int {
+        return (end - start + step - 1) / step
+    }
+
+    public func makeIterator() -> ValueArraySliceIterator<Element> {
+        return ValueArraySliceIterator(base: self)
+    }
+
+    public var description: String {
+        return "[\(map({ $0.description }).joined(separator: ", "))]"
+    }
+
+    // MARK: - Equatable
 
     public static func ==(lhs: ValueArraySlice, rhs: ValueArraySlice) -> Bool {
         return lhs.count == rhs.count && zip(lhs.indices, rhs.indices).all {
@@ -112,3 +140,21 @@ public struct ValueArraySlice<Element: Value>: MutableLinearType, CustomStringCo
     }
 }
 
+public struct ValueArraySliceIterator<Element: Value>: IteratorProtocol {
+    let base: ValueArraySlice<Element>
+    var index = 0
+
+    public init(base: ValueArraySlice<Element>) {
+        self.base = base
+        index = base.startIndex
+    }
+
+    public mutating func next() -> Element? {
+        let next = index + base.step
+        if next >= base.endIndex {
+            return nil
+        }
+        index = next
+        return base[next]
+    }
+}
