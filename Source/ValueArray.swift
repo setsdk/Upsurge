@@ -184,7 +184,7 @@ open class ValueArray<Element: Value>: MutableLinearType, ExpressibleByArrayLite
         count += 1
     }
 
-    open func append<S : Sequence>(contentsOf newElements: S) where S.Iterator.Element == Element {
+    open func append<S: Sequence>(contentsOf newElements: S) where S.Iterator.Element == Element {
         let a = Array(newElements)
         precondition(count + a.count <= capacity)
         let endPointer = mutablePointer + count
@@ -192,7 +192,7 @@ open class ValueArray<Element: Value>: MutableLinearType, ExpressibleByArrayLite
         count += a.count
     }
 
-    open func replaceSubrange<C : Collection>(_ subrange: Range<Index>, with newElements: C) where C.Iterator.Element == Element {
+    open func replaceSubrange<C: Collection>(_ subrange: Range<Index>, with newElements: C) where C.Iterator.Element == Element {
         assert(subrange.lowerBound >= startIndex && subrange.upperBound <= endIndex)
         _ = UnsafeMutableBufferPointer(start: mutablePointer + subrange.lowerBound, count: capacity - subrange.lowerBound).initialize(from: newElements)
     }
@@ -204,12 +204,12 @@ open class ValueArray<Element: Value>: MutableLinearType, ExpressibleByArrayLite
     open func toColumnMatrix() -> Matrix<Element> {
         return Matrix(rows: count, columns: 1, elements: self)
     }
-    
-    open func toMatrix(rows: Int, columns:Int) -> Matrix<Element> {
+
+    open func toMatrix(rows: Int, columns: Int) -> Matrix<Element> {
         precondition(rows*columns == count, "Element count must equal rows*columns")
         return Matrix(rows: rows, columns: columns, elements: self)
     }
-    
+
     open func tile(_ m: Int, _ n: Int) -> Matrix<Element> {
         // Construct a block matrix of size m by n, with a copy of source as each element.
         // m:  Specifies the number of times to copy along the vertical axis.
@@ -226,11 +226,11 @@ open class ValueArray<Element: Value>: MutableLinearType, ExpressibleByArrayLite
 
     // MARK: - Equatable
 
-    public static func ==(lhs: ValueArray, rhs: ValueArray) -> Bool {
+    public static func == (lhs: ValueArray, rhs: ValueArray) -> Bool {
         return lhs.count == rhs.count && lhs.elementsEqual(rhs)
     }
 
-    public static func ==(lhs: ValueArray, rhs: Slice) -> Bool {
+    public static func == (lhs: ValueArray, rhs: Slice) -> Bool {
         return lhs.count == rhs.count && lhs.elementsEqual(rhs)
     }
 }

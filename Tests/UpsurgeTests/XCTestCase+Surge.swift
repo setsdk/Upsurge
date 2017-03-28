@@ -30,6 +30,7 @@ extension XCTestCase {
             actual = mapped(source)
         }
 
+        // swiftlint:disable:next unused_enumerated
         for (i, _) in source.enumerated() {
             XCTAssertEqualWithAccuracy(actual[i], expected[i], accuracy: accuracy)
         }

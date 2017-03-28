@@ -26,79 +26,79 @@ public func sum(_ x: ComplexArray<Double>) -> Complex<Double> {
 
 // MARK: Operators
 
-public func +=(lhs: inout ComplexArray<Double>, rhs: ComplexArray<Double>) {
+public func += (lhs: inout ComplexArray<Double>, rhs: ComplexArray<Double>) {
     lhs.reals += rhs.reals
     lhs.imags += rhs.imags
 }
 
-public func +(lhs: ComplexArray<Double>, rhs: ComplexArray<Double>) -> ComplexArray<Double> {
+public func + (lhs: ComplexArray<Double>, rhs: ComplexArray<Double>) -> ComplexArray<Double> {
     var results = ComplexArray(lhs)
     results += rhs
     return results
 }
 
-public func -=(lhs: inout ComplexArray<Double>, rhs: ComplexArray<Double>) {
+public func -= (lhs: inout ComplexArray<Double>, rhs: ComplexArray<Double>) {
     lhs.reals -= rhs.reals
     lhs.imags -= rhs.imags
 }
 
-public func -(lhs: ComplexArray<Double>, rhs: ComplexArray<Double>) -> ComplexArray<Double> {
+public func - (lhs: ComplexArray<Double>, rhs: ComplexArray<Double>) -> ComplexArray<Double> {
     var results = ComplexArray(lhs)
     results -= rhs
     return results
 }
 
-public func +=(lhs: inout ComplexArray<Double>, rhs: Complex<Double>) {
+public func += (lhs: inout ComplexArray<Double>, rhs: Complex<Double>) {
     lhs.reals += rhs.real
     lhs.imags += rhs.imag
 }
 
-public func +(lhs: ComplexArray<Double>, rhs: Complex<Double>) -> ComplexArray<Double> {
+public func + (lhs: ComplexArray<Double>, rhs: Complex<Double>) -> ComplexArray<Double> {
     var results = ComplexArray(lhs)
     results += rhs
     return results
 }
 
-public func +(lhs: Complex<Double>, rhs: ComplexArray<Double>) -> ComplexArray<Double> {
+public func + (lhs: Complex<Double>, rhs: ComplexArray<Double>) -> ComplexArray<Double> {
     var results = ComplexArray(rhs)
     results += lhs
     return results
 }
 
-public func -=(lhs: inout ComplexArray<Double>, rhs: Complex<Double>) {
+public func -= (lhs: inout ComplexArray<Double>, rhs: Complex<Double>) {
     lhs.reals -= rhs.real
     lhs.imags -= rhs.imag
 }
 
-public func -(lhs: ComplexArray<Double>, rhs: Complex<Double>) -> ComplexArray<Double> {
+public func - (lhs: ComplexArray<Double>, rhs: Complex<Double>) -> ComplexArray<Double> {
     var results = ComplexArray(lhs)
     results -= rhs
     return results
 }
 
-public func -(lhs: Complex<Double>, rhs: ComplexArray<Double>) -> ComplexArray<Double> {
+public func - (lhs: Complex<Double>, rhs: ComplexArray<Double>) -> ComplexArray<Double> {
     var results = ComplexArray(rhs)
     results -= lhs
     return results
 }
 
-public func *=(lhs: inout ComplexArray<Double>, rhs: Double) {
+public func *= (lhs: inout ComplexArray<Double>, rhs: Double) {
     lhs.reals *= rhs
     lhs.imags *= rhs
 }
 
-public func *(lhs: ComplexArray<Double>, rhs: Double) -> ComplexArray<Double> {
+public func * (lhs: ComplexArray<Double>, rhs: Double) -> ComplexArray<Double> {
     var results = ComplexArray(lhs)
     results *= rhs
     return results
 }
 
-public func /=(lhs: inout ComplexArray<Double>, rhs: Double) {
+public func /= (lhs: inout ComplexArray<Double>, rhs: Double) {
     lhs.reals /= rhs
     lhs.imags /= rhs
 }
 
-public func /(lhs: ComplexArray<Double>, rhs: Double) -> ComplexArray<Double> {
+public func / (lhs: ComplexArray<Double>, rhs: Double) -> ComplexArray<Double> {
     var results = ComplexArray(lhs)
     results /= rhs
     return results
@@ -112,79 +112,79 @@ public func sum(_ x: ComplexArray<Float>) -> Complex<Float> {
 
 // MARK: Operators
 
-public func +=(lhs: inout ComplexArray<Float>, rhs: ComplexArray<Float>) {
+public func += (lhs: inout ComplexArray<Float>, rhs: ComplexArray<Float>) {
     lhs.reals += rhs.reals
     lhs.imags += rhs.imags
 }
 
-public func +(lhs: ComplexArray<Float>, rhs: ComplexArray<Float>) -> ComplexArray<Float> {
+public func + (lhs: ComplexArray<Float>, rhs: ComplexArray<Float>) -> ComplexArray<Float> {
     var results = ComplexArray(lhs)
     results += rhs
     return results
 }
 
-public func -=(lhs: inout ComplexArray<Float>, rhs: ComplexArray<Float>) {
+public func -= (lhs: inout ComplexArray<Float>, rhs: ComplexArray<Float>) {
     lhs.reals -= rhs.reals
     lhs.imags -= rhs.imags
 }
 
-public func -(lhs: ComplexArray<Float>, rhs: ComplexArray<Float>) -> ComplexArray<Float> {
+public func - (lhs: ComplexArray<Float>, rhs: ComplexArray<Float>) -> ComplexArray<Float> {
     var results = ComplexArray(lhs)
     results -= rhs
     return results
 }
 
-public func +=(lhs: inout ComplexArray<Float>, rhs: Complex<Float>) {
+public func += (lhs: inout ComplexArray<Float>, rhs: Complex<Float>) {
     lhs.reals += rhs.real
     lhs.imags += rhs.imag
 }
 
-public func +(lhs: ComplexArray<Float>, rhs: Complex<Float>) -> ComplexArray<Float> {
+public func + (lhs: ComplexArray<Float>, rhs: Complex<Float>) -> ComplexArray<Float> {
     var results = ComplexArray(lhs)
     results += rhs
     return results
 }
 
-public func +(lhs: Complex<Float>, rhs: ComplexArray<Float>) -> ComplexArray<Float> {
+public func + (lhs: Complex<Float>, rhs: ComplexArray<Float>) -> ComplexArray<Float> {
     var results = ComplexArray(rhs)
     results += lhs
     return results
 }
 
-public func -=(lhs: inout ComplexArray<Float>, rhs: Complex<Float>) {
+public func -= (lhs: inout ComplexArray<Float>, rhs: Complex<Float>) {
     lhs.reals -= rhs.real
     lhs.imags -= rhs.imag
 }
 
-public func -(lhs: ComplexArray<Float>, rhs: Complex<Float>) -> ComplexArray<Float> {
+public func - (lhs: ComplexArray<Float>, rhs: Complex<Float>) -> ComplexArray<Float> {
     var results = ComplexArray(lhs)
     results -= rhs
     return results
 }
 
-public func -(lhs: Complex<Float>, rhs: ComplexArray<Float>) -> ComplexArray<Float> {
+public func - (lhs: Complex<Float>, rhs: ComplexArray<Float>) -> ComplexArray<Float> {
     var results = ComplexArray(rhs)
     results -= lhs
     return results
 }
 
-public func *=(lhs: inout ComplexArray<Float>, rhs: Float) {
+public func *= (lhs: inout ComplexArray<Float>, rhs: Float) {
     lhs.reals *= rhs
     lhs.imags *= rhs
 }
 
-public func *(lhs: ComplexArray<Float>, rhs: Float) -> ComplexArray<Float> {
+public func * (lhs: ComplexArray<Float>, rhs: Float) -> ComplexArray<Float> {
     var results = ComplexArray(lhs)
     results *= rhs
     return results
 }
 
-public func /=(lhs: inout ComplexArray<Float>, rhs: Float) {
+public func /= (lhs: inout ComplexArray<Float>, rhs: Float) {
     lhs.reals /= rhs
     lhs.imags /= rhs
 }
 
-public func /(lhs: ComplexArray<Float>, rhs: Float) -> ComplexArray<Float> {
+public func / (lhs: ComplexArray<Float>, rhs: Float) -> ComplexArray<Float> {
     var results = ComplexArray(lhs)
     results /= rhs
     return results

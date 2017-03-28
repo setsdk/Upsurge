@@ -28,7 +28,7 @@ open class ComplexArraySlice<T: Real>: MutableLinearType {
     open let startIndex: Index
     open let endIndex: Index
     open let step: Index
-    
+
     open var span: Span {
         return Span(ranges: [startIndex ... endIndex - 1])
     }
@@ -123,11 +123,11 @@ open class ComplexArraySlice<T: Real>: MutableLinearType {
 
     // MARK: - Equatable
 
-    public static func ==(lhs: ComplexArraySlice, rhs: ComplexArraySlice) -> Bool {
+    public static func == (lhs: ComplexArraySlice, rhs: ComplexArraySlice) -> Bool {
         return lhs.count == rhs.count && lhs.elementsEqual(rhs)
     }
 
-    public static func ==(lhs: ComplexArraySlice, rhs: ComplexArray<T>) -> Bool {
+    public static func == (lhs: ComplexArraySlice, rhs: ComplexArray<T>) -> Bool {
         return lhs.count == rhs.count && lhs.elementsEqual(rhs)
     }
 }

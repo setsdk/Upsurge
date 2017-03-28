@@ -21,7 +21,7 @@
 open class TwoDimensionalTensorSlice<Element: Value>: MutableQuadraticType, Equatable {
     public typealias Index = [Int]
     public typealias Slice = TwoDimensionalTensorSlice<Element>
-    
+
     open var arrangement: QuadraticArrangement {
         return .rowMajor
     }

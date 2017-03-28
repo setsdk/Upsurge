@@ -126,7 +126,7 @@ open class TensorSlice<Element: Value>: MutableTensorType, Equatable {
 
     open func indexIsValid(_ indices: [Int]) -> Bool {
         assert(indices.count == dimensions.count)
-        return indices.enumerated().all { (i,index) in self.span[i].contains(index) }
+        return indices.enumerated().all { (i, index) in self.span[i].contains(index) }
     }
 }
 

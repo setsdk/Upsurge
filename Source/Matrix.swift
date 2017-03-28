@@ -206,7 +206,7 @@ open class Matrix<Element: Value>: MutableQuadraticType, Equatable, CustomString
 
         return description
     }
-    
+
     open func tile(_ m: Int, _ n: Int) -> Matrix {
         // Construct a block matrix of size m by n, with a copy of source matrix as each element.
         // m:  Specifies the number of times to copy along the vertical axis.
@@ -229,31 +229,29 @@ open class Matrix<Element: Value>: MutableQuadraticType, Equatable, CustomString
 
     // MARK: - Equatable
 
-    public static func ==(lhs: Matrix, rhs: Matrix) -> Bool {
+    public static func == (lhs: Matrix, rhs: Matrix) -> Bool {
         return lhs.elements == rhs.elements
     }
 
-    public static func ==(lhs: Matrix, rhs: Slice) -> Bool {
+    public static func == (lhs: Matrix, rhs: Slice) -> Bool {
         assert(lhs.span ≅ rhs.span)
         return zip(lhs.span, rhs.span).all { lhs[$0] == rhs[$1] }
     }
 
-    public static func ==(lhs: Matrix, rhs: Tensor<Element>) -> Bool {
+    public static func == (lhs: Matrix, rhs: Tensor<Element>) -> Bool {
         return lhs.elements == rhs.elements
     }
 
-    public static func ==(lhs: Matrix, rhs: TensorSlice<Element>) -> Bool {
+    public static func == (lhs: Matrix, rhs: TensorSlice<Element>) -> Bool {
         assert(lhs.span ≅ rhs.span)
         return zip(lhs.span, rhs.span).all { lhs[$0] == rhs[$1] }
     }
 
-    public static func ==(lhs: Matrix, rhs: TwoDimensionalTensorSlice<Element>) -> Bool {
+    public static func == (lhs: Matrix, rhs: TwoDimensionalTensorSlice<Element>) -> Bool {
         assert(lhs.span ≅ rhs.span)
         return zip(lhs.span, rhs.span).all { lhs[$0] == rhs[$1] }
     }
 }
-
-
 
 // MARK: -
 

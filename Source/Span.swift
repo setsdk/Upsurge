@@ -56,7 +56,7 @@ public struct Span: ExpressibleByArrayLiteral, Sequence {
         assert(base.contains(intervals))
         var ranges = [Element]()
 
-        for (i,interval) in intervals.enumerated() {
+        for (i, interval) in intervals.enumerated() {
             let start = interval.start ?? base[i].lowerBound
             let end = interval.end ?? base[i].upperBound + 1
             assert(base[i].lowerBound <= start && end <= base[i].upperBound + 1)

@@ -123,8 +123,7 @@ public struct ComplexArrayRealSlice<T: Real>: MutableLinearType {
         return i + step
     }
 
-    static public func ==(lhs: ComplexArrayRealSlice, rhs: ComplexArrayRealSlice) -> Bool {
+    static public func == (lhs: ComplexArrayRealSlice, rhs: ComplexArrayRealSlice) -> Bool {
         return lhs.count == rhs.count && lhs.elementsEqual(rhs)
     }
 }
-

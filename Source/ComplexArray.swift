@@ -114,7 +114,7 @@ open class ComplexArray<T: Real>: MutableLinearType, ExpressibleByArrayLiteral, 
     }
 
     /// Construct a ComplexArray from contiguous memory
-    public required init<C : LinearType>(_ values: C) where C.Element == Element {
+    public required init<C: LinearType>(_ values: C) where C.Element == Element {
         elements = ValueArray(values)
     }
 
@@ -173,7 +173,7 @@ open class ComplexArray<T: Real>: MutableLinearType, ExpressibleByArrayLiteral, 
         elements.append(newElement)
     }
 
-    open func append<S : Sequence>(contentsOf newElements: S) where S.Iterator.Element == Element {
+    open func append<S: Sequence>(contentsOf newElements: S) where S.Iterator.Element == Element {
         elements.append(contentsOf: newElements)
     }
 
@@ -189,8 +189,7 @@ open class ComplexArray<T: Real>: MutableLinearType, ExpressibleByArrayLiteral, 
         return Matrix(rows: count, columns: 1, elements: self)
     }
 
-    static public func ==(lhs: ComplexArray, rhs: ComplexArray) -> Bool {
+    static public func == (lhs: ComplexArray, rhs: ComplexArray) -> Bool {
         return lhs.count == rhs.count && lhs.elementsEqual(rhs)
     }
 }
-
