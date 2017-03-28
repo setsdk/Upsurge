@@ -110,8 +110,7 @@ open class ComplexArray<T: Real>: MutableLinearType, ExpressibleByArrayLiteral, 
 
     /// Construct a ComplexArray from an array literal
     public required init(arrayLiteral elements: Element...) {
-        self.elements = ValueArray(count: elements.count)
-        self.elements.mutablePointer.initialize(from: elements)
+        self.elements = ValueArray(elements)
     }
 
     /// Construct a ComplexArray from contiguous memory

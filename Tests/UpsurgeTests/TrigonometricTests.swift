@@ -26,17 +26,17 @@ class TrigonometricTests: XCTestCase {
     let n = 10000
 
     func test_sin() {
-        let values = (0...n).map {_ in drand48() * M_PI}
+        let values = (0...n).map {_ in drand48() * Double.pi}
         measureAndValidateMappedFunctionWithAccuracy(values, member: { sin($0) }, mapped: { $0.map { sin($0) } }, accuracy: 0.0001)
     }
 
     func test_cos() {
-        let values = (0...n).map {_ in drand48() * M_PI}
+        let values = (0...n).map {_ in drand48() * Double.pi}
         measureAndValidateMappedFunctionWithAccuracy(values, member: { cos($0) }, mapped: { $0.map { cos($0) } }, accuracy: 0.0001)
     }
 
     func test_tan() {
-        let values = (0...n).map {_ in drand48() * M_PI}
+        let values = (0...n).map {_ in drand48() * Double.pi}
         measureAndValidateMappedFunctionWithAccuracy(values, member: { tan($0) }, mapped: { $0.map { tan($0) } }, accuracy: 0.0001)
     }
 

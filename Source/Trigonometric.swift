@@ -114,7 +114,7 @@ func rad2deg<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Dou
     precondition(x.step == 1, "rad2deg doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    let divisor = ValueArray(count: x.count, repeatedValue: M_PI / 180.0)
+    let divisor = ValueArray(count: x.count, repeatedValue: Double.pi / 180.0)
     withPointer(x) { xp in
         vvdiv(results.mutablePointer + results.startIndex, xp + x.startIndex, divisor.pointer, [Int32(x.count)])
     }
@@ -127,7 +127,7 @@ func deg2rad<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Dou
     precondition(x.step == 1, "deg2rad doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    let divisor = ValueArray(count: x.count, repeatedValue: 180.0 / M_PI)
+    let divisor = ValueArray(count: x.count, repeatedValue: 180.0 / Double.pi)
     withPointer(x) { xp in
         vvdiv(results.mutablePointer + results.startIndex, xp + x.startIndex, divisor.pointer, [Int32(x.count)])
     }
@@ -229,7 +229,7 @@ func rad2deg<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Floa
     precondition(x.step == 1, "rad2deg doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    let divisor = ValueArray(count: x.count, repeatedValue: Float(M_PI / 180.0))
+    let divisor = ValueArray(count: x.count, repeatedValue: Float.pi / 180.0)
     withPointer(x) { xp in
         vvdivf(results.mutablePointer + results.startIndex, xp + x.startIndex, divisor.pointer, [Int32(x.count)])
     }
@@ -242,7 +242,7 @@ func deg2rad<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Floa
     precondition(x.step == 1, "deg2rad doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
-    let divisor = ValueArray(count: x.count, repeatedValue: Float(180.0 / M_PI))
+    let divisor = ValueArray(count: x.count, repeatedValue: 180.0 / Float.pi)
     withPointer(x) { xp in
         vvdivf(results.mutablePointer + results.startIndex, xp + x.startIndex, divisor.pointer, [Int32(x.count)])
     }

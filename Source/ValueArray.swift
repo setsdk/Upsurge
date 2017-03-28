@@ -89,7 +89,7 @@ open class ValueArray<Element: Value>: MutableLinearType, ExpressibleByArrayLite
         mutablePointer = UnsafeMutablePointer.allocate(capacity: elements.count)
         self.capacity = elements.count
         self.count = elements.count
-        mutablePointer.initialize(from: elements)
+        _ = UnsafeMutableBufferPointer(start: mutablePointer, count: count).initialize(from: elements)
     }
 
     /// Construct a ValueArray from contiguous memory
@@ -188,13 +188,13 @@ open class ValueArray<Element: Value>: MutableLinearType, ExpressibleByArrayLite
         let a = Array(newElements)
         precondition(count + a.count <= capacity)
         let endPointer = mutablePointer + count
-        endPointer.initialize(from: a)
+        _ = UnsafeMutableBufferPointer(start: endPointer, count: capacity - count).initialize(from: a)
         count += a.count
     }
 
     open func replaceSubrange<C : Collection>(_ subrange: Range<Index>, with newElements: C) where C.Iterator.Element == Element {
         assert(subrange.lowerBound >= startIndex && subrange.upperBound <= endIndex)
-        (mutablePointer + subrange.lowerBound).initialize(from: newElements)
+        _ = UnsafeMutableBufferPointer(start: mutablePointer + subrange.lowerBound, count: capacity - subrange.lowerBound).initialize(from: newElements)
     }
 
     open func toRowMatrix() -> Matrix<Element> {
