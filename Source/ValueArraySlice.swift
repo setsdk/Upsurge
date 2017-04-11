@@ -150,11 +150,12 @@ public struct ValueArraySliceIterator<Element: Value>: IteratorProtocol {
     }
 
     public mutating func next() -> Element? {
-        let next = index + base.step
-        if next >= base.endIndex {
+        if index >= base.endIndex {
             return nil
         }
-        index = next
-        return base[next]
+
+        let value = base[index]
+        index += base.step
+        return value
     }
 }

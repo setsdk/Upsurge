@@ -35,4 +35,10 @@ class ValueArraySliceTests: XCTestCase {
         let slice = ValueArraySlice(base: array, startIndex: 0, endIndex: 4, step: 2)
         XCTAssertEqual(slice.map({ $0 }), [1, 3])
     }
+
+    func testReduce() {
+        let array: ValueArray<Double> = [1, 2, 3, 4]
+        let slice = array[1...3]
+        XCTAssertEqual(slice.reduce(0, +), 9.0)
+    }
 }
