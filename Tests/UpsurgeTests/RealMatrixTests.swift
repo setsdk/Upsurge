@@ -35,6 +35,13 @@ class RealMatrixTests: XCTestCase {
         XCTAssertEqual(a, d)
     }
 
+    func testAdd2DOneElement() {
+        let a = Matrix([[1.0]])
+        let b = Matrix([[2.0]])
+        let c = a + b
+        XCTAssertEqual(c, Matrix([[3.0]]))
+    }
+
     func testSub() {
         var a = Matrix<Double>(rows: 2, columns: 2, elements: [1, 2, 3, 4] as ValueArray<Double>)
         let b = Matrix<Double>(rows: 2, columns: 2, elements: [2, 3, 4, 1] as ValueArray<Double>)

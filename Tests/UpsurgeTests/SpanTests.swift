@@ -43,6 +43,20 @@ class RangedIndexTests: XCTestCase {
         XCTAssertEqual(result, [4, 5, 6, 7, 1])
     }
 
+    func testIndexGeneratorOneElement() {
+        let span: Span = [0...0, 0...0]
+        let expected: [[Int]] = [[0, 0]]
+
+        var result = [[Int]]()
+        for index in span {
+            result.append(index)
+        }
+
+        for (x, y) in zip(result, expected) {
+            XCTAssertEqual(x, y)
+        }
+    }
+
     func testIndexGenerator() {
         var result = [[Int]]()
         for index in rangedIndex! {

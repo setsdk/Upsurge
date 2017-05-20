@@ -24,27 +24,27 @@ public struct Span: ExpressibleByArrayLiteral, Sequence {
 
     private var ranges: [Element]
 
-    var startIndex: [Int] {
+    public var startIndex: [Int] {
         return ranges.map { $0.lowerBound }
     }
 
-    var endIndex: [Int] {
+    public var endIndex: [Int] {
         return ranges.map { $0.upperBound + 1 }
     }
 
-    var count: Int {
+    public var count: Int {
         return dimensions.reduce(1, *)
     }
 
-    var rank: Int {
+    public var rank: Int {
         return ranges.count
     }
 
-    var dimensions: [Int] {
+    public var dimensions: [Int] {
         return ranges.map { $0.count }
     }
 
-    init(ranges: [Element]) {
+    public init(ranges: [Element]) {
         self.ranges = ranges
     }
 
@@ -52,7 +52,7 @@ public struct Span: ExpressibleByArrayLiteral, Sequence {
         self.init(ranges: elements)
     }
 
-    init(base: Span, intervals: [IntervalType]) {
+    public init(base: Span, intervals: [IntervalType]) {
         assert(base.contains(intervals))
         var ranges = [Element]()
 
@@ -65,7 +65,7 @@ public struct Span: ExpressibleByArrayLiteral, Sequence {
         self.init(ranges: ranges)
     }
 
-    init(dimensions: [Int], intervals: [IntervalType]) {
+    public init(dimensions: [Int], intervals: [IntervalType]) {
         var ranges = [Element]()
         for i in 0..<intervals.count {
             let start = intervals[i].start ?? 0
@@ -76,16 +76,16 @@ public struct Span: ExpressibleByArrayLiteral, Sequence {
         self.init(ranges: ranges)
     }
 
-    init(zeroTo dimensions: [Int]) {
+    public init(zeroTo dimensions: [Int]) {
         let start = [Int](repeating: 0, count: dimensions.count)
         self.init(start: start, end: dimensions)
     }
 
-    init(start: [Int], end: [Int]) {
+    public init(start: [Int], end: [Int]) {
         ranges = zip(start, end).map { $0...$1 - 1 }
     }
 
-    init(start: [Int], length: [Int]) {
+    public init(start: [Int], length: [Int]) {
         let end = zip(start, length).map { $0 + $1 }
         self.init(start: start, end: end)
     }
@@ -94,25 +94,25 @@ public struct Span: ExpressibleByArrayLiteral, Sequence {
         return SpanGenerator(span: self)
     }
 
-    subscript(index: Int) -> Element {
+    public subscript(index: Int) -> Element {
         return ranges[index]
     }
 
-    subscript(range: ClosedRange<Int>) -> ArraySlice<Element> {
+    public subscript(range: ClosedRange<Int>) -> ArraySlice<Element> {
         return ranges[range]
     }
 
-    subscript(range: Range<Int>) -> ArraySlice<Element> {
+    public subscript(range: Range<Int>) -> ArraySlice<Element> {
         return ranges[range]
     }
 
-    func contains(_ other: Span) -> Bool {
+    public func contains(_ other: Span) -> Bool {
         return (0..<dimensions.count).all {
             self[$0].startIndex <= other[$0].startIndex && other[$0].endIndex <= self[$0].endIndex
         }
     }
 
-    func contains(_ intervals: [IntervalType]) -> Bool {
+    public func contains(_ intervals: [IntervalType]) -> Bool {
         assert(dimensions.count == intervals.count)
         for i in 0..<dimensions.count {
             let start = intervals[i].start ?? self[i].lowerBound
@@ -125,35 +125,45 @@ public struct Span: ExpressibleByArrayLiteral, Sequence {
     }
 }
 
-open class SpanGenerator: IteratorProtocol {
-    fileprivate var span: Span
-    fileprivate var presentIndex: [Int]
-    fileprivate var kill = false
+public class SpanGenerator: IteratorProtocol {
+    private var span: Span
+    private var presentIndex: [Int]
+    private var first = true
 
-    init(span: Span) {
+    public init(span: Span) {
         self.span = span
         self.presentIndex = span.startIndex.map { $0 }
     }
 
-    open func next() -> [Int]? {
-        return incrementIndex(presentIndex.count - 1)
+    public func next() -> [Int]? {
+        if presentIndex.isEmpty {
+            return nil
+        }
+        if first {
+            first = false
+            return presentIndex
+        }
+        if !incrementIndex(presentIndex.count - 1) {
+            return nil
+        }
+        return presentIndex
     }
 
-    func incrementIndex(_ position: Int) -> [Int]? {
-        if position < 0 || span.count <= position || kill {
-            return nil
-        } else if presentIndex[position] < span[position].upperBound {
-            let result = presentIndex
+    private func incrementIndex(_ position: Int) -> Bool {
+        if position < 0 || span.count <= position {
+            return false
+        }
+
+        if presentIndex[position] < span[position].upperBound {
             presentIndex[position] += 1
-            return result
         } else {
-            guard let result = incrementIndex(position - 1) else {
-                kill = true
-                return presentIndex
+            if !incrementIndex(position - 1) {
+                return false
             }
             presentIndex[position] = span[position].lowerBound
-            return result
         }
+
+        return true
     }
 }
 
