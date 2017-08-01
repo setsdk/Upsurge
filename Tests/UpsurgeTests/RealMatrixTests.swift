@@ -120,12 +120,12 @@ class RealMatrixTests: XCTestCase {
         let b = normalize(a)
         let c = Matrix<Double>([[0.6, 0.8, 0.384615384615385], [0.923076923076923, 0.470588235294118, 0.882352941176471]])
 
-        XCTAssertEqualWithAccuracy(b.elements[0], c.elements[0], accuracy: 0.00001)
-        XCTAssertEqualWithAccuracy(b.elements[1], c.elements[1], accuracy: 0.00001)
-        XCTAssertEqualWithAccuracy(b.elements[2], c.elements[2], accuracy: 0.00001)
-        XCTAssertEqualWithAccuracy(b.elements[3], c.elements[3], accuracy: 0.00001)
-        XCTAssertEqualWithAccuracy(b.elements[4], c.elements[4], accuracy: 0.00001)
-        XCTAssertEqualWithAccuracy(b.elements[5], c.elements[5], accuracy: 0.00001)
+        XCTAssertEqual(b.elements[0], c.elements[0], accuracy: 0.00001)
+        XCTAssertEqual(b.elements[1], c.elements[1], accuracy: 0.00001)
+        XCTAssertEqual(b.elements[2], c.elements[2], accuracy: 0.00001)
+        XCTAssertEqual(b.elements[3], c.elements[3], accuracy: 0.00001)
+        XCTAssertEqual(b.elements[4], c.elements[4], accuracy: 0.00001)
+        XCTAssertEqual(b.elements[5], c.elements[5], accuracy: 0.00001)
     }
 
     func testInvert() {
@@ -134,10 +134,10 @@ class RealMatrixTests: XCTestCase {
 
         let c = Matrix<Double>(rows: 2, columns: 2, elements: [0.2, -0.3, 0.1, 0.1] as ValueArray<Double>)
 
-        XCTAssertEqualWithAccuracy(c.elements[0], b.elements[0], accuracy: 0.00001)
-        XCTAssertEqualWithAccuracy(c.elements[1], b.elements[1], accuracy: 0.00001)
-        XCTAssertEqualWithAccuracy(c.elements[2], b.elements[2], accuracy: 0.00001)
-        XCTAssertEqualWithAccuracy(c.elements[3], b.elements[3], accuracy: 0.00001)
+        XCTAssertEqual(c.elements[0], b.elements[0], accuracy: 0.00001)
+        XCTAssertEqual(c.elements[1], b.elements[1], accuracy: 0.00001)
+        XCTAssertEqual(c.elements[2], b.elements[2], accuracy: 0.00001)
+        XCTAssertEqual(c.elements[3], b.elements[3], accuracy: 0.00001)
     }
 
     func testSwap() {
