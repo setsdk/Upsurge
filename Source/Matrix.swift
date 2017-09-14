@@ -98,7 +98,7 @@ open class Matrix<Element: Value>: MutableQuadraticType, Equatable, CustomString
     public convenience init(_ contents: [[Element]]) {
         let rows = contents.count
         let cols = contents[0].count
-        
+
         for element in contents {
             precondition(element.count == cols)
         }
@@ -109,23 +109,23 @@ open class Matrix<Element: Value>: MutableQuadraticType, Equatable, CustomString
             elements.replaceSubrange(i*cols..<i*cols+min(cols, row.count), with: row)
         }
     }
-    
+
     /// Construct a Matrix from an array of rows
     public convenience init<M: LinearType>(_ contents: [M]) where M.Element == Element {
-        
+
         let rows = contents.count
         let cols = Int(contents[0].count)
-        
+
         for element in contents {
             precondition(element.count == cols)
         }
-        
+
         self.init(rows: rows, columns: cols)
-        
+
         for (i, row) in contents.enumerated() {
             elements.replaceSubrange(i*cols..<i*cols+min(cols, row.count), with: row)
         }
-        
+
     }
 
     /// Construct a Matrix from an array of rows
