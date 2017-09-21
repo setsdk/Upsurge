@@ -34,6 +34,29 @@ public func withPointer<T: MutableTensorType, R>(_ t: inout T, body: (UnsafeMuta
 
 // MARK: Two parameters
 
+/// Invokes the given closure with pointers to the given arguments (2 parameter version).
+///
+/// - See: `withUnsafePointer(to:body:)`
+@discardableResult
+public func withUnsafePointersTo<A, B, Result>(_ a: inout A, _ b: inout B, body: (UnsafePointer<A>, UnsafePointer<B>) throws -> Result) rethrows -> Result {
+    return try withUnsafePointer(to: &a) { (a: UnsafePointer<A>) throws -> Result in
+        return try withUnsafePointer(to: &b) { (b: UnsafePointer<B>) throws -> Result in
+            return try body(a, b)
+        }
+    }
+}
+
+/// Invokes the given closure with mutable pointers to the given arguments (2 parameter version).
+///
+/// - See: `withUnsafeMutablePointer(to:body:)`
+@discardableResult
+public func withUnsafeMutablePointersTo<A, B, Result>(_ a: inout A, _ b: inout B, body: (UnsafeMutablePointer<A>, UnsafeMutablePointer<B>) throws -> Result) rethrows -> Result {
+    return try withUnsafeMutablePointer(to: &a) { (a: UnsafeMutablePointer<A>) throws -> Result in
+        return try withUnsafeMutablePointer(to: &b) { (b: UnsafeMutablePointer<B>) throws -> Result in
+            return try body(a, b)
+        }
+    }
+}
 /// Call `body(p1, p2)` with the pointers for the two types
 public func withPointers<T1: TensorType, T2: TensorType, R>(_ t1: T1, _ t2: T2, body: (UnsafePointer<T1.Element>, UnsafePointer<T2.Element>) throws -> R) rethrows -> R where T1.Element == T2.Element {
     return try t1.withUnsafeBufferPointer { p1 in
@@ -78,6 +101,34 @@ public func withPointers<T1: TensorType, T2: TensorType, T3: MutableTensorType, 
         try t2.withUnsafeBufferPointer { p2 in
             try t3.withUnsafeMutableBufferPointer { p3 in
                 try body(p1.baseAddress!, p2.baseAddress!, p3.baseAddress!)
+            }
+        }
+    }
+}
+
+/// Invokes the given closure with pointers to the given arguments (3 parameter version).
+///
+/// - See: `withUnsafePointer(to:body:)`
+@discardableResult
+public func withUnsafePointersTo<A, B, C, Result>(_ a: inout A, _ b: inout B, _ c: inout C, body: (UnsafePointer<A>, UnsafePointer<B>, UnsafePointer<C>) throws -> Result) rethrows -> Result {
+    return try withUnsafePointer(to: &a) { (a: UnsafePointer<A>) throws -> Result in
+        return try withUnsafePointer(to: &b) { (b: UnsafePointer<B>) throws -> Result in
+            return try withUnsafePointer(to: &c) { (c: UnsafePointer<C>) throws -> Result in
+                return try body(a, b, c)
+            }
+        }
+    }
+}
+
+/// Invokes the given closure with mutable pointers to the given arguments (3 parameter version).
+///
+/// - See: `withUnsafeMutablePointer(to:body:)`
+@discardableResult
+public func withUnsafeMutablePointersTo<A, B, C, Result>(_ a: inout A, _ b: inout B, _ c: inout C, body: (UnsafeMutablePointer<A>, UnsafeMutablePointer<B>, UnsafeMutablePointer<C>) throws -> Result) rethrows -> Result {
+    return try withUnsafeMutablePointer(to: &a) { (a: UnsafeMutablePointer<A>) throws -> Result in
+        return try withUnsafeMutablePointer(to: &b) { (b: UnsafeMutablePointer<B>) throws -> Result in
+            return try withUnsafeMutablePointer(to: &c) { (c: UnsafeMutablePointer<C>) throws -> Result in
+                return try body(a, b, c)
             }
         }
     }
