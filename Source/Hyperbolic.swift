@@ -24,7 +24,7 @@ import Accelerate
 
 /// Hyperbolic Sine
 public func sinh<C: LinearType>(_ x: C) -> ValueArray<Double> where C.Element == Double {
-    precondition(x.step == 1, "sinh doesn't support step values other than 1")
+    try! precondition(x.step == 1, "sinh doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
@@ -36,7 +36,7 @@ public func sinh<C: LinearType>(_ x: C) -> ValueArray<Double> where C.Element ==
 
 /// Hyperbolic Cosine
 public func cosh<C: LinearType>(_ x: C) -> ValueArray<Double> where C.Element == Double {
-    precondition(x.step == 1, "cosh doesn't support step values other than 1")
+    try! precondition(x.step == 1, "cosh doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
@@ -48,7 +48,7 @@ public func cosh<C: LinearType>(_ x: C) -> ValueArray<Double> where C.Element ==
 
 /// Hyperbolic Tangent
 public func tanh<C: LinearType>(_ x: C) -> ValueArray<Double> where C.Element == Double {
-    precondition(x.step == 1, "tanh doesn't support step values other than 1")
+    try! precondition(x.step == 1, "tanh doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
@@ -60,7 +60,7 @@ public func tanh<C: LinearType>(_ x: C) -> ValueArray<Double> where C.Element ==
 
 /// Inverse Hyperbolic Sine
 public func asinh<C: LinearType>(_ x: C) -> ValueArray<Double> where C.Element == Double {
-    precondition(x.step == 1, "asinh doesn't support step values other than 1")
+    try! precondition(x.step == 1, "asinh doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
@@ -72,7 +72,7 @@ public func asinh<C: LinearType>(_ x: C) -> ValueArray<Double> where C.Element =
 
 /// Inverse Hyperbolic Cosine
 public func acosh<C: LinearType>(_ x: C) -> ValueArray<Double> where C.Element == Double {
-    precondition(x.step == 1, "acosh doesn't support step values other than 1")
+    try! precondition(x.step == 1, "acosh doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
@@ -84,7 +84,7 @@ public func acosh<C: LinearType>(_ x: C) -> ValueArray<Double> where C.Element =
 
 /// Inverse Hyperbolic Tangent
 public func atanh<C: LinearType>(_ x: C) -> ValueArray<Double> where C.Element == Double {
-    precondition(x.step == 1, "atanh doesn't support step values other than 1")
+    try! precondition(x.step == 1, "atanh doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
@@ -98,7 +98,7 @@ public func atanh<C: LinearType>(_ x: C) -> ValueArray<Double> where C.Element =
 
 /// Hyperbolic Sine
 public func sinh<C: LinearType>(_ x: C) -> ValueArray<Float> where C.Element == Float {
-    precondition(x.step == 1, "sinh doesn't support step values other than 1")
+    try! precondition(x.step == 1, "sinh doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in
@@ -110,7 +110,7 @@ public func sinh<C: LinearType>(_ x: C) -> ValueArray<Float> where C.Element == 
 
 /// Hyperbolic Cosine
 public func cosh<C: LinearType>(_ x: C) -> ValueArray<Float> where C.Element == Float {
-    precondition(x.step == 1, "cosh doesn't support step values other than 1")
+    try! precondition(x.step == 1, "cosh doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in
@@ -122,7 +122,7 @@ public func cosh<C: LinearType>(_ x: C) -> ValueArray<Float> where C.Element == 
 
 /// Hyperbolic Tangent
 public func tanh<C: LinearType>(_ x: C) -> ValueArray<Float> where C.Element == Float {
-    precondition(x.step == 1, "tanh doesn't support step values other than 1")
+    try! precondition(x.step == 1, "tanh doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in
@@ -134,7 +134,7 @@ public func tanh<C: LinearType>(_ x: C) -> ValueArray<Float> where C.Element == 
 
 /// Inverse Hyperbolic Sine
 public func asinh<C: LinearType>(_ x: C) -> ValueArray<Float> where C.Element == Float {
-    precondition(x.step == 1, "asinh doesn't support step values other than 1")
+    try! precondition(x.step == 1, "asinh doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in
@@ -146,7 +146,7 @@ public func asinh<C: LinearType>(_ x: C) -> ValueArray<Float> where C.Element ==
 
 /// Inverse Hyperbolic Cosine
 public func acosh<C: LinearType>(_ x: C) -> ValueArray<Float> where C.Element == Float {
-    precondition(x.step == 1, "acosh doesn't support step values other than 1")
+    try! precondition(x.step == 1, "acosh doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in
@@ -158,7 +158,7 @@ public func acosh<C: LinearType>(_ x: C) -> ValueArray<Float> where C.Element ==
 
 /// Inverse Hyperbolic Tangent
 public func atanh<C: LinearType>(_ x: C) -> ValueArray<Float> where C.Element == Float {
-    precondition(x.step == 1, "atanh doesn't support step values other than 1")
+    try! precondition(x.step == 1, "atanh doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in

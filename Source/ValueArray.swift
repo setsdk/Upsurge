@@ -206,7 +206,7 @@ open class ValueArray<Element: Value>: MutableLinearType, ExpressibleByArrayLite
     }
 
     open func toMatrix(rows: Int, columns: Int) -> Matrix<Element> {
-        precondition(rows*columns == count, "Element count must equal rows*columns")
+        try! precondition(rows*columns == count, "Element count must equal rows*columns")
         return Matrix(rows: rows, columns: columns, elements: self)
     }
 
@@ -214,7 +214,7 @@ open class ValueArray<Element: Value>: MutableLinearType, ExpressibleByArrayLite
         // Construct a block matrix of size m by n, with a copy of source as each element.
         // m:  Specifies the number of times to copy along the vertical axis.
         // n:  Specifies the number of times to copy along the horizontal axis.
-        precondition(m > 0 && n > 0, "Minimum of 1 repeat in each direction is required")
+        try! precondition(m > 0 && n > 0, "Minimum of 1 repeat in each direction is required")
         let results = ValueArray(count: m*n*count)
         let typeMemorySize = MemoryLayout<Element>.size
         let bytesInSource = count*typeMemorySize

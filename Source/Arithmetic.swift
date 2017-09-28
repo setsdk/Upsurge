@@ -93,7 +93,7 @@ public func std<M: LinearType>(_ x: M) -> Double where M.Element == Double {
     - returns: The slope and intercept of the regression line
 */
 public func linregress<MX: LinearType, MY: LinearType>(_ x: MX, _ y: MY) -> (slope: Double, intercept: Double) where MX.Element == Double, MY.Element == Double {
-    precondition(x.count == y.count, "Vectors must have equal count")
+    try! precondition(x.count == y.count, "Vectors must have equal count")
     let meanx = mean(x)
     let meany = mean(y)
     let meanxy = mean(x * y)
@@ -105,7 +105,7 @@ public func linregress<MX: LinearType, MY: LinearType>(_ x: MX, _ y: MY) -> (slo
 }
 
 public func mod<ML: LinearType, MR: LinearType>(_ lhs: ML, _ rhs: MR) -> ValueArray<Double> where ML.Element == Double, MR.Element == Double {
-    precondition(lhs.step == 1, "mod doesn't support step values other than 1")
+    try! precondition(lhs.step == 1, "mod doesn't support step values other than 1")
     let results = ValueArray<Double>(count: lhs.count)
     withPointers(lhs, rhs) { lhsp, rhsp in
         vvfmod(results.mutablePointer + results.startIndex, lhsp + lhs.startIndex, rhsp + rhs.startIndex, [Int32(lhs.count)])
@@ -114,7 +114,7 @@ public func mod<ML: LinearType, MR: LinearType>(_ lhs: ML, _ rhs: MR) -> ValueAr
 }
 
 public func remainder<ML: LinearType, MR: LinearType>(_ lhs: ML, rhs: MR) -> ValueArray<Double> where ML.Element == Double, MR.Element == Double {
-    precondition(lhs.step == 1, "remainder doesn't support step values other than 1")
+    try! precondition(lhs.step == 1, "remainder doesn't support step values other than 1")
     let results = ValueArray<Double>(count: lhs.count)
     withPointers(lhs, rhs) { lhsp, rhsp in
         vvremainder(results.mutablePointer + results.startIndex, lhsp + lhs.startIndex, rhsp + rhs.startIndex, [Int32(lhs.count)])
@@ -124,7 +124,7 @@ public func remainder<ML: LinearType, MR: LinearType>(_ lhs: ML, rhs: MR) -> Val
 
 /// Compute the square root of every element in x, return a new `ValueArray` with the results.
 public func sqrt<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
-    precondition(x.step == 1, "sqrt doesn't support step values other than 1")
+    try! precondition(x.step == 1, "sqrt doesn't support step values other than 1")
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
         vvsqrt(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
@@ -134,15 +134,15 @@ public func sqrt<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element ==
 
 /// Compute the square root of every element in `x`, store the results in `y`.
 public func sqrt<MI: LinearType, MO: MutableLinearType>(_ x: MI, results: inout MO) where MI.Element == Double, MO.Element == Double {
-    precondition(x.step == 1, "sqrt doesn't support step values other than 1")
-    precondition(results.count == x.count, "The number of elements in x and y should match")
+    try! precondition(x.step == 1, "sqrt doesn't support step values other than 1")
+    try! precondition(results.count == x.count, "The number of elements in x and y should match")
     withPointers(x, &results) { xp, rp in
         vvsqrt(rp + results.startIndex, xp + x.startIndex, [Int32(x.count)])
     }
 }
 
 public func dot<ML: LinearType, MR: LinearType>(_ lhs: ML, _ rhs: MR) -> Double where ML.Element == Double, MR.Element == Double {
-    precondition(lhs.count == rhs.count, "Vectors must have equal count")
+    try! precondition(lhs.count == rhs.count, "Vectors must have equal count")
 
     var result: Double = 0.0
     withPointers(lhs, rhs) { lhsp, rhsp in
@@ -224,7 +224,7 @@ public func std<M: LinearType>(_ x: M) -> Float where M.Element == Float {
  - returns: The slope and intercept of the regression line
  */
 public func linregress<MX: LinearType, MY: LinearType>(_ x: MX, _ y: MY) -> (slope: Float, intercept: Float) where MX.Element == Float, MY.Element == Float {
-    precondition(x.count == y.count, "Vectors must have equal count")
+    try! precondition(x.count == y.count, "Vectors must have equal count")
     let meanx = mean(x)
     let meany = mean(y)
     let meanxy = mean(x * y)
@@ -236,7 +236,7 @@ public func linregress<MX: LinearType, MY: LinearType>(_ x: MX, _ y: MY) -> (slo
 }
 
 public func mod<ML: LinearType, MR: LinearType>(_ lhs: ML, _ rhs: MR) -> ValueArray<Float> where ML.Element == Float, MR.Element == Float {
-    precondition(lhs.step == 1, "mod doesn't support step values other than 1")
+    try! precondition(lhs.step == 1, "mod doesn't support step values other than 1")
     let results = ValueArray<Float>(count: lhs.count)
     withPointers(lhs, rhs) { lhsp, rhsp in
         vvfmodf(results.mutablePointer + results.startIndex, lhsp + lhs.startIndex, rhsp + rhs.startIndex, [Int32(lhs.count)])
@@ -245,7 +245,7 @@ public func mod<ML: LinearType, MR: LinearType>(_ lhs: ML, _ rhs: MR) -> ValueAr
 }
 
 public func remainder<ML: LinearType, MR: LinearType>(_ lhs: ML, rhs: MR) -> ValueArray<Float> where ML.Element == Float, MR.Element == Float {
-    precondition(lhs.step == 1, "remainder doesn't support step values other than 1")
+    try! precondition(lhs.step == 1, "remainder doesn't support step values other than 1")
     let results = ValueArray<Float>(count: lhs.count)
     withPointers(lhs, rhs) { lhsp, rhsp in
         vvremainderf(results.mutablePointer + results.startIndex, lhsp + lhs.startIndex, rhsp + rhs.startIndex, [Int32(lhs.count)])
@@ -255,7 +255,7 @@ public func remainder<ML: LinearType, MR: LinearType>(_ lhs: ML, rhs: MR) -> Val
 
 /// Compute the square root of every element in x, return a new `ValueArray` with the results.
 public func sqrt<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
-    precondition(x.step == 1, "sqrt doesn't support step values other than 1")
+    try! precondition(x.step == 1, "sqrt doesn't support step values other than 1")
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in
         vvsqrtf(results.mutablePointer + results.startIndex, xp + x.startIndex, [Int32(x.count)])
@@ -265,15 +265,15 @@ public func sqrt<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == 
 
 /// Compute the square root of every element in `x`, store the results in `y`.
 public func sqrt<MI: LinearType, MO: MutableLinearType>(_ x: MI, y: inout MO) where MI.Element == Float, MO.Element == Float {
-    precondition(x.step == 1, "sqrt doesn't support step values other than 1")
-    precondition(y.count == x.count, "The number of elements in x and y should match")
+    try! precondition(x.step == 1, "sqrt doesn't support step values other than 1")
+    try! precondition(y.count == x.count, "The number of elements in x and y should match")
     withPointers(x, &y) { xp, yp in
         vvsqrtf(yp + y.startIndex, xp + x.startIndex, [Int32(x.count)])
     }
 }
 
 public func dot<ML: LinearType, MR: LinearType>(_ lhs: ML, _ rhs: MR) -> Float where ML.Element == Float, MR.Element == Float {
-    precondition(lhs.count == rhs.count, "Vectors must have equal count")
+    try! precondition(lhs.count == rhs.count, "Vectors must have equal count")
 
     var result: Float = 0.0
     withPointers(lhs, rhs) { lhsp, rhsp in

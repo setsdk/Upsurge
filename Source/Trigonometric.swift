@@ -24,7 +24,7 @@ import Accelerate
 
 /// Sine-Cosine
 public func sincos<M: LinearType>(_ x: M) -> (sin: ValueArray<Double>, cos: ValueArray<Double>) where M.Element == Double {
-    precondition(x.step == 1, "sincos doesn't support step values other than 1")
+    try! precondition(x.step == 1, "sincos doesn't support step values other than 1")
 
     let sin = ValueArray<Double>(count: x.count)
     let cos = ValueArray<Double>(count: x.count)
@@ -37,7 +37,7 @@ public func sincos<M: LinearType>(_ x: M) -> (sin: ValueArray<Double>, cos: Valu
 
 /// Sine
 public func sin<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
-    precondition(x.step == 1, "sin doesn't support step values other than 1")
+    try! precondition(x.step == 1, "sin doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
@@ -49,7 +49,7 @@ public func sin<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == 
 
 /// Cosine
 public func cos<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
-    precondition(x.step == 1, "cos doesn't support step values other than 1")
+    try! precondition(x.step == 1, "cos doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
@@ -61,7 +61,7 @@ public func cos<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == 
 
 /// Tangent
 public func tan<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
-    precondition(x.step == 1, "tan doesn't support step values other than 1")
+    try! precondition(x.step == 1, "tan doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
@@ -73,7 +73,7 @@ public func tan<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == 
 
 /// Arcsine
 public func asin<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
-    precondition(x.step == 1, "asin doesn't support step values other than 1")
+    try! precondition(x.step == 1, "asin doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
@@ -85,7 +85,7 @@ public func asin<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element ==
 
 /// Arccosine
 public func acos<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
-    precondition(x.step == 1, "acos doesn't support step values other than 1")
+    try! precondition(x.step == 1, "acos doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
@@ -97,7 +97,7 @@ public func acos<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element ==
 
 /// Arctangent
 public func atan<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
-    precondition(x.step == 1, "atan doesn't support step values other than 1")
+    try! precondition(x.step == 1, "atan doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
@@ -111,7 +111,7 @@ public func atan<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element ==
 
 /// Radians to Degrees
 func rad2deg<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
-    precondition(x.step == 1, "rad2deg doesn't support step values other than 1")
+    try! precondition(x.step == 1, "rad2deg doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     let divisor = ValueArray(count: x.count, repeatedValue: Double.pi / 180.0)
@@ -124,7 +124,7 @@ func rad2deg<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Dou
 
 /// Degrees to Radians
 func deg2rad<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
-    precondition(x.step == 1, "deg2rad doesn't support step values other than 1")
+    try! precondition(x.step == 1, "deg2rad doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     let divisor = ValueArray(count: x.count, repeatedValue: 180.0 / Double.pi)
@@ -139,7 +139,7 @@ func deg2rad<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Dou
 
 /// Sine-Cosine
 public func sincos<M: LinearType>(_ x: M) -> (sin: ValueArray<Float>, cos: ValueArray<Float>) where M.Element == Float {
-    precondition(x.step == 1, "sincos doesn't support step values other than 1")
+    try! precondition(x.step == 1, "sincos doesn't support step values other than 1")
 
     let sin = ValueArray<Float>(count: x.count)
     let cos = ValueArray<Float>(count: x.count)
@@ -152,7 +152,7 @@ public func sincos<M: LinearType>(_ x: M) -> (sin: ValueArray<Float>, cos: Value
 
 /// Sine
 public func sin<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
-    precondition(x.step == 1, "sin doesn't support step values other than 1")
+    try! precondition(x.step == 1, "sin doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in
@@ -164,7 +164,7 @@ public func sin<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == F
 
 /// Cosine
 public func cos<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
-    precondition(x.step == 1, "cos doesn't support step values other than 1")
+    try! precondition(x.step == 1, "cos doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in
@@ -176,7 +176,7 @@ public func cos<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == F
 
 /// Tangent
 public func tan<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
-    precondition(x.step == 1, "tan doesn't support step values other than 1")
+    try! precondition(x.step == 1, "tan doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in
@@ -188,7 +188,7 @@ public func tan<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == F
 
 /// Arcsine
 public func asin<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
-    precondition(x.step == 1, "asin doesn't support step values other than 1")
+    try! precondition(x.step == 1, "asin doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in
@@ -200,7 +200,7 @@ public func asin<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == 
 
 /// Arccosine
 public func acos<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
-    precondition(x.step == 1, "acos doesn't support step values other than 1")
+    try! precondition(x.step == 1, "acos doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in
@@ -212,7 +212,7 @@ public func acos<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == 
 
 /// Arctangent
 public func atan<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
-    precondition(x.step == 1, "atan doesn't support step values other than 1")
+    try! precondition(x.step == 1, "atan doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in
@@ -226,7 +226,7 @@ public func atan<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == 
 
 /// Radians to Degrees
 func rad2deg<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
-    precondition(x.step == 1, "rad2deg doesn't support step values other than 1")
+    try! precondition(x.step == 1, "rad2deg doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     let divisor = ValueArray(count: x.count, repeatedValue: Float.pi / 180.0)
@@ -239,7 +239,7 @@ func rad2deg<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Floa
 
 /// Degrees to Radians
 func deg2rad<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
-    precondition(x.step == 1, "deg2rad doesn't support step values other than 1")
+    try! precondition(x.step == 1, "deg2rad doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     let divisor = ValueArray(count: x.count, repeatedValue: 180.0 / Float.pi)

@@ -24,7 +24,7 @@ import Accelerate
 
 /// Exponentiation
 public func exp<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
-    precondition(x.step == 1, "exp doesn't support step values other than 1")
+    try! precondition(x.step == 1, "exp doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
@@ -36,7 +36,7 @@ public func exp<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == 
 
 /// Square Exponentiation
 public func exp2<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
-    precondition(x.step == 1, "exp2 doesn't support step values other than 1")
+    try! precondition(x.step == 1, "exp2 doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
@@ -48,7 +48,7 @@ public func exp2<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element ==
 
 /// Natural Logarithm
 public func log<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
-    precondition(x.step == 1, "log doesn't support step values other than 1")
+    try! precondition(x.step == 1, "log doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
@@ -60,7 +60,7 @@ public func log<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == 
 
 /// Base-2 Logarithm
 public func log2<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
-    precondition(x.step == 1, "log2 doesn't support step values other than 1")
+    try! precondition(x.step == 1, "log2 doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
@@ -72,7 +72,7 @@ public func log2<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element ==
 
 /// Base-10 Logarithm
 public func log10<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
-    precondition(x.step == 1, "log10 doesn't support step values other than 1")
+    try! precondition(x.step == 1, "log10 doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
@@ -84,7 +84,7 @@ public func log10<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element =
 
 /// Logarithmic Exponentiation
 public func logb<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element == Double {
-    precondition(x.step == 1, "logb doesn't support step values other than 1")
+    try! precondition(x.step == 1, "logb doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
     withPointer(x) { xp in
@@ -98,7 +98,7 @@ public func logb<M: LinearType>(_ x: M) -> ValueArray<Double> where M.Element ==
 
 /// Exponentiation
 public func exp<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
-    precondition(x.step == 1, "exp doesn't support step values other than 1")
+    try! precondition(x.step == 1, "exp doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in
@@ -110,7 +110,7 @@ public func exp<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == F
 
 /// Square Exponentiation
 public func exp2<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
-    precondition(x.step == 1, "exp2 doesn't support step values other than 1")
+    try! precondition(x.step == 1, "exp2 doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in
@@ -122,7 +122,7 @@ public func exp2<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == 
 
 /// Natural Logarithm
 public func log<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
-    precondition(x.step == 1, "log doesn't support step values other than 1")
+    try! precondition(x.step == 1, "log doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in
@@ -134,7 +134,7 @@ public func log<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == F
 
 /// Base-2 Logarithm
 public func log2<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
-    precondition(x.step == 1, "log2 doesn't support step values other than 1")
+    try! precondition(x.step == 1, "log2 doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in
@@ -146,7 +146,7 @@ public func log2<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == 
 
 /// Base-10 Logarithm
 public func log10<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
-    precondition(x.step == 1, "log10 doesn't support step values other than 1")
+    try! precondition(x.step == 1, "log10 doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in
@@ -158,7 +158,7 @@ public func log10<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element ==
 
 /// Logarithmic Exponentiation
 public func logb<M: LinearType>(_ x: M) -> ValueArray<Float> where M.Element == Float {
-    precondition(x.step == 1, "logb doesn't support step values other than 1")
+    try! precondition(x.step == 1, "logb doesn't support step values other than 1")
 
     let results = ValueArray<Float>(count: x.count)
     withPointer(x) { xp in

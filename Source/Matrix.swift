@@ -233,7 +233,7 @@ open class Matrix<Element: Value>: MutableQuadraticType, Equatable, CustomString
         // Construct a block matrix of size m by n, with a copy of source matrix as each element.
         // m:  Specifies the number of times to copy along the vertical axis.
         // n:  Specifies the number of times to copy along the horizontal axis.
-        precondition(m > 0 && n > 0, "Minimum of 1 repeat in each direction is required")
+        try! precondition(m > 0 && n > 0, "Minimum of 1 repeat in each direction is required")
         let results = Matrix(rows: m*rows, columns: n*columns)
         let typeMemorySize = MemoryLayout<Element>.size
         let bytesInOneSourceRow = columns*typeMemorySize

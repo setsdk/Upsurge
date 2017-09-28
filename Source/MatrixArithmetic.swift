@@ -31,9 +31,9 @@ public func gemm<
     QTA.Element == Double,
     QTB.Element == Double,
     QTC.Element == Double {
-    precondition(a.columns == b.rows, "Input matrices dimensions not compatible with multiplication")
-    precondition(a.rows == c.rows, "Output matrix dimensions not compatible with multiplication")
-    precondition(b.columns == c.columns, "Output matrix dimensions not compatible with multiplication")
+    try! precondition(a.columns == b.rows, "Input matrices dimensions not compatible with multiplication")
+    try! precondition(a.rows == c.rows, "Output matrix dimensions not compatible with multiplication")
+    try! precondition(b.columns == c.columns, "Output matrix dimensions not compatible with multiplication")
 
     let order = c.arrangement == .rowMajor ? CblasRowMajor : CblasColMajor
     let atrans = a.arrangement == c.arrangement ? CblasNoTrans : CblasTrans
@@ -46,7 +46,7 @@ public func gemm<
 
 /// Invert a square matrix
 public func inv<M: QuadraticType>(_ x: M) -> Matrix<Double> where M.Element == Double {
-    precondition(x.rows == x.columns, "Matrix must be square")
+    try! precondition(x.rows == x.columns, "Matrix must be square")
 
     var results = Matrix<Double>(x)
 
@@ -100,7 +100,7 @@ public func transpose<M: QuadraticType>(_ x: M) -> Matrix<Double> where M.Elemen
 // MARK: - Operators
 
 public func +=<ML: MutableQuadraticType, MR: QuadraticType>(lhs: inout ML, rhs: MR) where ML.Element == Double, MR.Element == Double {
-    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
+    try! precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
     assert(lhs.span ≅ rhs.span)
 
     for (lhsIndex, rhsIndex) in zip(lhs.span, rhs.span) {
@@ -109,7 +109,7 @@ public func +=<ML: MutableQuadraticType, MR: QuadraticType>(lhs: inout ML, rhs: 
 }
 
 public func +<ML: QuadraticType, MR: QuadraticType>(lhs: ML, rhs: MR) -> Matrix<Double> where ML.Element == Double, MR.Element == Double {
-    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
+    try! precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
 
     var results = Matrix<Double>(lhs)
     results += rhs
@@ -118,7 +118,7 @@ public func +<ML: QuadraticType, MR: QuadraticType>(lhs: ML, rhs: MR) -> Matrix<
 }
 
 public func -=<ML: MutableQuadraticType, MR: QuadraticType>(lhs: inout ML, rhs: MR) where ML.Element == Double, MR.Element == Double {
-    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with subtraction")
+    try! precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with subtraction")
     assert(lhs.span ≅ rhs.span)
 
     for (lhsIndex, rhsIndex) in zip(lhs.span, rhs.span) {
@@ -127,7 +127,7 @@ public func -=<ML: MutableQuadraticType, MR: QuadraticType>(lhs: inout ML, rhs: 
 }
 
 public func -<ML: QuadraticType, MR: QuadraticType>(lhs: ML, rhs: MR) -> Matrix<Double> where ML.Element == Double, MR.Element == Double {
-    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with subtraction")
+    try! precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with subtraction")
 
     var results = Matrix<Double>(lhs)
     results -= rhs
@@ -175,9 +175,9 @@ public func gemm<
     QTA.Element == Float,
     QTB.Element == Float,
     QTC.Element == Float {
-        precondition(a.columns == b.rows, "Input matrices dimensions not compatible with multiplication")
-        precondition(a.rows == c.rows, "Output matrix dimensions not compatible with multiplication")
-        precondition(b.columns == c.columns, "Output matrix dimensions not compatible with multiplication")
+        try! precondition(a.columns == b.rows, "Input matrices dimensions not compatible with multiplication")
+        try! precondition(a.rows == c.rows, "Output matrix dimensions not compatible with multiplication")
+        try! precondition(b.columns == c.columns, "Output matrix dimensions not compatible with multiplication")
 
         let order = c.arrangement == .rowMajor ? CblasRowMajor : CblasColMajor
         let atrans = a.arrangement == c.arrangement ? CblasNoTrans : CblasTrans
@@ -189,7 +189,7 @@ public func gemm<
 
 /// Invert a square matrix
 public func inv<M: QuadraticType>(_ x: M) -> Matrix<Float> where M.Element == Float {
-    precondition(x.rows == x.columns, "Matrix must be square")
+    try! precondition(x.rows == x.columns, "Matrix must be square")
 
     var results = Matrix<Float>(x)
 
@@ -244,7 +244,7 @@ public func transpose<M: QuadraticType>(_ x: M) -> Matrix<Float> where M.Element
 // MARK: - Operators
 
 public func +=<ML: MutableQuadraticType, MR: QuadraticType>(lhs: inout ML, rhs: MR) where ML.Element == Float, MR.Element == Float {
-    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
+    try! precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
     assert(lhs.span ≅ rhs.span)
 
     for (lhsIndex, rhsIndex) in zip(lhs.span, rhs.span) {
@@ -253,7 +253,7 @@ public func +=<ML: MutableQuadraticType, MR: QuadraticType>(lhs: inout ML, rhs: 
 }
 
 public func +<ML: QuadraticType, MR: QuadraticType>(lhs: ML, rhs: MR) -> Matrix<Float> where ML.Element == Float, MR.Element == Float {
-    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
+    try! precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
 
     var results = Matrix<Float>(lhs)
     results += rhs
@@ -262,7 +262,7 @@ public func +<ML: QuadraticType, MR: QuadraticType>(lhs: ML, rhs: MR) -> Matrix<
 }
 
 public func -=<ML: MutableQuadraticType, MR: QuadraticType>(lhs: inout ML, rhs: MR) where ML.Element == Float, MR.Element == Float {
-    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with subtraction")
+    try! precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with subtraction")
     assert(lhs.span ≅ rhs.span)
 
     for (lhsIndex, rhsIndex) in zip(lhs.span, rhs.span) {
@@ -271,7 +271,7 @@ public func -=<ML: MutableQuadraticType, MR: QuadraticType>(lhs: inout ML, rhs: 
 }
 
 public func -<ML: QuadraticType, MR: QuadraticType>(lhs: ML, rhs: MR) -> Matrix<Float> where ML.Element == Float, MR.Element == Float {
-    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with subtraction")
+    try! precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with subtraction")
 
     var results = Matrix<Float>(lhs)
     results -= rhs

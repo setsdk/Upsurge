@@ -27,7 +27,7 @@ import Accelerate
     result will have `N - M + 1` elements where `N` is the size of the signal and `M` is the size of the kernel.
 */
 public func convolution<MS: LinearType, MK: LinearType>(_ signal: MS, _ kernel: MK) -> ValueArray<Double> where MS.Element == Double, MK.Element == Double {
-    precondition(signal.count >= kernel.count, "The signal should have at least as many elements as the kernel")
+    try! precondition(signal.count >= kernel.count, "The signal should have at least as many elements as the kernel")
 
     let resultSize = signal.count - kernel.count + 1
     let result = ValueArray<Double>(count: resultSize)
@@ -43,7 +43,7 @@ public func convolution<MS: LinearType, MK: LinearType>(_ signal: MS, _ kernel: 
     will have `N - M + 1` elements where `N` is the size of the first vector and `M` is the size of the second.
 */
 public func correlation<ML: LinearType, MR: LinearType>(_ lhs: ML, _ rhs: MR) -> ValueArray<Double> where ML.Element == Double, MR.Element == Double {
-    precondition(lhs.count >= rhs.count, "The first vector should have at least as many elements as the second")
+    try! precondition(lhs.count >= rhs.count, "The first vector should have at least as many elements as the second")
 
     let resultSize = lhs.count - rhs.count + 1
     let result = ValueArray<Double>(count: resultSize)
@@ -81,7 +81,7 @@ Convolution between a signal and a kernel. The signal should have at least as ma
 result will have `N - M + 1` elements where `N` is the size of the signal and `M` is the size of the kernel.
 */
 public func convolution<MS: LinearType, MK: LinearType>(_ signal: MS, _ kernel: MK) -> ValueArray<Float> where MS.Element == Float, MK.Element == Float {
-    precondition(signal.count >= kernel.count, "The signal should have at least as many elements as the kernel")
+    try! precondition(signal.count >= kernel.count, "The signal should have at least as many elements as the kernel")
 
     let resultSize = signal.count - kernel.count + 1
     let result = ValueArray<Float>(count: resultSize)
@@ -97,7 +97,7 @@ public func convolution<MS: LinearType, MK: LinearType>(_ signal: MS, _ kernel: 
  will have `N - M + 1` elements where `N` is the size of the first vector and `M` is the size of the second.
  */
 public func correlation<ML: LinearType, MR: LinearType>(_ lhs: ML, _ rhs: MR) -> ValueArray<Float> where ML.Element == Float, MR.Element == Float {
-    precondition(lhs.count >= rhs.count, "The first vector should have at least as many elements as the second")
+    try! precondition(lhs.count >= rhs.count, "The first vector should have at least as many elements as the second")
 
     let resultSize = lhs.count - rhs.count + 1
     let result = ValueArray<Float>(count: resultSize)

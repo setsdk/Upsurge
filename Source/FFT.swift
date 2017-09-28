@@ -53,7 +53,7 @@ open class FFTDouble {
     open func forward<M: LinearType>(_ input: M, results: inout ComplexArray<Double>) where M.Element == Double {
         let lengthLog2 = vDSP_Length(log2(Double(input.count)))
         let length = vDSP_Length(exp2(Double(lengthLog2)))
-        precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
+        try! precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
 
         real.assignFrom(input)
         for i in 0..<input.count {
@@ -88,7 +88,7 @@ open class FFTDouble {
     open func forwardMags<M: LinearType>(_ input: M, results: inout ValueArray<Double>) where M.Element == Double {
         let lengthLog2 = vDSP_Length(log2(Double(input.count)))
         let length = vDSP_Length(exp2(Double(lengthLog2)))
-        precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
+        try! precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
 
         real.assignFrom(input)
         for i in 0..<input.count {
@@ -131,7 +131,7 @@ open class FFTFloat {
     open func forward<M: LinearType>(_ input: M) -> ComplexArray<Float> where M.Element == Float {
         let lengthLog2 = vDSP_Length(log2(Float(input.count)))
         let length = vDSP_Length(exp2(Float(lengthLog2)))
-        precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
+        try! precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
 
         real.assignFrom(input)
         for i in 0..<input.count {
@@ -156,7 +156,7 @@ open class FFTFloat {
     open func forwardMags<M: LinearType>(_ input: M) -> ValueArray<Float> where M.Element == Float {
         let lengthLog2 = vDSP_Length(log2(Float(input.count)))
         let length = vDSP_Length(exp2(Float(lengthLog2)))
-        precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
+        try! precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
 
         real.assignFrom(input)
         for i in 0..<input.count {
